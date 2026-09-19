@@ -58,6 +58,7 @@ public class CookingPanBlockEntity extends BlockEntity implements BlockEntityTic
     private int cookingTime;
     private boolean isBeingBurned;
     private UUID ownerUuid;
+    private int storedDamage;
 
     private final ContainerData delegate = new ContainerData() {
         public int get(int index) {
@@ -104,6 +105,7 @@ public class CookingPanBlockEntity extends BlockEntity implements BlockEntityTic
         }
 
         cookingTime = tag.getInt("CookingTime");
+        storedDamage = tag.getInt("StoredDamage");
 
         if (tag.hasUUID("OwnerUUID")) {
             ownerUuid = tag.getUUID("OwnerUUID");
@@ -115,10 +117,19 @@ public class CookingPanBlockEntity extends BlockEntity implements BlockEntityTic
         super.saveAdditional(tag, provider);
         ContainerHelper.saveAllItems(tag, inventory, provider);
         tag.putInt("CookingTime", cookingTime);
+        tag.putInt("StoredDamage", storedDamage);
 
         if (ownerUuid != null) {
             tag.putUUID("OwnerUUID", ownerUuid);
         }
+    }
+
+    public int getStoredDamage() {
+        return storedDamage;
+    }
+
+    public void setStoredDamage(int storedDamage) {
+        this.storedDamage = storedDamage;
     }
 
     public boolean isBeingBurned() {

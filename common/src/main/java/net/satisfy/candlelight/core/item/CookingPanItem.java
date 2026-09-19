@@ -17,10 +17,9 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.satisfy.candlelight.core.block.CookingPanBlock;
+import net.satisfy.candlelight.core.block.entity.CookingPanBlockEntity;
 import net.satisfy.farm_and_charm.core.util.EquipmentTiers;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class CookingPanItem extends BlockItem {
     public static final EquipmentTiers COOKING_PAN_TIER = EquipmentTiers.COPPER;
@@ -57,7 +56,11 @@ public class CookingPanItem extends BlockItem {
     public @NotNull InteractionResult place(BlockPlaceContext context) {
         Player player = context.getPlayer();
         if (player != null && player.isShiftKeyDown()) {
-            return super.place(context);
+            InteractionResult result = super.place(context);
+            if (result.consumesAction() && context.getLevel().getBlockEntity(context.getClickedPos()) instanceof CookingPanBlockEntity cookingPanBlockEntity) {
+                cookingPanBlockEntity.setStoredDamage(context.getItemInHand().getDamageValue());
+            }
+            return result;
         }
         return InteractionResult.PASS;
     }
@@ -65,15 +68,6 @@ public class CookingPanItem extends BlockItem {
     @Override
     public void inventoryTick(ItemStack itemStack, Level level, Entity entity, int i, boolean bl) {
         super.inventoryTick(itemStack, level, entity, i, bl);
-    }
-
-    @Nullable
-    @Override
-    protected BlockState getPlacementState(BlockPlaceContext blockPlaceContext) {
-        BlockState state = super.getPlacementState(blockPlaceContext);
-        if (state != null)
-            state = state.setValue(CookingPanBlock.DAMAGE, blockPlaceContext.getItemInHand().getDamageValue());
-        return state;
     }
 
     @Override

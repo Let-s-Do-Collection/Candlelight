@@ -1,3 +1,12 @@
+[2.1.13]
+
+**Fixed**
+* Ring not being equippable in the off-hand ring slot (thanks to Fyoncle)
+* Corrected and updated the Italian translation (thanks to Serenautilus)
+* Cooking Pan generating an excessive number of block states, causing world tools like WorldEdit to hang
+
+***
+
 [2.1.12]
 
 **Fixed**
