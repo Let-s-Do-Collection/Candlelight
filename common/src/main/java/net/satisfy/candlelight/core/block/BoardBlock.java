@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.satisfy.farm_and_charm.core.block.FacingBlock;
+import net.satisfy.foundation.block.FacingBlock;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;

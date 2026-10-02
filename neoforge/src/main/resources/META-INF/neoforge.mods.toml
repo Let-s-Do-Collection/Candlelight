@@ -40,6 +40,27 @@ side = "BOTH"
 [[dependencies.candlelight]]
 modId = "farm_and_charm"
 mandatory = true
-versionRange = "[0.0.1,)"
+versionRange = "[1.1.27,)"
 ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.candlelight]]
+modId = "foundation"
+type = "required"
+versionRange = "[1.0.0,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.candlelight]]
+modId = "curios"
+type = "optional"
+versionRange = "[9.0.0,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.candlelight]]
+modId = "accessories"
+type = "optional"
+versionRange = "[1.1.0-beta,)"
+ordering = "NONE"
 side = "BOTH"

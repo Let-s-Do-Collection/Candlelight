@@ -1,0 +1,25 @@
+{
+  "type": "farm_and_charm:pot_cooking",
+  "ingredients": [
+    {
+      "item": "minecraft:beef"
+    },
+    {
+      "item": "minecraft:potato"
+    },
+    {
+      "item": "minecraft:carrot"
+    },
+    {
+      "item": "farm_and_charm:onion"
+    }
+  ],
+  "requireContainer": true,
+  "container": {
+    "id": "minecraft:bowl"
+  },
+  "result": {
+    "id": "candlelight:potroast"
+  },
+  "requiresLearning": false
+}

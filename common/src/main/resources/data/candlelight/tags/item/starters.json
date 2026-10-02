@@ -1,0 +1,52 @@
+{
+  "replace": false,
+  "values": [
+    "candlelight:tomato_soup",
+    "candlelight:mushroom_soup",
+    "candlelight:beetroot_salad",
+    "candlelight:salad",
+    "candlelight:fresh_garden_salad",
+    "candlelight:tomato_mozzarella_salad",
+    "candlelight:beef_tartare",
+    {
+      "id": "farm_and_charm:farmer_salad",
+      "required": false
+    },
+    {
+      "id": "farm_and_charm:simple_tomato_soup",
+      "required": false
+    },
+    {
+      "id": "farm_and_charm:barley_soup",
+      "required": false
+    },
+    {
+      "id": "farm_and_charm:onion_soup",
+      "required": false
+    },
+    {
+      "id": "farm_and_charm:potato_soup",
+      "required": false
+    },
+    {
+      "id": "brewery:potato_salad",
+      "required": false
+    },
+    {
+      "id": "brewery:pretzel",
+      "required": false
+    },
+    {
+      "id": "meadow:cheese_stick",
+      "required": false
+    },
+    {
+      "id": "meadow:cheese_roll",
+      "required": false
+    },
+    {
+      "id": "beachparty:cooked_mussel_meat",
+      "required": false
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 package net.satisfy.candlelight.core.block;
 
+import net.satisfy.foundation.util.ShapeUtil;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -23,8 +24,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.satisfy.candlelight.core.registry.ObjectRegistry;
-import net.satisfy.farm_and_charm.core.block.LineConnectingBlock;
-import net.satisfy.farm_and_charm.core.util.GeneralUtil;
+import net.satisfy.foundation.block.LineConnectingBlock;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -42,7 +42,7 @@ public class SideTableBlock extends LineConnectingBlock {
     };
     public static final Map<Direction, VoxelShape> SHAPE = Util.make(new HashMap<>(), map -> {
         for (Direction direction : Direction.Plane.HORIZONTAL) {
-            map.put(direction, GeneralUtil.rotateShape(Direction.NORTH, direction, voxelShapeSupplier.get()));
+            map.put(direction, ShapeUtil.rotateShape(Direction.NORTH, direction, voxelShapeSupplier.get()));
         }
     });
 

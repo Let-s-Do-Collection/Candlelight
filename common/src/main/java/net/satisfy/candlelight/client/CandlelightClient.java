@@ -1,6 +1,20 @@
 package net.satisfy.candlelight.client;
 
+import net.satisfy.foundation.client.render.WallDecorationRenderer;
+import net.satisfy.foundation.banner.CompletionistBannerRenderer;
+import net.satisfy.foundation.storage.StorageBlockEntityRenderer;
+import net.satisfy.foundation.storage.StorageTypeRenderer;
+import dev.architectury.platform.Platform;
+import net.minecraft.network.chat.Component;
+import net.satisfy.candlelight.core.registry.TabRegistry;
+import net.satisfy.foundation.client.creative.CreativeSideTabs;
+import net.minecraft.world.InteractionHand;
+import net.satisfy.candlelight.client.gui.TableSignEditScreen;
+import net.satisfy.candlelight.client.overlay.TableSignInfoProvider;
+import net.satisfy.candlelight.client.overlay.TableSetInfoProvider;
+import net.satisfy.foundation.overlay.BlockInfoOverlay;
 import dev.architectury.registry.client.level.entity.EntityModelLayerRegistry;
+import net.satisfy.candlelight.client.compat.AccessoriesClientCompat;
 import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
 import dev.architectury.registry.client.rendering.RenderTypeRegistry;
 import dev.architectury.registry.menu.MenuRegistry;
@@ -10,10 +24,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.satisfy.candlelight.client.gui.LetterGui;
-import net.satisfy.candlelight.client.gui.WallDecorationEditGui;
 import net.satisfy.candlelight.client.model.*;
 import net.satisfy.candlelight.client.renderer.block.*;
-import net.satisfy.candlelight.core.block.entity.WallDecorationBlockEntity;
 import net.satisfy.candlelight.core.registry.EntityTypeRegistry;
 import net.satisfy.candlelight.core.registry.ScreenHandlerTypeRegistry;
 import net.satisfy.candlelight.core.registry.StorageTypeRegistry;
@@ -41,9 +53,10 @@ public class CandlelightClient {
 
         BlockEntityRendererRegistry.register(EntityTypeRegistry.CANDLELIGHT_BANNER_ENTITY.get(), CompletionistBannerRenderer::new);
         BlockEntityRendererRegistry.register(EntityTypeRegistry.STORAGE_BLOCK_ENTITY.get(), context -> new StorageBlockEntityRenderer());
+        BlockEntityRendererRegistry.register(EntityTypeRegistry.TABLE_SET_BLOCK_ENTITY.get(), context -> new StorageBlockEntityRenderer());
         BlockEntityRendererRegistry.register(EntityTypeRegistry.DINNER_BELL_BLOCK_ENTITY.get(), DinnerBellRenderer::new);
         BlockEntityRendererRegistry.register(EntityTypeRegistry.TYPE_WRITER_BLOCK_ENTITY.get(), TypewriterRenderer::new);
-        BlockEntityRendererRegistry.register(EntityTypeRegistry.WALL_DECORATION.get(), context -> new WallDecorationBlockRenderer());
+        BlockEntityRendererRegistry.register(EntityTypeRegistry.WALL_DECORATION.get(), WallDecorationRenderer::new);
 
         MenuRegistry.registerScreenFactory(ScreenHandlerTypeRegistry.LETTER_SCREEN_HANDLER.get(), LetterGui::new);
 
@@ -51,10 +64,22 @@ public class CandlelightClient {
 
         CandlelightUtil.registerColorArmor(DRESS.get(), 16744576);
         CandlelightUtil.registerColorArmor(TROUSERS_AND_VEST.get(), 0x333399);
+
+        SetBonusTooltips.init();
+        CreativeSideTabs.register(TabRegistry.CANDLELIGHT_TAB.getKey(),
+                CreativeSideTabs.SideTab.of(Component.translatable("creativetab.candlelight.side.food"), BEEF_WELLINGTON.get(), TabRegistry::acceptMain),
+                CreativeSideTabs.SideTab.of(Component.translatable("creativetab.candlelight.side.kitchen_blocks"), COBBLESTONE_STOVE.get(), TabRegistry::acceptKitchen),
+                CreativeSideTabs.SideTab.of(Component.translatable("creativetab.candlelight.side.furniture"), OAK_CHAIR.get(), TabRegistry::acceptFurniture));
+        BlockInfoOverlay.init();
+        BlockInfoOverlay.registerProvider(new TableSetInfoProvider());
+        BlockInfoOverlay.registerProvider(new TableSignInfoProvider());
+        if (Platform.isModLoaded("accessories")) {
+            AccessoriesClientCompat.init();
+        }
     }
 
-    public static void openWallDecorationScreen(WallDecorationBlockEntity entity) {
-        Minecraft.getInstance().setScreen(new WallDecorationEditGui(entity));
+    public static void openTableSignScreen(InteractionHand hand, String text) {
+        Minecraft.getInstance().setScreen(new TableSignEditScreen(hand, text));
     }
 
     public static void registerStorageType(ResourceLocation location, StorageTypeRenderer renderer) {
@@ -74,7 +99,6 @@ public class CandlelightClient {
     public static void registerEntityModelLayers() {
         EntityModelLayerRegistry.register(TypewriterModel.LAYER_LOCATION, TypewriterModel::getTexturedModelData);
         EntityModelLayerRegistry.register(DinnerBellModel.LAYER_LOCATION, DinnerBellModel::getTexturedModelData);
-        EntityModelLayerRegistry.register(CompletionistBannerRenderer.LAYER_LOCATION, CompletionistBannerRenderer::createBodyLayer);
         EntityModelLayerRegistry.register(FlowerCrownModel.LAYER_LOCATION, FlowerCrownModel::createBodyLayer);
         EntityModelLayerRegistry.register(TieModel.LAYER_LOCATION, TieModel::createBodyLayer);
         EntityModelLayerRegistry.register(DressChestplateModel.LAYER_LOCATION, DressChestplateModel::createBodyLayer);

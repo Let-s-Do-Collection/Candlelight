@@ -1,5 +1,9 @@
 package net.satisfy.candlelight.core.block;
 
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.satisfy.candlelight.core.registry.EntityTypeRegistry;
+import net.satisfy.foundation.storage.StorageBlock;
+import net.satisfy.foundation.util.ShapeUtil;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -19,7 +23,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.satisfy.candlelight.core.registry.StorageTypeRegistry;
-import net.satisfy.farm_and_charm.core.util.GeneralUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -28,6 +31,11 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public class ShelfBlock extends StorageBlock {
+    @Override
+    public BlockEntityType<?> blockEntityType() {
+        return EntityTypeRegistry.STORAGE_BLOCK_ENTITY.get();
+    }
+
     private static final Supplier<VoxelShape> voxelShapeSupplier = () -> {
         VoxelShape shape = Shapes.empty();
         shape = Shapes.joinUnoptimized(shape, Shapes.box(0, 0.1875, 0.625, 1, 0.3125, 1), BooleanOp.OR);
@@ -37,7 +45,7 @@ public class ShelfBlock extends StorageBlock {
 
     public static final Map<Direction, VoxelShape> SHAPE = Util.make(new HashMap<>(), map -> {
         for (Direction direction : Direction.Plane.HORIZONTAL) {
-            map.put(direction, GeneralUtil.rotateShape(Direction.NORTH, direction, voxelShapeSupplier.get()));
+            map.put(direction, ShapeUtil.rotateShape(Direction.NORTH, direction, voxelShapeSupplier.get()));
         }
     });
 

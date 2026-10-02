@@ -1,5 +1,7 @@
 package net.satisfy.candlelight.fabric.client;
 
+import net.fabricmc.loader.api.FabricLoader;
+import net.satisfy.candlelight.fabric.client.compat.TrinketsClientCompat;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.satisfy.candlelight.client.CandlelightClient;
@@ -18,5 +20,9 @@ public class CandlelightClientFabric implements ClientModInitializer {
         ArmorRenderer.register(new CandlelightBootsRenderer(), ObjectRegistry.CHEFS_BOOTS.get());
         ArmorRenderer.register(new DyeableCandlelightChestplateRenderer(), ObjectRegistry.DRESS.get());
         ArmorRenderer.register(new DyeableCandlelightLeggingsRenderer(), ObjectRegistry.TROUSERS_AND_VEST.get());
+
+        if (FabricLoader.getInstance().isModLoaded("trinkets")) {
+            TrinketsClientCompat.init();
+        }
     }
 }

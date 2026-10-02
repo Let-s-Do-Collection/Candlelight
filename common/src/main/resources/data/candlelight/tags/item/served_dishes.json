@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "#candlelight:starters",
+    "#candlelight:main_courses",
+    "#candlelight:desserts"
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "replace": false,
+  "values": [
+    "candlelight:pasta_with_mozzarella",
+    "candlelight:bolognese",
+    "candlelight:chicken_teriyaki",
+    "candlelight:pasta_with_bolognese",
+    "candlelight:pasta_with_lettuce",
+    "candlelight:omelet",
+    "candlelight:harvest_plate",
+    "candlelight:beef_with_mushroom_in_wine_and_potatoes",
+    "candlelight:pork_ribs",
+    "candlelight:potroast",
+    "candlelight:roastbeef_with_glazed_carrots",
+    "candlelight:roasted_lamb_with_lettuce",
+    "candlelight:tropical_fish_supreme",
+    "candlelight:fillet_steak",
+    "candlelight:salmon_on_white_wine",
+    "candlelight:chicken_alfredo",
+    "candlelight:chicken_with_vegetables",
+    "candlelight:lasagne",
+    "candlelight:beef_wellington",
+    {
+      "id": "farm_and_charm:potato_with_roast_meat",
+      "required": false
+    },
+    {
+      "id": "farm_and_charm:baked_lamb_ham",
+      "required": false
+    },
+    {
+      "id": "farm_and_charm:farmers_breakfast",
+      "required": false
+    },
+    {
+      "id": "farm_and_charm:stuffed_chicken",
+      "required": false
+    },
+    {
+      "id": "farm_and_charm:stuffed_rabbit",
+      "required": false
+    },
+    {
+      "id": "farm_and_charm:goulash",
+      "required": false
+    },
+    {
+      "id": "farm_and_charm:pasta_with_onion_sauce",
+      "required": false
+    },
+    {
+      "id": "farm_and_charm:sausage_with_oat_patty",
+      "required": false
+    },
+    {
+      "id": "farm_and_charm:lamb_with_corn",
+      "required": false
+    },
+    {
+      "id": "farm_and_charm:beef_patty_with_vegetables",
+      "required": false
+    },
+    {
+      "id": "farm_and_charm:barley_patties_with_potatoes",
+      "required": false
+    },
+    {
+      "id": "farm_and_charm:bacon_with_eggs",
+      "required": false
+    },
+    {
+      "id": "farm_and_charm:chicken_wrapped_in_bacon",
+      "required": false
+    },
+    {
+      "id": "farm_and_charm:roasted_chicken",
+      "required": false
+    },
+    {
+      "id": "brewery:pork_knuckle",
+      "required": false
+    },
+    {
+      "id": "brewery:fried_chicken",
+      "required": false
+    },
+    {
+      "id": "brewery:half_chicken",
+      "required": false
+    },
+    {
+      "id": "brewery:mashed_potatoes",
+      "required": false
+    },
+    {
+      "id": "brewery:dumplings",
+      "required": false
+    },
+    {
+      "id": "brewery:sausage",
+      "required": false
+    },
+    {
+      "id": "meadow:roasted_buffalo_ham",
+      "required": false
+    },
+    {
+      "id": "meadow:sausage_with_cheese",
+      "required": false
+    },
+    {
+      "id": "alpinewhispers:cooked_reindeer_dish",
+      "required": false
+    },
+    {
+      "id": "lilis_lucky_lures:cooked_cod_meal",
+      "required": false
+    },
+    {
+      "id": "lilis_lucky_lures:grilled_tropical_fish",
+      "required": false
+    },
+    {
+      "id": "lilis_lucky_lures:puffer_plater",
+      "required": false
+    },
+    {
+      "id": "lilis_lucky_lures:salmon_rolls",
+      "required": false
+    }
+  ]
+}

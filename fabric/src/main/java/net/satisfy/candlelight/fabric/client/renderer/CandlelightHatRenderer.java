@@ -1,5 +1,6 @@
 package net.satisfy.candlelight.fabric.client.renderer;
 
+import net.satisfy.candlelight.client.renderer.WornAccessoryRenderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.minecraft.client.model.HumanoidModel;
@@ -10,7 +11,6 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.satisfy.candlelight.client.model.CookingHatModel;
-import net.satisfy.candlelight.client.model.FlowerCrownModel;
 import net.satisfy.candlelight.core.item.CandlelightHatItem;
 import net.satisfy.candlelight.core.registry.ArmorRegistry;
 
@@ -31,15 +31,8 @@ public class CandlelightHatRenderer implements ArmorRenderer {
             );
         }
 
-        Model crownModel = ArmorRegistry.getCrownModel(hat, contextModel.head, contextModel);
-        if (crownModel instanceof FlowerCrownModel<?> flowerCrownModel) {
-            flowerCrownModel.copyHead(contextModel.head);
-            crownModel.renderToBuffer(
-                    matrices,
-                    vertexConsumers.getBuffer(crownModel.renderType(hat.getHatTexture())),
-                    light,
-                    OverlayTexture.NO_OVERLAY
-            );
+        if (WornAccessoryRenderer.canRender(stack)) {
+            WornAccessoryRenderer.render(stack, contextModel, matrices, vertexConsumers, light);
         }
     }
 }

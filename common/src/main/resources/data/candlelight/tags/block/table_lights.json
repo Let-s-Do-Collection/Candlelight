@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:candles",
+    "#minecraft:candle_cakes",
+    "minecraft:lantern",
+    "minecraft:soul_lantern",
+    "candlelight:lamp",
+    {
+      "id": "meadow:oil_lantern",
+      "required": false
+    },
+    {
+      "id": "alpinewhispers:candle_wreath",
+      "required": false
+    }
+  ]
+}

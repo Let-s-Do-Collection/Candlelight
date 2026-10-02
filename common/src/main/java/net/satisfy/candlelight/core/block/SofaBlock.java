@@ -1,28 +1,17 @@
 package net.satisfy.candlelight.core.block;
 
+import net.satisfy.foundation.util.ShapeUtil;
 import net.minecraft.Util;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
+import net.satisfy.foundation.block.LineConnectingType;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.satisfy.farm_and_charm.core.block.LineConnectingBlock;
-import net.satisfy.farm_and_charm.core.util.GeneralUtil;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
-public class SofaBlock extends LineConnectingBlock {
+public class SofaBlock extends net.satisfy.foundation.block.SofaBlock {
     public static final Map<Direction, VoxelShape> SHAPE;
     public static final Map<Direction, VoxelShape> MIDDLE_SHAPE;
     public static final Map<Direction, VoxelShape> LEFT_SHAPE;
@@ -76,22 +65,22 @@ public class SofaBlock extends LineConnectingBlock {
     static {
         SHAPE = Util.make(new HashMap<>(), map -> {
             for (Direction direction : Direction.Plane.HORIZONTAL.stream().toList()) {
-                map.put(direction, GeneralUtil.rotateShape(Direction.NORTH, direction, noneShapeSupplier.get()));
+                map.put(direction, ShapeUtil.rotateShape(Direction.NORTH, direction, noneShapeSupplier.get()));
             }
         });
         MIDDLE_SHAPE = Util.make(new HashMap<>(), map -> {
             for (Direction direction : Direction.Plane.HORIZONTAL.stream().toList()) {
-                map.put(direction, GeneralUtil.rotateShape(Direction.NORTH, direction, middleShapeSupplier.get()));
+                map.put(direction, ShapeUtil.rotateShape(Direction.NORTH, direction, middleShapeSupplier.get()));
             }
         });
         LEFT_SHAPE = Util.make(new HashMap<>(), map -> {
             for (Direction direction : Direction.Plane.HORIZONTAL.stream().toList()) {
-                map.put(direction, GeneralUtil.rotateShape(Direction.NORTH, direction, leftShapeSupplier.get()));
+                map.put(direction, ShapeUtil.rotateShape(Direction.NORTH, direction, leftShapeSupplier.get()));
             }
         });
         RIGHT_SHAPE = Util.make(new HashMap<>(), map -> {
             for (Direction direction : Direction.Plane.HORIZONTAL.stream().toList()) {
-                map.put(direction, GeneralUtil.rotateShape(Direction.NORTH, direction, rightShapeSupplier.get()));
+                map.put(direction, ShapeUtil.rotateShape(Direction.NORTH, direction, rightShapeSupplier.get()));
             }
         });
     }
@@ -101,24 +90,13 @@ public class SofaBlock extends LineConnectingBlock {
     }
 
     @Override
-    public @NotNull VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-        Map<Direction, VoxelShape> voxelShape;
-        switch (state.getValue(TYPE)) {
-            case MIDDLE -> voxelShape = MIDDLE_SHAPE;
-            case LEFT -> voxelShape = LEFT_SHAPE;
-            case RIGHT -> voxelShape = RIGHT_SHAPE;
-            default -> voxelShape = SHAPE;
-        }
-        return voxelShape.get(state.getValue(FACING));
-    }
-
-    @Override
-    protected @NotNull ItemInteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level world, BlockPos blockPos, Player player, InteractionHand hand, BlockHitResult hit) {
-        return GeneralUtil.onUse(world, player, hand, hit, 0.2);
-    }
-
-    @Override
-    public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean moved) {
-        GeneralUtil.onStateReplaced(world, pos);
+    protected VoxelShape getSofaShape(LineConnectingType type, Direction facing) {
+        Map<Direction, VoxelShape> shapes = switch (type) {
+            case MIDDLE -> MIDDLE_SHAPE;
+            case LEFT -> LEFT_SHAPE;
+            case RIGHT -> RIGHT_SHAPE;
+            default -> SHAPE;
+        };
+        return shapes.get(facing);
     }
 }

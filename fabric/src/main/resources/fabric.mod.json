@@ -30,10 +30,15 @@
     "candlelight-common.mixins.json"
   ],
   "depends": {
+    "foundation": ">=1.0.0",
     "fabricloader": ">=0.16.14",
     "fabric": "*",
     "minecraft": ">=1.21.1",
     "architectury": ">=13.0.8",
-    "farm_and_charm": ">=1.1.0"
+    "farm_and_charm": ">=1.1.27"
+  },
+  "suggests": {
+    "accessories": "*",
+    "trinkets": "*"
   }
 }

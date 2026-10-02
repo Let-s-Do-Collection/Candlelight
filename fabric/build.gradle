@@ -37,11 +37,13 @@ repositories {
 
 
 dependencies {
+    include(modImplementation("net.satisfy.foundation:foundation-fabric:${rootProject.foundation_version}") { transitive = false })
     modApi("net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}") { exclude group: 'net.fabricmc', module: 'fabric-loader' }
     modApi("dev.architectury:architectury-fabric:${rootProject.architectury_version}") { exclude group: 'net.fabricmc', module: 'fabric-loader' }
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
     modImplementation("me.shedaniel:RoughlyEnoughItems-fabric:$rei_version") { exclude group: 'net.fabricmc', module: 'fabric-loader' }
     modImplementation("dev.emi:trinkets:${rootProject.trinkets_version}")
+    modCompileOnly("io.wispforest:accessories-fabric:${rootProject.accessories_version}") { transitive = false }
     modImplementation("com.terraformersmc:modmenu:${rootProject.modmenu_version}") { exclude group: 'net.fabricmc', module: 'fabric-loader' }
     modImplementation(files(rootProject.file("local-mods/letsdo-farm_and_charm-fabric-${rootProject.farm_and_charm_version}.jar")))
 

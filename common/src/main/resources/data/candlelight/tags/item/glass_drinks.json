@@ -1,0 +1,86 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:potion",
+    {
+      "id": "#brewery:beer",
+      "required": false
+    },
+    {
+      "id": "#vinery:grapejuice",
+      "required": false
+    },
+    {
+      "id": "#vinery:red_grapejuice",
+      "required": false
+    },
+    {
+      "id": "#vinery:white_grapejuice",
+      "required": false
+    },
+    {
+      "id": "brewery:whiskey_maggoallan",
+      "required": false
+    },
+    {
+      "id": "brewery:whiskey_carrasconlabel",
+      "required": false
+    },
+    {
+      "id": "brewery:whiskey_lilitusinglemalt",
+      "required": false
+    },
+    {
+      "id": "brewery:whiskey_jojannik",
+      "required": false
+    },
+    {
+      "id": "brewery:whiskey_cristelwalker",
+      "required": false
+    },
+    {
+      "id": "brewery:whiskey_ak",
+      "required": false
+    },
+    {
+      "id": "brewery:whiskey_highland_hearth",
+      "required": false
+    },
+    {
+      "id": "brewery:whiskey_jamesons_malt",
+      "required": false
+    },
+    {
+      "id": "brewery:whiskey_smokey_reverie",
+      "required": false
+    },
+    {
+      "id": "beachparty:coconut_cocktail",
+      "required": false
+    },
+    {
+      "id": "beachparty:sweetberries_cocktail",
+      "required": false
+    },
+    {
+      "id": "beachparty:cocoa_cocktail",
+      "required": false
+    },
+    {
+      "id": "beachparty:pumpkin_cocktail",
+      "required": false
+    },
+    {
+      "id": "beachparty:honey_cocktail",
+      "required": false
+    },
+    {
+      "id": "beachparty:melon_cocktail",
+      "required": false
+    },
+    {
+      "id": "vinery:apple_cider",
+      "required": false
+    }
+  ]
+}

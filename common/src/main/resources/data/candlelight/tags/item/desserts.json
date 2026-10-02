@@ -1,0 +1,98 @@
+{
+  "replace": false,
+  "values": [
+    "candlelight:chocolate_mousse",
+    {
+      "id": "farm_and_charm:grandmothers_strawberry_cake",
+      "required": false
+    },
+    {
+      "id": "bakery:strawberry_cake_slice",
+      "required": false
+    },
+    {
+      "id": "bakery:sweetberry_cake_slice",
+      "required": false
+    },
+    {
+      "id": "bakery:chocolate_cake_slice",
+      "required": false
+    },
+    {
+      "id": "bakery:chocolate_gateau_slice",
+      "required": false
+    },
+    {
+      "id": "bakery:bundt_cake_slice",
+      "required": false
+    },
+    {
+      "id": "bakery:linzer_tart_slice",
+      "required": false
+    },
+    {
+      "id": "bakery:apple_pie_slice",
+      "required": false
+    },
+    {
+      "id": "bakery:glowberry_pie_slice",
+      "required": false
+    },
+    {
+      "id": "bakery:chocolate_tart_slice",
+      "required": false
+    },
+    {
+      "id": "bakery:pudding_slice",
+      "required": false
+    },
+    {
+      "id": "bakery:chocolate_truffle",
+      "required": false
+    },
+    {
+      "id": "bakery:strawberry_cupcake",
+      "required": false
+    },
+    {
+      "id": "bakery:sweetberry_cupcake",
+      "required": false
+    },
+    {
+      "id": "bakery:apple_cupcake",
+      "required": false
+    },
+    {
+      "id": "bakery:cornet",
+      "required": false
+    },
+    {
+      "id": "bakery:jam_roll",
+      "required": false
+    },
+    {
+      "id": "bakery:waffle",
+      "required": false
+    },
+    {
+      "id": "bakery:strawberry_glazed_cookie",
+      "required": false
+    },
+    {
+      "id": "bakery:sweetberry_glazed_cookie",
+      "required": false
+    },
+    {
+      "id": "bakery:chocolate_glazed_cookie",
+      "required": false
+    },
+    {
+      "id": "meadow:cheesecake_slice",
+      "required": false
+    },
+    {
+      "id": "meadow:cheese_tart_slice",
+      "required": false
+    }
+  ]
+}

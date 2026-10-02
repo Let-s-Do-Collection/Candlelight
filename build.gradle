@@ -30,6 +30,7 @@ allprojects {
     group = rootProject.maven_group
 
     repositories {
+        mavenLocal()
         flatDir {
             dirs rootProject.file("local-mods")
         }
@@ -57,6 +58,7 @@ allprojects {
             url = "https://maven.blamejared.com/"
         }
 		maven { url = 'https://maven.neoforged.net/releases' }
+        maven { url = 'https://maven.wispforest.io/releases' }
     }
 
     tasks.withType(JavaCompile) {

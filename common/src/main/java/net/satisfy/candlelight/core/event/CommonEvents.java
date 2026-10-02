@@ -4,6 +4,8 @@ import dev.architectury.event.EventResult;
 import dev.architectury.event.events.common.BlockEvent;
 import dev.architectury.event.events.common.PlayerEvent;
 import dev.architectury.event.events.common.TickEvent;
+import net.minecraft.world.effect.MobEffects;
+import net.satisfy.candlelight.core.util.Wearables;
 import dev.architectury.utils.value.IntValue;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentMap;
@@ -61,6 +63,10 @@ public class CommonEvents {
         MobEffectInstance wellServedInstance = player.getEffect(MobEffectRegistry.holder(MobEffectRegistry.WELL_SERVED));
         if (wellServedInstance != null && player.getFoodData().getFoodLevel() < WELL_SERVED_FOOD_FLOOR) {
             player.getFoodData().setFoodLevel(WELL_SERVED_FOOD_FLOOR);
+        }
+
+        if (player.tickCount % 20 == 0 && (Wearables.isWearing(player, ObjectRegistry.GOLD_RING.get()) || player.getOffhandItem().is(ObjectRegistry.GOLD_RING.get()))) {
+            player.addEffect(new MobEffectInstance(MobEffects.LUCK, 60, 1, true, false, true));
         }
 
         ItemStack main = player.getMainHandItem();

@@ -1,5 +1,9 @@
 package net.satisfy.candlelight.core.block;
 
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.satisfy.candlelight.core.registry.EntityTypeRegistry;
+import net.satisfy.foundation.storage.StorageBlock;
+import net.satisfy.foundation.util.ShapeUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -30,9 +34,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.satisfy.candlelight.Candlelight;
-import net.satisfy.candlelight.core.block.entity.StorageBlockEntity;
+import net.satisfy.foundation.storage.StorageBlockEntity;
 import net.satisfy.candlelight.core.registry.StorageTypeRegistry;
-import net.satisfy.farm_and_charm.core.util.GeneralUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -40,6 +43,11 @@ import java.util.List;
 import java.util.Optional;
 
 public class JewelryBoxBlock extends StorageBlock {
+    @Override
+    public BlockEntityType<?> blockEntityType() {
+        return EntityTypeRegistry.STORAGE_BLOCK_ENTITY.get();
+    }
+
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
     private static final VoxelShape SHAPE = Block.box(5, 0, 5, 11, 5, 11);
@@ -59,7 +67,7 @@ public class JewelryBoxBlock extends StorageBlock {
             return ItemInteractionResult.SUCCESS;
         }
         if (blockEntity instanceof StorageBlockEntity shelfBlockEntity) {
-            Optional<Tuple<Float, Float>> optional = GeneralUtil.getRelativeHitCoordinatesForBlockFace(hit, state.getValue(FACING), this.unAllowedDirections());
+            Optional<Tuple<Float, Float>> optional = ShapeUtil.getRelativeHitCoordinatesForBlockFace(hit, state.getValue(FACING), this.unAllowedDirections());
             if (optional.isEmpty()) {
                 return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
             } else {

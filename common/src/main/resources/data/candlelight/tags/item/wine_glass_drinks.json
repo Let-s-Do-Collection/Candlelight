@@ -1,0 +1,37 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#vinery:small_bottle",
+      "required": false
+    },
+    {
+      "id": "#vinery:large_bottle",
+      "required": false
+    },
+    {
+      "id": "vinery:apple_wine",
+      "required": false
+    },
+    {
+      "id": "vinery:mead",
+      "required": false
+    },
+    {
+      "id": "vinery:chorus_wine",
+      "required": false
+    },
+    {
+      "id": "vinery:creepers_crush",
+      "required": false
+    },
+    {
+      "id": "vinery:strad_wine",
+      "required": false
+    },
+    {
+      "id": "vinery:lilitu_wine",
+      "required": false
+    }
+  ]
+}

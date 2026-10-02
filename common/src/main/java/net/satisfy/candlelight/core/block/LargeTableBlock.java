@@ -1,5 +1,6 @@
 package net.satisfy.candlelight.core.block;
 
+import net.satisfy.foundation.util.ShapeUtil;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -24,7 +25,6 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.satisfy.farm_and_charm.core.util.GeneralUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -48,7 +48,7 @@ public class LargeTableBlock extends HorizontalDirectionalBlock {
 
 	public static final Map<Direction, VoxelShape> SHAPE = net.minecraft.Util.make(new HashMap<>(), map -> {
 		for (Direction direction : Direction.Plane.HORIZONTAL) {
-			map.put(direction, GeneralUtil.rotateShape(Direction.EAST, direction, voxelShapeSupplier.get()));
+			map.put(direction, ShapeUtil.rotateShape(Direction.EAST, direction, voxelShapeSupplier.get()));
 		}
 	});
 
