@@ -9,6 +9,7 @@
 * Table Signs can now be written on: right-click in the air to write a menu or a note, place it, and everyone looking at it sees the text. The text stays on the sign when you break it
 * The two creative tabs are now one Candlelight tab with Food & Dining, Stoves, Sinks & Counters and Furniture as side tabs on the left
 * Pot Roast: cooked in the Cooking Pot from Beef, Potato, Carrot and Onion. It replaces Khinkali
+* VanillaBlend: an optional built-in resource pack with muted, vanilla-friendly colors for plates, bowls, dishes, glasses, clothing and Mob Effect icons. Enable it in the Resource Packs menu
 * Dinner menu: eat a starter, a main course and a dessert from a Table Set one after another to get a much longer Well Served and Refreshed. Dishes are sorted with the new item tags `candlelight:starters`, `candlelight:main_courses` and `candlelight:desserts`
 * A lit candle, lantern or lamp next to a Table Set counts as an extra table setting. Add more lights with the block tag `candlelight:table_lights`
 * Wine from Vinery can be poured into the Wine Glass of a Table Set, beer from Brewery, grape juice and potions into the Glass. They give the same effects as drinking them normally. Add more drinks with the item tags `candlelight:glass_drinks` and `candlelight:wine_glass_drinks`

@@ -267,5 +267,7 @@
   "hud.candlelight.table_set.course.starter": "Vorspeise",
   "hud.candlelight.table_set.course.main": "Hauptgang",
   "hud.candlelight.table_set.course.dessert": "Dessert",
-  "hud.candlelight.table_set.light": "Kerze oder Lampe in der Nähe"
+  "hud.candlelight.table_set.light": "Kerze oder Lampe in der Nähe",
+  "pack.candlelight.vanilla_blend": "Candlelight: VanillaBlend",
+  "pack.candlelight.vanilla_blend.description": "Gedämpfte Farben, inspiriert von Vanilla und Vanilla-Style-Mods"
 }
