@@ -1,5 +1,8 @@
 package net.satisfy.candlelight.client;
 
+import net.satisfy.candlelight.client.overlay.SideTableInfoProvider;
+import net.satisfy.candlelight.client.renderer.block.SideTableRenderer;
+import net.satisfy.foundation.client.armor.ArmorColors;
 import net.satisfy.foundation.client.render.WallDecorationRenderer;
 import net.satisfy.foundation.banner.CompletionistBannerRenderer;
 import net.satisfy.foundation.storage.StorageBlockEntityRenderer;
@@ -29,7 +32,6 @@ import net.satisfy.candlelight.client.renderer.block.*;
 import net.satisfy.candlelight.core.registry.EntityTypeRegistry;
 import net.satisfy.candlelight.core.registry.ScreenHandlerTypeRegistry;
 import net.satisfy.candlelight.core.registry.StorageTypeRegistry;
-import net.satisfy.candlelight.core.util.CandlelightUtil;
 
 import static net.satisfy.candlelight.core.registry.ObjectRegistry.*;
 
@@ -37,7 +39,7 @@ import static net.satisfy.candlelight.core.registry.ObjectRegistry.*;
 public class CandlelightClient {
 
     public static void initClient() {
-        RenderTypeRegistry.register(RenderType.cutout(), ROSE.get(), POTTED_ROSE.get(), GLASS_BLOCK.get(),
+        RenderTypeRegistry.register(RenderType.cutout(), TABLE.get(), ROSE.get(), POTTED_ROSE.get(), GLASS_BLOCK.get(),
                 OAK_CHAIR.get(), DARK_OAK_CHAIR.get(), SPRUCE_CHAIR.get(), WARPED_CHAIR.get(),
                 BIRCH_CHAIR.get(), MANGROVE_CHAIR.get(), ACACIA_CHAIR.get(), CRIMSON_CHAIR.get(),
                 JUNGLE_CHAIR.get(), OAK_TABLE.get(), ACACIA_TABLE.get(), DARK_OAK_TABLE.get(),
@@ -53,6 +55,7 @@ public class CandlelightClient {
 
         BlockEntityRendererRegistry.register(EntityTypeRegistry.CANDLELIGHT_BANNER_ENTITY.get(), CompletionistBannerRenderer::new);
         BlockEntityRendererRegistry.register(EntityTypeRegistry.STORAGE_BLOCK_ENTITY.get(), context -> new StorageBlockEntityRenderer());
+        BlockEntityRendererRegistry.register(EntityTypeRegistry.SIDE_TABLE_BLOCK_ENTITY.get(), SideTableRenderer::new);
         BlockEntityRendererRegistry.register(EntityTypeRegistry.TABLE_SET_BLOCK_ENTITY.get(), context -> new StorageBlockEntityRenderer());
         BlockEntityRendererRegistry.register(EntityTypeRegistry.DINNER_BELL_BLOCK_ENTITY.get(), DinnerBellRenderer::new);
         BlockEntityRendererRegistry.register(EntityTypeRegistry.TYPE_WRITER_BLOCK_ENTITY.get(), TypewriterRenderer::new);
@@ -62,10 +65,9 @@ public class CandlelightClient {
 
         registerStorageType();
 
-        CandlelightUtil.registerColorArmor(DRESS.get(), 16744576);
-        CandlelightUtil.registerColorArmor(TROUSERS_AND_VEST.get(), 0x333399);
+        ArmorColors.register(DRESS.get(), TROUSERS_AND_VEST.get());
 
-        SetBonusTooltips.init();
+        DrinkColors.init();
         CreativeSideTabs.register(TabRegistry.CANDLELIGHT_TAB.getKey(),
                 CreativeSideTabs.SideTab.of(Component.translatable("creativetab.candlelight.side.food"), BEEF_WELLINGTON.get(), TabRegistry::acceptMain),
                 CreativeSideTabs.SideTab.of(Component.translatable("creativetab.candlelight.side.kitchen_blocks"), COBBLESTONE_STOVE.get(), TabRegistry::acceptKitchen),
@@ -73,6 +75,7 @@ public class CandlelightClient {
         BlockInfoOverlay.init();
         BlockInfoOverlay.registerProvider(new TableSetInfoProvider());
         BlockInfoOverlay.registerProvider(new TableSignInfoProvider());
+        BlockInfoOverlay.registerProvider(new SideTableInfoProvider());
         if (Platform.isModLoaded("accessories")) {
             AccessoriesClientCompat.init();
         }

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "candlelight:block/planks_3"
+    "all": "candlelight:block/floorboard_2"
   }
-} 
+}

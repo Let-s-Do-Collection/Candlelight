@@ -1,64 +1,160 @@
 {
-  "variants": {
-    "facing=north,type=none": {
-      "model": "candlelight:block/table"
+  "multipart": [
+    {
+      "when": {
+        "facing": "north",
+        "type": "none"
+      },
+      "apply": {
+        "model": "candlelight:block/cloth_table"
+      }
     },
-    "facing=east,type=none": {
-      "model": "candlelight:block/table",
-      "y": 90
+    {
+      "when": {
+        "facing": "east",
+        "type": "none"
+      },
+      "apply": {
+        "model": "candlelight:block/cloth_table",
+        "y": 90
+      }
     },
-    "facing=south,type=none": {
-      "model": "candlelight:block/table",
-      "y": 180
+    {
+      "when": {
+        "facing": "south",
+        "type": "none"
+      },
+      "apply": {
+        "model": "candlelight:block/cloth_table",
+        "y": 180
+      }
     },
-    "facing=west,type=none": {
-      "model": "candlelight:block/table",
-      "y": 270
+    {
+      "when": {
+        "facing": "west",
+        "type": "none"
+      },
+      "apply": {
+        "model": "candlelight:block/cloth_table",
+        "y": 270
+      }
     },
-    "facing=north,type=middle": {
-      "model": "candlelight:block/table_middle"
+    {
+      "when": {
+        "facing": "north",
+        "type": "middle"
+      },
+      "apply": {
+        "model": "candlelight:block/cloth_table_middle"
+      }
     },
-    "facing=east,type=middle": {
-      "model": "candlelight:block/table_middle",
-      "y": 90
+    {
+      "when": {
+        "facing": "east",
+        "type": "middle"
+      },
+      "apply": {
+        "model": "candlelight:block/cloth_table_middle",
+        "y": 90
+      }
     },
-    "facing=south,type=middle": {
-      "model": "candlelight:block/table_middle",
-      "y": 180
+    {
+      "when": {
+        "facing": "south",
+        "type": "middle"
+      },
+      "apply": {
+        "model": "candlelight:block/cloth_table_middle",
+        "y": 180
+      }
     },
-    "facing=west,type=middle": {
-      "model": "candlelight:block/table_middle",
-      "y": 270
+    {
+      "when": {
+        "facing": "west",
+        "type": "middle"
+      },
+      "apply": {
+        "model": "candlelight:block/cloth_table_middle",
+        "y": 270
+      }
     },
-    "facing=north,type=left": {
-      "model": "candlelight:block/table_connected_support"
+    {
+      "when": {
+        "facing": "north",
+        "type": "left"
+      },
+      "apply": {
+        "model": "candlelight:block/cloth_table_end"
+      }
     },
-    "facing=east,type=left": {
-      "model": "candlelight:block/table_connected_support",
-      "y": 90
+    {
+      "when": {
+        "facing": "east",
+        "type": "left"
+      },
+      "apply": {
+        "model": "candlelight:block/cloth_table_end",
+        "y": 90
+      }
     },
-    "facing=south,type=left": {
-      "model": "candlelight:block/table_connected_support",
-      "y": 180
+    {
+      "when": {
+        "facing": "south",
+        "type": "left"
+      },
+      "apply": {
+        "model": "candlelight:block/cloth_table_end",
+        "y": 180
+      }
     },
-    "facing=west,type=left": {
-      "model": "candlelight:block/table_connected_support",
-      "y": 270
+    {
+      "when": {
+        "facing": "west",
+        "type": "left"
+      },
+      "apply": {
+        "model": "candlelight:block/cloth_table_end",
+        "y": 270
+      }
     },
-    "facing=north,type=right": {
-      "model": "candlelight:block/table_connected_support",
-      "y": 180
+    {
+      "when": {
+        "facing": "north",
+        "type": "right"
+      },
+      "apply": {
+        "model": "candlelight:block/cloth_table_end",
+        "y": 180
+      }
     },
-    "facing=east,type=right": {
-      "model": "candlelight:block/table_connected_support",
-      "y": 270
+    {
+      "when": {
+        "facing": "east",
+        "type": "right"
+      },
+      "apply": {
+        "model": "candlelight:block/cloth_table_end",
+        "y": 270
+      }
     },
-    "facing=south,type=right": {
-      "model": "candlelight:block/table_connected_support"
+    {
+      "when": {
+        "facing": "south",
+        "type": "right"
+      },
+      "apply": {
+        "model": "candlelight:block/cloth_table_end"
+      }
     },
-    "facing=west,type=right": {
-      "model": "candlelight:block/table_connected_support",
-      "y": 90
+    {
+      "when": {
+        "facing": "west",
+        "type": "right"
+      },
+      "apply": {
+        "model": "candlelight:block/cloth_table_end",
+        "y": 90
+      }
     }
-  }
+  ]
 }

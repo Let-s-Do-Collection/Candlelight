@@ -1,89 +1,35 @@
 package net.satisfy.candlelight.core.block;
 
-import net.satisfy.foundation.util.ShapeUtil;
 import net.minecraft.Util;
 import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.shapes.Shapes;
-import net.satisfy.foundation.block.LineConnectingType;
 import net.minecraft.world.phys.shapes.VoxelShape;
-
-import java.util.HashMap;
+import net.satisfy.foundation.block.LineConnectingType;
+import net.satisfy.foundation.util.ShapeUtil;
+import java.util.EnumMap;
 import java.util.Map;
-import java.util.function.Supplier;
 
 public class SofaBlock extends net.satisfy.foundation.block.SofaBlock {
-    public static final Map<Direction, VoxelShape> SHAPE;
-    public static final Map<Direction, VoxelShape> MIDDLE_SHAPE;
-    public static final Map<Direction, VoxelShape> LEFT_SHAPE;
-    public static final Map<Direction, VoxelShape> RIGHT_SHAPE;
-
-    private static final Supplier<VoxelShape> noneShapeSupplier = () -> {
-        VoxelShape shape = Shapes.empty();
-        shape = Shapes.or(shape, Shapes.box(0.0625, 0.1875, 0, 0.9375, 0.4375, 1));
-        shape = Shapes.or(shape, Shapes.box(0.6875, 0, 0.125, 0.875, 0.1875, 0.3125));
-        shape = Shapes.or(shape, Shapes.box(0.6875, 0, 0.6875, 0.875, 0.1875, 0.875));
-        shape = Shapes.or(shape, Shapes.box(0.125, 0, 0.125, 0.3125, 0.1875, 0.3125));
-        shape = Shapes.or(shape, Shapes.box(0.125, 0, 0.6875, 0.3125, 0.1875, 0.875));
-        shape = Shapes.or(shape, Shapes.box(0, 0.1875625, 0.0625, 0.125, 0.8125625, 0.9375));
-        shape = Shapes.or(shape, Shapes.box(0.875, 0.1875625, 0.0625, 1, 0.8125625, 0.9375));
-        shape = Shapes.or(shape, Shapes.box(0.0625, 0.4375, 0.875, 0.9375, 1, 1));
-
-        return shape;
-    };
-
-    private static final Supplier<VoxelShape> middleShapeSupplier = () -> {
-        VoxelShape shape = Shapes.empty();
-        shape = Shapes.or(shape, Shapes.box(0.0625, 0.1875, 0, 1, 0.4375, 1));
-        shape = Shapes.or(shape, Shapes.box(0.0625, 0.4375, 0.875, 1, 1, 1));
-        shape = Shapes.or(shape, Shapes.box(0, 0.1875, 0, 0.0625, 0.4375, 1));
-        shape = Shapes.or(shape, Shapes.box(0, 0.4375, 0.875, 0.0625, 1, 1));
-        return shape;
-    };
-
-    private static final Supplier<VoxelShape> leftShapeSupplier = () -> {
-        VoxelShape shape = Shapes.empty();
-        shape = Shapes.or(shape, Shapes.box(0.0625, 0.1875, 0, 1, 0.4375, 1));
-        shape = Shapes.or(shape, Shapes.box(0.125, 0, 0.125, 0.3125, 0.1875, 0.3125));
-        shape = Shapes.or(shape, Shapes.box(0.125, 0, 0.6875, 0.3125, 0.1875, 0.875));
-        shape = Shapes.or(shape, Shapes.box(0, 0.1875625, 0.0625, 0.125, 0.8125625, 0.9375));
-        shape = Shapes.or(shape, Shapes.box(0.0625, 0.4375, 0.875, 1, 1, 1));
-
-        return shape;
-    };
-
-    private static final Supplier<VoxelShape> rightShapeSupplier = () -> {
-        VoxelShape shape = Shapes.empty();
-        shape = Shapes.or(shape, Shapes.box(0, 0.1875, 0, 0.9375, 0.4375, 1));
-        shape = Shapes.or(shape, Shapes.box(0.6875, 0, 0.125, 0.875, 0.1875, 0.3125));
-        shape = Shapes.or(shape, Shapes.box(0.6875, 0, 0.6875, 0.875, 0.1875, 0.875));
-        shape = Shapes.or(shape, Shapes.box(0.875, 0.1875625, 0.0625, 1, 0.8125625, 0.9375));
-        shape = Shapes.or(shape, Shapes.box(0, 0.4375, 0.875, 0.9375, 1, 1));
-
-        return shape;
-    };
-
-    static {
-        SHAPE = Util.make(new HashMap<>(), map -> {
-            for (Direction direction : Direction.Plane.HORIZONTAL.stream().toList()) {
-                map.put(direction, ShapeUtil.rotateShape(Direction.NORTH, direction, noneShapeSupplier.get()));
+    private static final VoxelShape SINGLE = Shapes.or(Shapes.empty(), Block.box(12, 0, 2, 15, 3, 5), Block.box(12, 0, 11, 15, 3, 14), Block.box(1, 0, 2, 4, 3, 5), Block.box(1, 0, 11, 4, 3, 14), Block.box(0, 3, 15, 16, 16, 16), Block.box(2, 3, 0, 14, 4, 15), Block.box(0, 3.001, 1, 2, 13.001, 15), Block.box(2, 4, 0, 14, 7, 15), Block.box(14, 3.001, 1, 16, 13.001, 15), Block.box(0, 13, 12, 16, 16, 15), Block.box(2, 7, 12, 14, 13, 15));
+    private static final VoxelShape END = Shapes.or(Shapes.empty(), Block.box(12, 0, 2, 15, 3, 5), Block.box(12, 0, 11, 15, 3, 14), Block.box(0, 3, 15, 16, 16, 16), Block.box(0, 3, 0, 14, 4, 15), Block.box(0, 4, 0, 14, 7, 15), Block.box(14, 3.001, 1, 16, 13.001, 15), Block.box(0, 13, 12, 16, 16, 15), Block.box(0, 7, 12, 14, 13, 15));
+    private static final VoxelShape END_MIRRORED = Shapes.or(Shapes.empty(), Block.box(1, 0, 2, 4, 3, 5), Block.box(1, 0, 11, 4, 3, 14), Block.box(0, 3, 15, 16, 16, 16), Block.box(2, 3, 0, 16, 4, 15), Block.box(2, 4, 0, 16, 7, 15), Block.box(0, 3.001, 1, 2, 13.001, 15), Block.box(0, 13, 12, 16, 16, 15), Block.box(2, 7, 12, 16, 13, 15));
+    private static final VoxelShape MIDDLE = Shapes.or(Shapes.empty(), Block.box(0, 3, 15, 16, 16, 16), Block.box(0, 3, 0, 16, 4, 15), Block.box(0, 4, 0, 16, 7, 15), Block.box(0, 7, 12, 16, 16, 15));
+    private static final Map<LineConnectingType, Map<Direction, VoxelShape>> SHAPES = Util.make(new EnumMap<>(LineConnectingType.class), map -> {
+        for (LineConnectingType type : LineConnectingType.values()) {
+            VoxelShape base = switch (type) {
+                case MIDDLE -> MIDDLE;
+                case LEFT -> END_MIRRORED;
+                case RIGHT -> END;
+                default -> SINGLE;
+            };
+            Map<Direction, VoxelShape> rotated = new EnumMap<>(Direction.class);
+            for (Direction direction : Direction.Plane.HORIZONTAL) {
+                rotated.put(direction, ShapeUtil.rotateShape(Direction.NORTH, direction, base));
             }
-        });
-        MIDDLE_SHAPE = Util.make(new HashMap<>(), map -> {
-            for (Direction direction : Direction.Plane.HORIZONTAL.stream().toList()) {
-                map.put(direction, ShapeUtil.rotateShape(Direction.NORTH, direction, middleShapeSupplier.get()));
-            }
-        });
-        LEFT_SHAPE = Util.make(new HashMap<>(), map -> {
-            for (Direction direction : Direction.Plane.HORIZONTAL.stream().toList()) {
-                map.put(direction, ShapeUtil.rotateShape(Direction.NORTH, direction, leftShapeSupplier.get()));
-            }
-        });
-        RIGHT_SHAPE = Util.make(new HashMap<>(), map -> {
-            for (Direction direction : Direction.Plane.HORIZONTAL.stream().toList()) {
-                map.put(direction, ShapeUtil.rotateShape(Direction.NORTH, direction, rightShapeSupplier.get()));
-            }
-        });
-    }
+            map.put(type, rotated);
+        }
+    });
 
     public SofaBlock(Properties settings) {
         super(settings);
@@ -91,12 +37,6 @@ public class SofaBlock extends net.satisfy.foundation.block.SofaBlock {
 
     @Override
     protected VoxelShape getSofaShape(LineConnectingType type, Direction facing) {
-        Map<Direction, VoxelShape> shapes = switch (type) {
-            case MIDDLE -> MIDDLE_SHAPE;
-            case LEFT -> LEFT_SHAPE;
-            case RIGHT -> RIGHT_SHAPE;
-            default -> SHAPE;
-        };
-        return shapes.get(facing);
+        return SHAPES.get(type).get(facing);
     }
 }

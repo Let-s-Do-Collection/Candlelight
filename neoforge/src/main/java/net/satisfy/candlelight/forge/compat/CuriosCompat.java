@@ -1,6 +1,6 @@
 package net.satisfy.candlelight.forge.compat;
 
-import net.satisfy.candlelight.core.util.Wearables;
+import net.satisfy.foundation.armor.Wearing;
 import top.theillusivec4.curios.api.CuriosApi;
 
 public final class CuriosCompat {
@@ -8,7 +8,7 @@ public final class CuriosCompat {
     }
 
     public static void init() {
-        Wearables.registerSlotProvider((entity, item) -> CuriosApi.getCuriosInventory(entity)
+        Wearing.registerSlotProvider((entity, item) -> CuriosApi.getCuriosInventory(entity)
                 .map(handler -> handler.isEquipped(item))
                 .orElse(false));
     }

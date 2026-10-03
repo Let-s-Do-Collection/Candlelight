@@ -32,7 +32,7 @@ public class TableSignEditScreen extends Screen {
         super(Component.translatable("gui.candlelight.table_sign.edit"));
         this.hand = hand;
         for (String line : TableSignItem.getLines(initialText)) {
-            if (lines.size() < TableSignItem.MAX_LINES) {
+            if (lines.size() < TableSignItem.maxLines()) {
                 lines.add(new StringBuilder(line));
             }
         }
@@ -103,7 +103,7 @@ public class TableSignEditScreen extends Screen {
                 return true;
             }
             case GLFW.GLFW_KEY_ENTER, GLFW.GLFW_KEY_KP_ENTER -> {
-                if (lines.size() < TableSignItem.MAX_LINES) {
+                if (lines.size() < TableSignItem.maxLines()) {
                     String rest = line.substring(cursorColumn);
                     line.setLength(cursorColumn);
                     lines.add(cursorLine + 1, new StringBuilder(rest));

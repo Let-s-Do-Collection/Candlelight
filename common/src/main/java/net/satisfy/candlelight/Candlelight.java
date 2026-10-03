@@ -17,6 +17,7 @@ public class Candlelight {
     public static void init() {
         DataComponentRegistry.init();
         ObjectRegistry.init();
+        ArmorSetRegistry.init();
         ScreenHandlerTypeRegistry.init();
         MobEffectRegistry.init();
         SoundEventRegistry.init();

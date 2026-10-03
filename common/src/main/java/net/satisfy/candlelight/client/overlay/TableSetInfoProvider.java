@@ -1,5 +1,6 @@
 package net.satisfy.candlelight.client.overlay;
 
+import net.satisfy.candlelight.core.config.CandlelightConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -25,7 +26,7 @@ import java.util.List;
 public class TableSetInfoProvider implements BlockInfoProvider {
     @Override
     public List<InfoSection> describe(Level level, BlockPos pos, BlockState state, @Nullable BlockHitResult hit) {
-        if (!(state.getBlock() instanceof TableSetBlock) || !(level.getBlockEntity(pos) instanceof TableSetBlockEntity tableSet)) {
+        if (!CandlelightConfig.showTableSetInfo || !(state.getBlock() instanceof TableSetBlock) || !(level.getBlockEntity(pos) instanceof TableSetBlockEntity tableSet)) {
             return List.of();
         }
         Player player = Minecraft.getInstance().player;
@@ -53,7 +54,7 @@ public class TableSetInfoProvider implements BlockInfoProvider {
         rows.add(InfoSection.Row.item(ObjectRegistry.GLASS.get().getDefaultInstance(), status(TableSetBlock.hasDrink(state), "drink")));
         rows.add(InfoSection.Row.item(Items.CANDLE.getDefaultInstance(), status(TableSetBlock.hasLight(level, pos), "light")));
         rows.add(InfoSection.Row.item(ObjectRegistry.DRESS.get().getDefaultInstance(), status(Wearables.isElegantlyDressed(player), "outfit")));
-        sections.add(InfoSection.rows(Component.translatable("hud.candlelight.table_set.courses", courses, TableSetBlock.MAX_COURSES), rows));
+        sections.add(InfoSection.rows(Component.translatable("hud.candlelight.table_set.courses", TableSetBlock.rating(courses)), rows));
 
         if (state.getValue(TableSetBlock.CLOCHE)) {
             sections.add(InfoSection.lines(Component.translatable("hud.candlelight.table_set.cloche").withStyle(ChatFormatting.GOLD),

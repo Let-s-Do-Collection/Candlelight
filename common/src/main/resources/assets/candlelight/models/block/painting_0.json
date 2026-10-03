@@ -1,0 +1,6 @@
+{
+  "parent": "candlelight:block/template_painting",
+  "textures": {
+    "painting": "candlelight:block/painting_0"
+  }
+}

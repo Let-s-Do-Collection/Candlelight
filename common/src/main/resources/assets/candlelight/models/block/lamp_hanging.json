@@ -1,311 +1,72 @@
 {
-  "credit": "Made by Satisfy",
-  "parent": "minecraft:block/block",
-  "textures": {
-    "2": "candlelight:block/brick_stove_top",
-    "3": "candlelight:block/table_cloth_side",
-    "4": "candlelight:block/sideboard_back",
-    "5": "candlelight:block/lantern_e",
-    "particle": "candlelight:block/sideboard_back"
-  },
-  "elements": [
-    {
-      "name": "base",
-      "from": [
-        5,
-        14,
-        5
-      ],
-      "to": [
-        11,
-        16,
-        11
-      ],
-      "faces": {
-        "north": {
-          "uv": [
-            4,
-            0,
-            10,
-            2
-          ],
-          "texture": "#4"
-        },
-        "east": {
-          "uv": [
-            8,
-            0,
-            14,
-            2
-          ],
-          "texture": "#4"
-        },
-        "south": {
-          "uv": [
-            2,
-            0,
-            8,
-            2
-          ],
-          "texture": "#4"
-        },
-        "west": {
-          "uv": [
-            5,
-            0,
-            11,
-            2
-          ],
-          "texture": "#4"
-        },
-        "up": {
-          "uv": [
-            5,
-            7,
-            11,
-            13
-          ],
-          "texture": "#4"
-        },
-        "down": {
-          "uv": [
-            9,
-            9,
-            15,
-            15
-          ],
-          "texture": "#4"
-        }
-      }
-    },
-    {
-      "name": "post",
-      "from": [
-        7,
-        10,
-        7
-      ],
-      "to": [
-        9,
-        14,
-        9
-      ],
-      "faces": {
-        "north": {
-          "uv": [
-            10,
-            0,
-            8,
-            4
-          ],
-          "texture": "#2"
-        },
-        "east": {
-          "uv": [
-            10,
-            0,
-            8,
-            4
-          ],
-          "texture": "#2"
-        },
-        "south": {
-          "uv": [
-            10,
-            0,
-            8,
-            4
-          ],
-          "texture": "#2"
-        },
-        "west": {
-          "uv": [
-            10,
-            0,
-            8,
-            4
-          ],
-          "texture": "#2"
-        }
-      }
-    },
-    {
-      "name": "post",
-      "from": [
-        6,
-        6,
-        6
-      ],
-      "to": [
-        10,
-        10,
-        10
-      ],
-      "faces": {
-        "north": {
-          "uv": [
-            5,
-            4,
-            1,
-            8
-          ],
-          "texture": "#5"
-        },
-        "east": {
-          "uv": [
-            5,
-            4,
-            1,
-            8
-          ],
-          "texture": "#5"
-        },
-        "south": {
-          "uv": [
-            5,
-            4,
-            1,
-            8
-          ],
-          "texture": "#5"
-        },
-        "west": {
-          "uv": [
-            5,
-            4,
-            1,
-            8
-          ],
-          "texture": "#5"
-        },
-        "down": {
-          "uv": [
-            5,
-            4,
-            1,
-            8
-          ],
-          "texture": "#5"
-        }
-      }
-    },
-    {
-      "from": [
-        13,
-        2,
-        3
-      ],
-      "to": [
-        3,
-        10,
-        13
-      ],
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            4,
-            10,
-            12
-          ],
-          "texture": "#3"
-        },
-        "east": {
-          "uv": [
-            6,
-            4,
-            16,
-            12
-          ],
-          "texture": "#3"
-        },
-        "south": {
-          "uv": [
-            0,
-            4,
-            10,
-            12
-          ],
-          "texture": "#3"
-        },
-        "west": {
-          "uv": [
-            6,
-            4,
-            16,
-            12
-          ],
-          "texture": "#3"
-        },
-        "up": {
-          "uv": [
-            3,
-            0,
-            13,
-            10
-          ],
-          "texture": "#3"
-        }
-      }
-    },
-    {
-      "from": [
-        3,
-        2,
-        3
-      ],
-      "to": [
-        13,
-        10,
-        13
-      ],
-      "faces": {
-        "north": {
-          "uv": [
-            6,
-            4,
-            16,
-            12
-          ],
-          "texture": "#3"
-        },
-        "east": {
-          "uv": [
-            0,
-            4,
-            10,
-            12
-          ],
-          "texture": "#3"
-        },
-        "south": {
-          "uv": [
-            6,
-            4,
-            16,
-            12
-          ],
-          "texture": "#3"
-        },
-        "west": {
-          "uv": [
-            0,
-            4,
-            10,
-            12
-          ],
-          "texture": "#3"
-        },
-        "up": {
-          "uv": [
-            3,
-            1,
-            13,
-            9
-          ],
-          "texture": "#3"
-        }
-      }
-    }
-  ]
+	"format_version": "26.3",
+	"credit": "Made by Satisfy",
+	"parent": "minecraft:block/block",
+	"textures": {
+		"2": "candlelight:block/counter_top",
+		"3": "candlelight:block/fabric",
+		"4": "candlelight:block/sideboard_back",
+		"5": "candlelight:block/lamp_light",
+		"particle": "candlelight:block/sideboard_back"
+	},
+	"elements": [
+		{
+			"name": "base",
+			"from": [5, 14, 5],
+			"to": [11, 16, 11],
+			"faces": {
+				"north": {"uv": [4, 0, 10, 2], "texture": "#4"},
+				"east": {"uv": [8, 0, 14, 2], "texture": "#4"},
+				"south": {"uv": [2, 0, 8, 2], "texture": "#4"},
+				"west": {"uv": [5, 0, 11, 2], "texture": "#4"},
+				"up": {"uv": [5, 7, 11, 13], "texture": "#4"},
+				"down": {"uv": [9, 9, 15, 15], "texture": "#4"}
+			}
+		},
+		{
+			"name": "post",
+			"from": [7, 10, 7],
+			"to": [9, 14, 9],
+			"faces": {
+				"north": {"uv": [10, 0, 8, 4], "texture": "#2"},
+				"east": {"uv": [10, 0, 8, 4], "texture": "#2"},
+				"south": {"uv": [10, 0, 8, 4], "texture": "#2"},
+				"west": {"uv": [10, 0, 8, 4], "texture": "#2"}
+			}
+		},
+		{
+			"name": "post",
+			"from": [6, 6, 6],
+			"to": [10, 10, 10],
+			"faces": {
+				"north": {"uv": [5, 4, 1, 8], "texture": "#5"},
+				"east": {"uv": [5, 4, 1, 8], "texture": "#5"},
+				"south": {"uv": [5, 4, 1, 8], "texture": "#5"},
+				"west": {"uv": [5, 4, 1, 8], "texture": "#5"},
+				"down": {"uv": [5, 4, 1, 8], "texture": "#5"}
+			}
+		},
+		{
+			"from": [13, 2, 3],
+			"to": [3, 10, 13],
+			"faces": {
+				"north": {"uv": [3, 5, 13, 13], "texture": "#3"},
+				"east": {"uv": [3, 5, 13, 13], "texture": "#3"},
+				"south": {"uv": [3, 5, 13, 13], "texture": "#3"},
+				"west": {"uv": [3, 5, 13, 13], "texture": "#3"},
+				"up": {"uv": [3, 3, 13, 13], "texture": "#3"}
+			}
+		},
+		{
+			"from": [3, 2, 3],
+			"to": [13, 10, 13],
+			"faces": {
+				"north": {"uv": [3, 5, 13, 13], "texture": "#3"},
+				"east": {"uv": [3, 5, 13, 13], "texture": "#3"},
+				"south": {"uv": [3, 5, 13, 13], "texture": "#3"},
+				"west": {"uv": [3, 5, 13, 13], "texture": "#3"},
+				"up": {"uv": [3, 3, 13, 13], "texture": "#3"}
+			}
+		}
+	]
 }

@@ -44,6 +44,7 @@ dependencies {
     modImplementation("me.shedaniel:RoughlyEnoughItems-fabric:$rei_version") { exclude group: 'net.fabricmc', module: 'fabric-loader' }
     modImplementation("dev.emi:trinkets:${rootProject.trinkets_version}")
     modCompileOnly("io.wispforest:accessories-fabric:${rootProject.accessories_version}") { transitive = false }
+    modApi include("me.shedaniel.cloth:cloth-config-fabric:${rootProject.cloth_fabric_version}") { exclude group: "net.fabricmc.fabric-api" }
     modImplementation("com.terraformersmc:modmenu:${rootProject.modmenu_version}") { exclude group: 'net.fabricmc', module: 'fabric-loader' }
     modImplementation(files(rootProject.file("local-mods/letsdo-farm_and_charm-fabric-${rootProject.farm_and_charm_version}.jar")))
 

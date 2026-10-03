@@ -1,5 +1,6 @@
 package net.satisfy.candlelight.core.block.entity;
 
+import net.satisfy.candlelight.core.config.CandlelightConfig;
 import java.util.UUID;
 import java.util.Comparator;
 import net.satisfy.candlelight.core.util.DinnerGuest;
@@ -27,19 +28,15 @@ import net.satisfy.foundation.storage.StorageBlockEntity;
 public class TableSetBlockEntity extends StorageBlockEntity {
     private static final String GLASS_DRINK_KEY = "EffectStack";
     private static final String WINE_GLASS_DRINK_KEY = "WineGlassDrink";
+    private static final String HOST_KEY = "Host";
 
-    private static final int INVITE_INTERVAL = 200;
-    private static final float INVITE_CHANCE = 0.3F;
-    private static final double INVITE_RANGE = 16.0;
     private static final int GUEST_TIMEOUT = 600;
     private static final double EAT_DISTANCE_SQR = 4.0;
     private static final float GUEST_SPEED = 0.6F;
-    private static final long DINNER_START = 9000L;
-    private static final long DINNER_END = 12000L;
-    private static final long DISCOUNT_TICKS = 24000L;
 
     private ItemStack glassDrink = ItemStack.EMPTY;
     private UUID guest;
+    private UUID host;
     private int guestTicks;
     private ItemStack wineGlassDrink = ItemStack.EMPTY;
 
@@ -49,6 +46,11 @@ public class TableSetBlockEntity extends StorageBlockEntity {
 
     public TableSetBlockEntity(BlockPos pos, BlockState state, int size) {
         super(EntityTypeRegistry.TABLE_SET_BLOCK_ENTITY.get(), pos, state, size);
+    }
+
+    public void setHost(UUID host) {
+        this.host = host;
+        setChanged();
     }
 
     public ItemStack getDrink(boolean wineGlass) {
@@ -69,6 +71,7 @@ public class TableSetBlockEntity extends StorageBlockEntity {
         super.loadAdditional(tag, provider);
         glassDrink = ItemStack.parseOptional(provider, tag.getCompound(GLASS_DRINK_KEY));
         wineGlassDrink = ItemStack.parseOptional(provider, tag.getCompound(WINE_GLASS_DRINK_KEY));
+        host = tag.hasUUID(HOST_KEY) ? tag.getUUID(HOST_KEY) : null;
     }
 
     @Override
@@ -76,6 +79,9 @@ public class TableSetBlockEntity extends StorageBlockEntity {
         super.saveAdditional(tag, provider);
         if (!glassDrink.isEmpty()) {
             tag.put(GLASS_DRINK_KEY, glassDrink.save(provider, new CompoundTag()));
+        }
+        if (host != null) {
+            tag.putUUID(HOST_KEY, host);
         }
         if (!wineGlassDrink.isEmpty()) {
             tag.put(WINE_GLASS_DRINK_KEY, wineGlassDrink.save(provider, new CompoundTag()));
@@ -92,12 +98,13 @@ public class TableSetBlockEntity extends StorageBlockEntity {
             tickGuest(level, pos);
             return;
         }
-        if (level.getGameTime() % INVITE_INTERVAL != 0 || !isDinnerTime(level) || level.random.nextFloat() >= INVITE_CHANCE) {
+        if (!CandlelightConfig.dinnerGuests || level.getGameTime() % CandlelightConfig.dinnerGuestInterval != 0 || !isDinnerTime(level) || level.random.nextFloat() >= CandlelightConfig.dinnerGuestChance) {
             return;
         }
         Vec3 center = Vec3.atCenterOf(pos);
-        level.getEntitiesOfClass(Villager.class, new AABB(pos).inflate(INVITE_RANGE),
-                        villager -> !villager.isBaby() && !villager.isSleeping() && villager.getTradingPlayer() == null)
+        level.getEntitiesOfClass(Villager.class, new AABB(pos).inflate(CandlelightConfig.dinnerGuestRange),
+                        villager -> !villager.isBaby() && !villager.isSleeping() && villager.getTradingPlayer() == null
+                                && (CandlelightConfig.nitwitsEat || villager.getVillagerData().getProfession() != VillagerProfession.NITWIT))
                 .stream()
                 .min(Comparator.comparingDouble(villager -> villager.distanceToSqr(center)))
                 .ifPresent(villager -> {
@@ -124,12 +131,13 @@ public class TableSetBlockEntity extends StorageBlockEntity {
         if (villager.getVillagerData().getProfession() == VillagerProfession.NITWIT) {
             return;
         }
-        ((DinnerGuest) villager).candlelight$setDinnerDiscountUntil(level.getGameTime() + DISCOUNT_TICKS);
+        ((DinnerGuest) villager).candlelight$setDinnerDiscountUntil(level.getGameTime() + CandlelightConfig.dinnerDiscountTicks);
+        ((DinnerGuest) villager).candlelight$setDinnerHost(host);
         level.sendParticles(ParticleTypes.HAPPY_VILLAGER, villager.getX(), villager.getEyeY() + 0.3, villager.getZ(), 6, 0.3, 0.2, 0.3, 0.0);
     }
 
     private static boolean isDinnerTime(Level level) {
         long time = level.getDayTime() % 24000L;
-        return time >= DINNER_START && time < DINNER_END;
+        return time >= CandlelightConfig.dinnerStart && time < CandlelightConfig.dinnerEnd;
     }
 }

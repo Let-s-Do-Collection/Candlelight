@@ -1,12 +1,12 @@
 package net.satisfy.candlelight.client.renderer;
 
+import net.satisfy.foundation.armor.TexturedArmorItem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.item.ItemStack;
-import net.satisfy.candlelight.core.item.CandlelightHatItem;
 import net.satisfy.candlelight.core.registry.ArmorRegistry;
 import net.satisfy.candlelight.core.registry.ObjectRegistry;
 
@@ -19,7 +19,7 @@ public final class WornAccessoryRenderer {
     }
 
     public static void render(ItemStack stack, HumanoidModel<?> parent, PoseStack poseStack, MultiBufferSource buffers, int light) {
-        if (!(stack.getItem() instanceof CandlelightHatItem hat)) return;
+        if (!(stack.getItem() instanceof TexturedArmorItem hat)) return;
 
         Model model;
         if (stack.is(ObjectRegistry.FLOWER_CROWN.get())) {
@@ -31,6 +31,6 @@ public final class WornAccessoryRenderer {
         }
         if (model == parent) return;
 
-        model.renderToBuffer(poseStack, buffers.getBuffer(model.renderType(hat.getHatTexture())), light, OverlayTexture.NO_OVERLAY);
+        model.renderToBuffer(poseStack, buffers.getBuffer(model.renderType(hat.getTexture())), light, OverlayTexture.NO_OVERLAY);
     }
 }

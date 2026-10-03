@@ -3,11 +3,11 @@
   "textures": {
     "1": "candlelight:block/quartz_stove_side",
     "4": "candlelight:block/quartz_stove_bottom",
-    "5": "candlelight:block/quartz_woodfiredoven_on",
-    "6": "candlelight:block/furnace_lit_inside",
+    "5": "candlelight:block/quartz_stove_front_on",
+    "6": "farm_and_charm:block/furnace_lit_inside",
     "7": "candlelight:block/quartz_stove_top_on",
-    "8": "candlelight:block/furnace_lit_inside_bottom",
-    "9": "candlelight:block/furnace_lit_grate",
+    "8": "farm_and_charm:block/furnace_lit_inside_bottom",
+    "9": "farm_and_charm:block/furnace_lit_grate",
     "10": "block/fire_0",
     "11": "block/fire_1",
     "particle": "candlelight:block/quartz_stove_side"

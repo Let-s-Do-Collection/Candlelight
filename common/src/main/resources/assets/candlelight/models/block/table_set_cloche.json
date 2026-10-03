@@ -1,7 +1,7 @@
 {
   "credit": "Made by Satisfy",
   "textures": {
-    "3": "candlelight:block/gloche"
+    "3": "candlelight:block/cloche"
   },
   "elements": [
     {

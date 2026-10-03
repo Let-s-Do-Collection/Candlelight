@@ -59,6 +59,7 @@ allprojects {
         }
 		maven { url = 'https://maven.neoforged.net/releases' }
         maven { url = 'https://maven.wispforest.io/releases' }
+        maven { url = 'https://maven.shedaniel.me/' }
     }
 
     tasks.withType(JavaCompile) {

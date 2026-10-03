@@ -1,5 +1,6 @@
 package net.satisfy.candlelight.core.item;
 
+import net.satisfy.candlelight.core.config.CandlelightConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -17,7 +18,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class TableSignItem extends BlockItem {
-    public static final int MAX_LINES = 8;
     public static final int MAX_LINE_LENGTH = 40;
 
     public TableSignItem(Block block, Properties properties) {
@@ -33,6 +33,10 @@ public class TableSignItem extends BlockItem {
         return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
     }
 
+    public static int maxLines() {
+        return CandlelightConfig.tableSignMaxLines;
+    }
+
     public static String getText(ItemStack stack) {
         return stack.getOrDefault(DataComponentRegistry.TABLE_SIGN_TEXT.get(), "");
     }
@@ -43,7 +47,7 @@ public class TableSignItem extends BlockItem {
 
     public static String sanitize(String text) {
         return String.join("\n", text.lines()
-                .limit(MAX_LINES)
+                .limit(maxLines())
                 .map(line -> line.length() > MAX_LINE_LENGTH ? line.substring(0, MAX_LINE_LENGTH) : line)
                 .toList()).strip();
     }

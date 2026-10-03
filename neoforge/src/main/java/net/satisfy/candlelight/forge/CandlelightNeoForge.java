@@ -1,5 +1,12 @@
 package net.satisfy.candlelight.forge;
 
+import net.neoforged.neoforge.client.gui.ConfigurationScreen;
+import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
+import net.neoforged.fml.loading.FMLEnvironment;
+import net.satisfy.candlelight.forge.config.CandlelightNeoForgeConfig;
+import net.neoforged.fml.event.config.ModConfigEvent;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.ModContainer;
 import org.jetbrains.annotations.Nullable;
 import net.neoforged.neoforge.event.AddPackFindersEvent;
 import net.minecraft.server.packs.repository.PackSource;
@@ -27,7 +34,17 @@ import net.satisfy.candlelight.core.registry.FlammableBlockRegistry;
 @Mod(Candlelight.MOD_ID)
 public class CandlelightNeoForge {
 
-    public CandlelightNeoForge(final IEventBus modEventBus) {
+    public CandlelightNeoForge(final IEventBus modEventBus, ModContainer modContainer) {
+        modContainer.registerConfig(ModConfig.Type.COMMON, CandlelightNeoForgeConfig.COMMON);
+        if (FMLEnvironment.dist.isClient()) {
+            modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
+        }
+        modEventBus.addListener((ModConfigEvent.Loading event) -> {
+            if (event.getConfig().getSpec() == CandlelightNeoForgeConfig.COMMON) CandlelightNeoForgeConfig.applyCommon();
+        });
+        modEventBus.addListener((ModConfigEvent.Reloading event) -> {
+            if (event.getConfig().getSpec() == CandlelightNeoForgeConfig.COMMON) CandlelightNeoForgeConfig.applyCommon();
+        });
         EventBusesHooks.whenAvailable(Candlelight.MOD_ID, IEventBus::start);
         Candlelight.init();
         if (ModList.get().isLoaded("curios")) {

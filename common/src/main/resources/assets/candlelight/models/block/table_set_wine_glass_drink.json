@@ -1,8 +1,7 @@
 {
   "credit": "Made by Satisfy",
   "textures": {
-    "1": "candlelight:block/plate",
-    "2": "candlelight:block/cooking_pot_parts",
+    "drink": "candlelight:block/table_drink",
     "particle": "candlelight:block/plate"
   },
   "elements": [
@@ -29,57 +28,63 @@
       "faces": {
         "north": {
           "uv": [
-            11,
             0,
-            13,
+            0,
+            2,
             6
           ],
-          "texture": "#2"
+          "texture": "#drink",
+          "tintindex": 1
         },
         "east": {
           "uv": [
-            13,
             0,
-            15,
+            0,
+            2,
             6
           ],
-          "texture": "#2"
+          "texture": "#drink",
+          "tintindex": 1
         },
         "south": {
           "uv": [
-            8,
             0,
-            10,
+            0,
+            2,
             6
           ],
-          "texture": "#2"
+          "texture": "#drink",
+          "tintindex": 1
         },
         "west": {
           "uv": [
-            13,
+            0,
+            0,
             2,
-            15,
-            8
+            6
           ],
-          "texture": "#2"
+          "texture": "#drink",
+          "tintindex": 1
         },
         "up": {
           "uv": [
-            13,
+            0,
+            0,
             2,
-            15,
-            4
+            2
           ],
-          "texture": "#2"
+          "texture": "#drink",
+          "tintindex": 1
         },
         "down": {
           "uv": [
-            12,
-            3,
-            14,
-            5
+            0,
+            0,
+            2,
+            2
           ],
-          "texture": "#2"
+          "texture": "#drink",
+          "tintindex": 1
         }
       }
     }
@@ -211,23 +216,5 @@
         1.95703
       ]
     }
-  },
-  "groups": [
-    {
-      "name": "1",
-      "origin": [
-        8,
-        8,
-        8
-      ],
-      "color": 0,
-      "children": [
-        0,
-        1,
-        2,
-        3,
-        4
-      ]
-    }
-  ]
+  }
 }

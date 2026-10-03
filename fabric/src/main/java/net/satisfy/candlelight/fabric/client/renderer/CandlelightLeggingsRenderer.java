@@ -1,5 +1,6 @@
 package net.satisfy.candlelight.fabric.client.renderer;
 
+import net.satisfy.foundation.armor.TexturedArmorItem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.minecraft.client.model.HumanoidModel;
@@ -10,18 +11,17 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.satisfy.candlelight.core.item.CandlelightLegsItem;
 import net.satisfy.candlelight.core.registry.ArmorRegistry;
 
 public class CandlelightLeggingsRenderer implements ArmorRenderer {
     @Override
     public void render(PoseStack matrices, MultiBufferSource vertexConsumers, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, HumanoidModel<LivingEntity> contextModel) {
         if (slot != EquipmentSlot.LEGS) return;
-        if (!(stack.getItem() instanceof CandlelightLegsItem candlelightLegsItem)) return;
+        if (!(stack.getItem() instanceof TexturedArmorItem candlelightLegsItem)) return;
 
         Model model = ArmorRegistry.getLeggingsModel(candlelightLegsItem, contextModel.leftLeg, contextModel.rightLeg, contextModel);
 
-        ResourceLocation baseTexture = candlelightLegsItem.getLeggingsTexture();
+        ResourceLocation baseTexture = candlelightLegsItem.getTexture();
         String texturePath = baseTexture.getPath();
         if (!texturePath.startsWith("textures/")) texturePath = "textures/" + texturePath;
         if (!texturePath.endsWith(".png")) texturePath = texturePath + ".png";

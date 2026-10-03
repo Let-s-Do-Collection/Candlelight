@@ -35,10 +35,10 @@ public class SmallPaintingBlock extends FacingBlock {
     public static final IntegerProperty PAINTING = IntegerProperty.create("painting", 0, 6);
 
     private static final Map<Direction, VoxelShape> BOUNDING_SHAPES = Maps.newEnumMap(ImmutableMap.of(
-            Direction.NORTH, Block.box(0, 0, 15.0, 16, 16, 16.0),
-            Direction.SOUTH, Block.box(0, 0, 0.0, 16, 16, 1.0),
-            Direction.WEST, Block.box(15.0, 0, 0, 16.0, 16, 16),
-            Direction.EAST, Block.box(0.0, 0, 0, 1.0, 16, 16)
+            Direction.NORTH, Block.box(1, 1, 15, 15, 15, 16),
+            Direction.SOUTH, Block.box(1, 1, 0, 15, 15, 1),
+            Direction.WEST, Block.box(15, 1, 1, 16, 15, 15),
+            Direction.EAST, Block.box(0, 1, 1, 1, 15, 15)
     ));
 
     public SmallPaintingBlock(Properties settings) {

@@ -1,5 +1,6 @@
 package net.satisfy.candlelight.core.mixin;
 
+import net.satisfy.candlelight.core.config.CandlelightConfig;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.MobSpawnType;
@@ -18,7 +19,7 @@ public abstract class ZombieMixin {
     @Inject(method = "finalizeSpawn", at = @At("RETURN"))
     private void addCookingHat(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, SpawnGroupData spawnGroupData, CallbackInfoReturnable<SpawnGroupData> cir) {
         Zombie zombie = (Zombie)(Object)this;
-        if (!zombie.isBaby() && Math.random() < 0.03) {
+        if (!zombie.isBaby() && Math.random() < CandlelightConfig.zombieCookingHatChance) {
             zombie.setItemSlot(EquipmentSlot.HEAD, new ItemStack(ObjectRegistry.COOKING_HAT.get()));
         }
     }

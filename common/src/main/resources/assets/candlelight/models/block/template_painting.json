@@ -1,0 +1,294 @@
+{
+  "textures": {
+    "background": "candlelight:block/painting_background",
+    "particle": "#painting"
+  },
+  "elements": [
+    {
+      "from": [
+        1,
+        1,
+        15
+      ],
+      "to": [
+        15,
+        3,
+        16
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            13,
+            15,
+            15
+          ],
+          "texture": "#background"
+        },
+        "east": {
+          "uv": [
+            1,
+            13,
+            2,
+            15
+          ],
+          "texture": "#background"
+        },
+        "south": {
+          "uv": [
+            15,
+            13,
+            1,
+            15
+          ],
+          "texture": "#background"
+        },
+        "west": {
+          "uv": [
+            14,
+            13,
+            15,
+            15
+          ],
+          "texture": "#background"
+        },
+        "down": {
+          "uv": [
+            1,
+            14,
+            15,
+            15
+          ],
+          "texture": "#background"
+        }
+      }
+    },
+    {
+      "from": [
+        1,
+        13,
+        15
+      ],
+      "to": [
+        15,
+        15,
+        16
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            1,
+            15,
+            3
+          ],
+          "texture": "#background"
+        },
+        "east": {
+          "uv": [
+            1,
+            1,
+            2,
+            3
+          ],
+          "texture": "#background"
+        },
+        "south": {
+          "uv": [
+            1,
+            1,
+            15,
+            3
+          ],
+          "texture": "#background"
+        },
+        "west": {
+          "uv": [
+            14,
+            1,
+            15,
+            3
+          ],
+          "texture": "#background"
+        },
+        "up": {
+          "uv": [
+            1,
+            1,
+            15,
+            2
+          ],
+          "texture": "#background"
+        }
+      }
+    },
+    {
+      "from": [
+        3,
+        3,
+        15
+      ],
+      "to": [
+        13,
+        13,
+        16
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          0,
+          0,
+          -0.5
+        ]
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            3,
+            3,
+            13,
+            13
+          ],
+          "texture": "#painting"
+        },
+        "south": {
+          "uv": [
+            3,
+            3,
+            13,
+            13
+          ],
+          "texture": "#background"
+        }
+      }
+    },
+    {
+      "from": [
+        1,
+        3,
+        15
+      ],
+      "to": [
+        3,
+        13,
+        16
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            3,
+            3,
+            13
+          ],
+          "texture": "#background"
+        },
+        "south": {
+          "uv": [
+            1,
+            3,
+            3,
+            13
+          ],
+          "texture": "#background"
+        },
+        "west": {
+          "uv": [
+            14,
+            3,
+            15,
+            13
+          ],
+          "texture": "#background"
+        },
+        "up": {
+          "uv": [
+            13,
+            3,
+            15,
+            4
+          ],
+          "texture": "#painting"
+        },
+        "down": {
+          "uv": [
+            13,
+            12,
+            15,
+            13
+          ],
+          "texture": "#painting"
+        }
+      }
+    },
+    {
+      "from": [
+        13,
+        3,
+        15
+      ],
+      "to": [
+        15,
+        13,
+        16
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            3,
+            3,
+            13
+          ],
+          "texture": "#background"
+        },
+        "east": {
+          "uv": [
+            1,
+            3,
+            2,
+            13
+          ],
+          "texture": "#background"
+        },
+        "south": {
+          "uv": [
+            13,
+            3,
+            15,
+            13
+          ],
+          "texture": "#background"
+        },
+        "west": {
+          "uv": [
+            2,
+            3,
+            3,
+            13
+          ],
+          "texture": "#painting"
+        },
+        "up": {
+          "uv": [
+            1,
+            3,
+            3,
+            4
+          ],
+          "texture": "#painting"
+        },
+        "down": {
+          "uv": [
+            1,
+            12,
+            3,
+            13
+          ],
+          "texture": "#painting"
+        }
+      }
+    }
+  ]
+}

@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
-public class BambooStoveBlock extends CStoveBlock {
+public class BambooStoveBlock extends StoveBlock {
     private static final Supplier<VoxelShape> voxelShapeSupplier = () -> {
         VoxelShape shape = Shapes.empty();
         shape = Shapes.joinUnoptimized(shape, Shapes.box(0, 0, 0.8125, 0.1875, 0.125, 1), BooleanOp.OR);

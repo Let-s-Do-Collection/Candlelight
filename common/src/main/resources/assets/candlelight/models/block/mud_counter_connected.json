@@ -1,10 +1,10 @@
 {
   "credit": "Made by Satisfy",
   "textures": {
-    "0": "candlelight:block/mud_sink_side",
+    "0": "candlelight:block/mud_kitchen_side",
     "1": "candlelight:block/mud_counter_connected",
-    "2": "candlelight:block/mud_sink_bottom",
-    "particle": "candlelight:block/mud_sink_side"
+    "2": "candlelight:block/mud_kitchen_bottom",
+    "particle": "candlelight:block/mud_kitchen_side"
   },
   "elements": [
     {

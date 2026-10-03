@@ -1,9 +1,9 @@
 {
   "credit": "Made by Satisfy",
   "textures": {
-    "1": "candlelight:block/planks_2",
-    "2": "candlelight:block/planks_3",
-    "particle": "candlelight:block/planks_1"
+    "1": "candlelight:block/floorboard_1",
+    "2": "candlelight:block/floorboard_2",
+    "particle": "candlelight:block/floorboard_0"
   },
   "elements": [
     {

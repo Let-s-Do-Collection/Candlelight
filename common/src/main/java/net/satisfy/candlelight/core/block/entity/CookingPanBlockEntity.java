@@ -1,5 +1,6 @@
 package net.satisfy.candlelight.core.block.entity;
 
+import net.satisfy.candlelight.core.config.CandlelightConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -14,8 +15,6 @@ import net.satisfy.farm_and_charm.core.block.entity.RoasterBlockEntity;
 import org.jetbrains.annotations.NotNull;
 
 public class CookingPanBlockEntity extends RoasterBlockEntity {
-    private static final float CHEF_SET_EXTRA_PORTION_CHANCE = 0.25F;
-
     private int storedDamage;
 
     public CookingPanBlockEntity(BlockPos pos, BlockState state) {
@@ -56,6 +55,6 @@ public class CookingPanBlockEntity extends RoasterBlockEntity {
     protected int getExtraOutputCount(ItemStack output) {
         Player owner = getOwner();
         if (owner == null || level == null || !Wearables.hasChefSet(owner)) return 0;
-        return level.random.nextFloat() < CHEF_SET_EXTRA_PORTION_CHANCE ? 1 : 0;
+        return level.random.nextFloat() < CandlelightConfig.chefSetExtraPortionChance ? 1 : 0;
     }
 }

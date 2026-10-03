@@ -24,6 +24,9 @@
     ],
     "client": [
       "net.satisfy.candlelight.fabric.client.CandlelightClientFabric"
+    ],
+    "modmenu": [
+      "net.satisfy.candlelight.fabric.config.ModMenu"
     ]
   },
   "mixins": [

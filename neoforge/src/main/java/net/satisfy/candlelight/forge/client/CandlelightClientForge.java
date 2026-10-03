@@ -1,5 +1,9 @@
 package net.satisfy.candlelight.forge.client;
 
+import net.satisfy.candlelight.client.renderer.block.SideTableBookModels;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.fml.ModList;
 import net.satisfy.candlelight.forge.client.compat.CuriosClientCompat;
 import net.neoforged.api.distmarker.Dist;
@@ -46,5 +50,11 @@ public class CandlelightClientForge {
         event.registerItem(new CandlelightLeggingsExtensions(), CHEFS_PANTS.get());
         event.registerItem(new CandlelightBootsExtensions(), CHEFS_BOOTS.get());
         event.registerItem(new DyeableCandlelightArmorExtensions(), TROUSERS_AND_VEST.get(), DRESS.get());
+    }
+
+    @SubscribeEvent
+    public static void registerAdditionalModels(ModelEvent.RegisterAdditional event) {
+        SideTableBookModels.IDS.forEach(id -> event.register(ModelResourceLocation.standalone(id)));
+        SideTableBookModels.setLookup(id -> Minecraft.getInstance().getModelManager().getModel(ModelResourceLocation.standalone(id)));
     }
 }

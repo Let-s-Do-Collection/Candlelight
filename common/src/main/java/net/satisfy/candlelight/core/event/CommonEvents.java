@@ -1,5 +1,6 @@
 package net.satisfy.candlelight.core.event;
 
+import net.satisfy.candlelight.core.config.CandlelightConfig;
 import dev.architectury.event.EventResult;
 import dev.architectury.event.events.common.BlockEvent;
 import dev.architectury.event.events.common.PlayerEvent;
@@ -41,8 +42,6 @@ import static net.minecraft.world.item.Item.BASE_ATTACK_SPEED_ID;
 
 public class CommonEvents {
     private static final String REFRESHED_PREFIX = "candlelight_refreshed_";
-    private static final int REFRESHED_MAX_CHARGES = 10;
-    private static final int WELL_SERVED_FOOD_FLOOR = 8;
 
     public static void init() {
         PlayerEvent.ATTACK_ENTITY.register(CommonEvents::attack);
@@ -57,16 +56,16 @@ public class CommonEvents {
 
         MobEffectInstance refreshedInstance = player.getEffect(MobEffectRegistry.holder(MobEffectRegistry.REFRESHED));
         if (refreshedInstance != null && getRefreshedCharges(player) == 0) {
-            setRefreshedCharges(player, REFRESHED_MAX_CHARGES);
+            setRefreshedCharges(player, CandlelightConfig.refreshedMaxCharges);
         }
 
         MobEffectInstance wellServedInstance = player.getEffect(MobEffectRegistry.holder(MobEffectRegistry.WELL_SERVED));
-        if (wellServedInstance != null && player.getFoodData().getFoodLevel() < WELL_SERVED_FOOD_FLOOR) {
-            player.getFoodData().setFoodLevel(WELL_SERVED_FOOD_FLOOR);
+        if (wellServedInstance != null && player.getFoodData().getFoodLevel() < CandlelightConfig.wellServedFoodFloor) {
+            player.getFoodData().setFoodLevel(CandlelightConfig.wellServedFoodFloor);
         }
 
-        if (player.tickCount % 20 == 0 && (Wearables.isWearing(player, ObjectRegistry.GOLD_RING.get()) || player.getOffhandItem().is(ObjectRegistry.GOLD_RING.get()))) {
-            player.addEffect(new MobEffectInstance(MobEffects.LUCK, 60, 1, true, false, true));
+        if (CandlelightConfig.ringLuckEnabled && player.tickCount % 20 == 0 && (Wearables.isWearing(player, ObjectRegistry.GOLD_RING.get()) || player.getOffhandItem().is(ObjectRegistry.GOLD_RING.get()))) {
+            player.addEffect(new MobEffectInstance(MobEffects.LUCK, 60, CandlelightConfig.ringLuckAmplifier, true, false, true));
         }
 
         ItemStack main = player.getMainHandItem();
@@ -209,7 +208,7 @@ public class CommonEvents {
     }
 
     private static int getRefreshedCharges(net.minecraft.world.entity.player.Player player) {
-        for (int i = REFRESHED_MAX_CHARGES; i >= 1; i--) {
+        for (int i = CandlelightConfig.refreshedMaxCharges; i >= 1; i--) {
             if (player.getTags().contains(REFRESHED_PREFIX + i)) {
                 return i;
             }
@@ -223,7 +222,7 @@ public class CommonEvents {
     }
 
     private static void clearRefreshedTags(net.minecraft.world.entity.player.Player player) {
-        for (int i = 1; i <= REFRESHED_MAX_CHARGES; i++) {
+        for (int i = 1; i <= CandlelightConfig.refreshedMaxCharges; i++) {
             player.removeTag(REFRESHED_PREFIX + i);
         }
     }

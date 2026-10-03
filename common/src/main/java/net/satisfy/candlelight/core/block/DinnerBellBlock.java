@@ -16,15 +16,12 @@ import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.satisfy.candlelight.core.block.entity.DinnerBellBlockEntity;
-import net.satisfy.candlelight.core.registry.EntityTypeRegistry;
 import net.satisfy.candlelight.core.registry.SoundEventRegistry;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -54,10 +51,7 @@ public class DinnerBellBlock extends BaseEntityBlock {
     protected @NotNull InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos pos, Player player, BlockHitResult blockHitResult) {
         if (!level.isClientSide) {
             level.playSound(null, pos, SoundEventRegistry.DINNER_BELL_RING.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
-        }
-        BlockEntity blockentity = level.getBlockEntity(pos);
-        if (blockentity instanceof DinnerBellBlockEntity dinnerBell) {
-            dinnerBell.onHit();
+            level.blockEvent(pos, this, DinnerBellBlockEntity.RING_EVENT, 0);
         }
         return InteractionResult.sidedSuccess(level.isClientSide);
     }
@@ -73,10 +67,6 @@ public class DinnerBellBlock extends BaseEntityBlock {
     }
 
     @Nullable
-    @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        return createTickerHelper(blockEntityType, EntityTypeRegistry.DINNER_BELL_BLOCK_ENTITY.get(), level.isClientSide ? DinnerBellBlockEntity::clientTick : null);
-    }
 
     @Override
     public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag tooltipFlag) {

@@ -1,108 +1,108 @@
 {
   "variants": {
     "facing=north,painting=0": {
-      "model": "candlelight:block/painting_1"
+      "model": "candlelight:block/painting_0"
     },
     "facing=south,painting=0": {
-      "model": "candlelight:block/painting_1",
+      "model": "candlelight:block/painting_0",
       "y": 180
     },
     "facing=west,painting=0": {
-      "model": "candlelight:block/painting_1",
+      "model": "candlelight:block/painting_0",
       "y": 270
     },
     "facing=east,painting=0": {
-      "model": "candlelight:block/painting_1",
+      "model": "candlelight:block/painting_0",
       "y": 90
     },
     "facing=north,painting=1": {
-      "model": "candlelight:block/painting_2"
+      "model": "candlelight:block/painting_1"
     },
     "facing=south,painting=1": {
-      "model": "candlelight:block/painting_2",
+      "model": "candlelight:block/painting_1",
       "y": 180
     },
     "facing=west,painting=1": {
-      "model": "candlelight:block/painting_2",
+      "model": "candlelight:block/painting_1",
       "y": 270
     },
     "facing=east,painting=1": {
-      "model": "candlelight:block/painting_2",
+      "model": "candlelight:block/painting_1",
       "y": 90
     },
     "facing=north,painting=2": {
-      "model": "candlelight:block/painting_3"
+      "model": "candlelight:block/painting_2"
     },
     "facing=south,painting=2": {
-      "model": "candlelight:block/painting_3",
+      "model": "candlelight:block/painting_2",
       "y": 180
     },
     "facing=west,painting=2": {
-      "model": "candlelight:block/painting_3",
+      "model": "candlelight:block/painting_2",
       "y": 270
     },
     "facing=east,painting=2": {
-      "model": "candlelight:block/painting_3",
+      "model": "candlelight:block/painting_2",
       "y": 90
     },
     "facing=north,painting=3": {
-      "model": "candlelight:block/painting_4"
+      "model": "candlelight:block/painting_3"
     },
     "facing=south,painting=3": {
-      "model": "candlelight:block/painting_4",
+      "model": "candlelight:block/painting_3",
       "y": 180
     },
     "facing=west,painting=3": {
-      "model": "candlelight:block/painting_4",
+      "model": "candlelight:block/painting_3",
       "y": 270
     },
     "facing=east,painting=3": {
-      "model": "candlelight:block/painting_4",
+      "model": "candlelight:block/painting_3",
       "y": 90
     },
     "facing=north,painting=4": {
-      "model": "candlelight:block/painting_5"
+      "model": "candlelight:block/painting_4"
     },
     "facing=south,painting=4": {
-      "model": "candlelight:block/painting_5",
+      "model": "candlelight:block/painting_4",
       "y": 180
     },
     "facing=west,painting=4": {
-      "model": "candlelight:block/painting_5",
+      "model": "candlelight:block/painting_4",
       "y": 270
     },
     "facing=east,painting=4": {
-      "model": "candlelight:block/painting_5",
+      "model": "candlelight:block/painting_4",
       "y": 90
     },
     "facing=north,painting=5": {
-      "model": "candlelight:block/painting_6"
+      "model": "candlelight:block/painting_5"
     },
     "facing=south,painting=5": {
-      "model": "candlelight:block/painting_6",
+      "model": "candlelight:block/painting_5",
       "y": 180
     },
     "facing=west,painting=5": {
-      "model": "candlelight:block/painting_6",
+      "model": "candlelight:block/painting_5",
       "y": 270
     },
     "facing=east,painting=5": {
-      "model": "candlelight:block/painting_6",
+      "model": "candlelight:block/painting_5",
       "y": 90
     },
     "facing=north,painting=6": {
-      "model": "candlelight:block/painting_7"
+      "model": "candlelight:block/painting_6"
     },
     "facing=south,painting=6": {
-      "model": "candlelight:block/painting_7",
+      "model": "candlelight:block/painting_6",
       "y": 180
     },
     "facing=west,painting=6": {
-      "model": "candlelight:block/painting_7",
+      "model": "candlelight:block/painting_6",
       "y": 270
     },
     "facing=east,painting=6": {
-      "model": "candlelight:block/painting_7",
+      "model": "candlelight:block/painting_6",
       "y": 90
     }
   }

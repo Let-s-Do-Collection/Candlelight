@@ -5,9 +5,9 @@
     "4": "candlelight:block/chair",
     "5": "candlelight:block/cabinet_top",
     "7": "candlelight:block/sideboard_back",
-    "8": "candlelight:block/brick_stove_top",
-    "9": "candlelight:block/table_cloth_side",
-    "10": "candlelight:block/lantern_e",
+    "8": "candlelight:block/counter_top",
+    "9": "candlelight:block/linen",
+    "10": "candlelight:block/lamp_light",
     "particle": "candlelight:block/side_table_top"
   },
   "elements": [

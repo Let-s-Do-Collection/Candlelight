@@ -1,5 +1,11 @@
 package net.satisfy.candlelight.core.block;
 
+import java.util.ArrayList;
+import net.minecraft.server.level.ServerPlayer;
+import net.satisfy.foundation.overlay.BlockNotice;
+import net.minecraft.world.phys.Vec3;
+import net.satisfy.candlelight.core.item.NapkinItem;
+import net.satisfy.candlelight.core.config.CandlelightConfig;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.satisfy.foundation.block.LampBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -82,16 +88,10 @@ public class TableSetBlock extends StorageBlock {
     private static final TagKey<Item> WINE_GLASS_DRINKS = TagKey.create(Registries.ITEM, Candlelight.identifier("wine_glass_drinks"));
     private static final TagKey<Block> TABLE_LIGHTS = TagKey.create(Registries.BLOCK, Candlelight.identifier("table_lights"));
     private static final TagKey<Item> SERVED_DISHES = TagKey.create(Registries.ITEM, Candlelight.identifier("served_dishes"));
-    private static final int WELL_SERVED_TICKS_PER_COURSE = 1200;
     public static final int MAX_COURSES = 7;
-    private static final int MENU_BONUS_TICKS = 6000;
-    private static final int MAX_MENU_WELL_SERVED_TICKS = 18000;
     private static final VoxelShape GLASS_SHAPE = Block.box(0, 0, 12, 4, 8, 16);
     private static final VoxelShape WINE_GLASS_SHAPE = Block.box(4, 0, 12, 8, 14, 16);
     private static final VoxelShape NAPKIN_SHAPE = Block.box(1, 0, 3, 3, 1, 11);
-    private static final float TABLE_FOOD_BONUS = 1.3F;
-    private static final float ELEGANT_FOOD_BONUS = 1.5F;
-    private static final int MAX_WELL_SERVED_TICKS = 12000;
 
     public TableSetBlock(Properties settings) {
         super(settings);
@@ -141,6 +141,17 @@ public class TableSetBlock extends StorageBlock {
     protected @NotNull ItemInteractionResult useItemOn(ItemStack itemStack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         ItemStack stack = player.getItemInHand(hand);
 
+        if (NapkinItem.isBorrowed(stack)) {
+            return ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
+        }
+        if (stack.isEmpty() && hand == InteractionHand.MAIN_HAND && state.getValue(NAPKIN) && hitsNapkin(state, pos, hit)) {
+            if (!world.isClientSide()) {
+                world.setBlockAndUpdate(pos, state.setValue(NAPKIN, false));
+                player.setItemInHand(hand, NapkinItem.borrowedFrom(pos, world.getGameTime()));
+            }
+            return ItemInteractionResult.sidedSuccess(world.isClientSide());
+        }
+
         if (stack.isEmpty() && hasDrink(state)) {
             if (!world.isClientSide() && world.getBlockEntity(pos) instanceof TableSetBlockEntity tableSet) {
                 boolean wineGlass = !state.getValue(GLASS_DRINK);
@@ -151,12 +162,12 @@ public class TableSetBlock extends StorageBlock {
             return ItemInteractionResult.sidedSuccess(world.isClientSide());
         }
 
-        boolean fitsWineGlass = stack.is(WINE_GLASS_DRINKS) && state.getValue(WINE_GLASS) && !state.getValue(WINE_GLASS_DRINK);
-        boolean fitsGlass = stack.is(GLASS_DRINKS) && state.getValue(GLASS) && !state.getValue(GLASS_DRINK);
+        boolean fitsWineGlass = CandlelightConfig.tableDrinksEnabled && stack.is(WINE_GLASS_DRINKS) && state.getValue(WINE_GLASS) && !state.getValue(WINE_GLASS_DRINK);
+        boolean fitsGlass = CandlelightConfig.tableDrinksEnabled && stack.is(GLASS_DRINKS) && state.getValue(GLASS) && !state.getValue(GLASS_DRINK);
         if (fitsWineGlass || fitsGlass) {
             if (!world.isClientSide() && world.getBlockEntity(pos) instanceof TableSetBlockEntity tableSet) {
-                world.setBlockAndUpdate(pos, state.setValue(fitsWineGlass ? WINE_GLASS_DRINK : GLASS_DRINK, true));
                 tableSet.setDrink(fitsWineGlass, stack.copyWithCount(1));
+                world.setBlockAndUpdate(pos, state.setValue(fitsWineGlass ? WINE_GLASS_DRINK : GLASS_DRINK, true));
                 world.playSound(null, pos, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                 if (!player.isCreative()) {
                     stack.shrink(1);
@@ -178,7 +189,13 @@ public class TableSetBlock extends StorageBlock {
         }
 
         Item item = stack.getItem();
-        if (!items.containsKey(item)) return super.useItemOn(itemStack, state, world, pos, player, hand, hit);
+        if (!items.containsKey(item)) {
+            ItemInteractionResult result = super.useItemOn(itemStack, state, world, pos, player, hand, hit);
+            if (!world.isClientSide() && result.consumesAction() && world.getBlockEntity(pos) instanceof TableSetBlockEntity tableSet) {
+                tableSet.setHost(player.getUUID());
+            }
+            return result;
+        }
         BooleanProperty property = items.get(item);
         if (state.getValue(property)) return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         if (!world.isClientSide()) {
@@ -197,7 +214,7 @@ public class TableSetBlock extends StorageBlock {
         world.playSound(null, blockPos, SoundEvents.GENERIC_EAT, SoundSource.BLOCKS, 1.0F, 1.0F);
         FoodProperties foodComponent = itemStack.get(DataComponents.FOOD);
         if (foodComponent != null) {
-            float bonus = Wearables.isElegantlyDressed(player) ? ELEGANT_FOOD_BONUS : TABLE_FOOD_BONUS;
+            float bonus = Wearables.isElegantlyDressed(player) ? (float) CandlelightConfig.elegantFoodBonus : (float) CandlelightConfig.tableSetFoodBonus;
             player.getFoodData().eat(Math.round(foodComponent.nutrition() * bonus), foodComponent.saturation() * bonus);
             foodComponent.effects().forEach(possibleEffect -> {
                 if (world.random.nextFloat() < possibleEffect.probability()) {
@@ -216,6 +233,14 @@ public class TableSetBlock extends StorageBlock {
         world.gameEvent(player, GameEvent.BLOCK_CHANGE, blockPos);
     }
 
+    public static final int MAX_STARS = 5;
+
+    public static String rating(int courses) {
+        int stars = Math.round((courses - 1) * (float) MAX_STARS / (MAX_COURSES - 1));
+        stars = Math.max(0, Math.min(MAX_STARS, stars));
+        return "\u2605".repeat(stars) + "\u2606".repeat(MAX_STARS - stars);
+    }
+
     public static int countCourses(Level level, BlockPos pos, BlockState state, Player player) {
         int courses = 1;
         if (hasLight(level, pos)) courses++;
@@ -228,7 +253,11 @@ public class TableSetBlock extends StorageBlock {
     }
 
     public static boolean hasLight(Level level, BlockPos pos) {
-        for (BlockPos neighbor : BlockPos.betweenClosed(pos.offset(-1, 0, -1), pos.offset(1, 0, 1))) {
+        if (!CandlelightConfig.tableLightsEnabled) {
+            return false;
+        }
+        int radius = CandlelightConfig.tableLightRadius;
+        for (BlockPos neighbor : BlockPos.betweenClosed(pos.offset(-radius, 0, -radius), pos.offset(radius, 0, radius))) {
             BlockState neighborState = level.getBlockState(neighbor);
             if (neighborState.is(TABLE_LIGHTS) && isLit(neighborState)) {
                 return true;
@@ -268,24 +297,27 @@ public class TableSetBlock extends StorageBlock {
 
         Holder<MobEffect> wellServed = MobEffectRegistry.holder(MobEffectRegistry.WELL_SERVED);
         MobEffectInstance current = player.getEffect(wellServed);
-        int duration = courses * WELL_SERVED_TICKS_PER_COURSE + (current != null ? current.getDuration() : 0);
-        player.addEffect(new MobEffectInstance(wellServed, Math.min(duration, MAX_WELL_SERVED_TICKS)));
+        int duration = courses * CandlelightConfig.wellServedTicksPerCourse + (current != null ? current.getDuration() : 0);
+        player.addEffect(new MobEffectInstance(wellServed, Math.min(duration, CandlelightConfig.maxWellServedTicks)));
         if (world instanceof ServerLevel serverLevel) {
             serverLevel.sendParticles(ParticleTypes.HAPPY_VILLAGER, pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5, 4 + courses * 2, 0.3, 0.15, 0.3, 0.0);
         }
-        DinnerMenu.Result menu = DinnerMenu.eat(player, dish);
-        Component message = Component.translatable("message.candlelight.table_set.served", courses, MAX_COURSES);
+        DinnerMenu.Result menu = CandlelightConfig.dinnerMenuEnabled ? DinnerMenu.eat(player, dish) : null;
+        List<Component> lines = new ArrayList<>();
+        lines.add(Component.literal(rating(courses)).withStyle(ChatFormatting.GOLD));
         if (menu != null && menu.complete()) {
             MobEffectInstance served = player.getEffect(wellServed);
-            int bonus = MENU_BONUS_TICKS + (served != null ? served.getDuration() : 0);
-            player.addEffect(new MobEffectInstance(wellServed, Math.min(bonus, MAX_MENU_WELL_SERVED_TICKS)));
-            player.addEffect(new MobEffectInstance(MobEffectRegistry.holder(MobEffectRegistry.REFRESHED), MENU_BONUS_TICKS));
+            int bonus = CandlelightConfig.menuBonusTicks + (served != null ? served.getDuration() : 0);
+            player.addEffect(new MobEffectInstance(wellServed, Math.min(bonus, CandlelightConfig.maxMenuWellServedTicks)));
+            player.addEffect(new MobEffectInstance(MobEffectRegistry.holder(MobEffectRegistry.REFRESHED), CandlelightConfig.menuBonusTicks));
             level.playSound(null, pos, SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 0.6F, 1.4F);
-            message = Component.translatable("message.candlelight.table_set.menu_complete");
+            lines.add(Component.translatable("message.candlelight.table_set.menu_complete").withStyle(ChatFormatting.GREEN));
         } else if (menu != null && menu.step() > 0) {
-            message = Component.translatable("message.candlelight.table_set.menu_course", message, Component.translatable("hud.candlelight.table_set.course." + menu.course().name().toLowerCase()), menu.step(), DinnerMenu.COURSES);
+            lines.add(Component.translatable("message.candlelight.table_set.menu_course", Component.translatable("hud.candlelight.table_set.course." + menu.course().name().toLowerCase()), menu.step(), DinnerMenu.COURSES).withStyle(ChatFormatting.GRAY));
         }
-        player.displayClientMessage(message.copy().withStyle(ChatFormatting.GOLD), true);
+        if (player instanceof ServerPlayer serverPlayer) {
+            BlockNotice.send(serverPlayer, pos, Component.translatable("message.candlelight.table_set.served"), lines);
+        }
     }
 
     @Override
@@ -343,7 +375,7 @@ public class TableSetBlock extends StorageBlock {
 
     @Override
     public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
-        VoxelShape shape = world.getBlockState(pos.below()).getShape(world, pos.below());
+        VoxelShape shape = world.getBlockState(pos.below()).getBlockSupportShape(world, pos.below());
         return net.minecraft.world.level.block.Block.isFaceFull(shape, Direction.UP);
     }
 
@@ -394,6 +426,11 @@ public class TableSetBlock extends StorageBlock {
         if (state.getValue(WINE_GLASS)) shape = Shapes.or(shape, WINE_GLASS_SHAPE);
         if (state.getValue(NAPKIN)) shape = Shapes.or(shape, NAPKIN_SHAPE);
         return rotateShape(direction, shape);
+    }
+
+    private boolean hitsNapkin(BlockState state, BlockPos pos, BlockHitResult hit) {
+        Vec3 local = hit.getLocation().subtract(pos.getX(), pos.getY(), pos.getZ());
+        return rotateShape(state.getValue(FACING), NAPKIN_SHAPE).bounds().inflate(0.06).contains(local);
     }
 
     private VoxelShape rotateShape(Direction direction, VoxelShape shape) {

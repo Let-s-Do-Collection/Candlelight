@@ -1,5 +1,6 @@
 package net.satisfy.candlelight.core.registry;
 
+import net.satisfy.candlelight.core.block.entity.SideTableBlockEntity;
 import net.satisfy.foundation.block.WallDecorationBlockEntity;
 import net.satisfy.foundation.block.CabinetBlockEntity;
 import net.satisfy.foundation.banner.CompletionistBannerEntity;
@@ -35,6 +36,7 @@ public class EntityTypeRegistry {
     public static final RegistrySupplier<BlockEntityType<CompletionistBannerEntity>> CANDLELIGHT_BANNER_ENTITY = registerBlockEntity("candlelight_banner_entity", () -> BlockEntityType.Builder.of(CompletionistBannerEntity::new, CANDLELIGHT_BANNER.get(), CANDLELIGHT_WALL_BANNER.get()).build(null));
     public static final RegistrySupplier<BlockEntityType<StorageBlockEntity>> TABLE_SET_BLOCK_ENTITY = registerBlockEntity("table_set", () -> BlockEntityType.Builder.<StorageBlockEntity>of(TableSetBlockEntity::new, TABLE_SET.get()).build(null));
     public static final RegistrySupplier<BlockEntityType<IngredientEffectFoodBlockEntity>> EFFECT_FOOD_BLOCK_ENTITY = registerBlockEntity("effect_food_block", () -> BlockEntityType.Builder.of((pos, state) -> new IngredientEffectFoodBlockEntity(EntityTypeRegistry.EFFECT_FOOD_BLOCK_ENTITY.get(), pos, state), LASAGNE_BLOCK.get(), TOMATO_MOZZARELLA_BLOCK.get(), PORK_RIBS_BLOCK.get(), FRESH_GARDEN_SALAD_BLOCK.get(), BEEF_WELLINGTON_BLOCK.get()).build(null));
+    public static final RegistrySupplier<BlockEntityType<SideTableBlockEntity>> SIDE_TABLE_BLOCK_ENTITY = registerBlockEntity("side_table", () -> BlockEntityType.Builder.of(SideTableBlockEntity::new, SIDE_TABLE.get()).build(null));
     public static final RegistrySupplier<BlockEntityType<TableSignBlockEntity>> TABLE_SIGN_BLOCK_ENTITY = registerBlockEntity("table_sign", () -> BlockEntityType.Builder.of(TableSignBlockEntity::new, TABLE_SIGN.get()).build(null));
     public static final RegistrySupplier<BlockEntityType<WallDecorationBlockEntity>> WALL_DECORATION = registerBlockEntity("wall_decoration", () -> BlockEntityType.Builder.of((pos, state) -> new WallDecorationBlockEntity(EntityTypeRegistry.WALL_DECORATION.get(), pos, state), HEART.get()).build(null));
 

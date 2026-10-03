@@ -1,0 +1,6 @@
+{
+  "parent": "candlelight:block/template_side_table_book",
+  "textures": {
+    "book": "candlelight:block/book_3"
+  }
+}

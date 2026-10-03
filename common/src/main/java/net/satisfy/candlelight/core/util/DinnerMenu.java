@@ -1,5 +1,6 @@
 package net.satisfy.candlelight.core.util;
 
+import net.satisfy.candlelight.core.config.CandlelightConfig;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.player.Player;
@@ -16,7 +17,6 @@ public final class DinnerMenu {
     public static final TagKey<Item> MAIN_COURSES = TagKey.create(Registries.ITEM, Candlelight.identifier("main_courses"));
     public static final TagKey<Item> DESSERTS = TagKey.create(Registries.ITEM, Candlelight.identifier("desserts"));
     public static final int COURSES = 3;
-    private static final long MAX_TICKS_BETWEEN_COURSES = 6000L;
 
     private static final Map<UUID, Progress> PROGRESS = new HashMap<>();
 
@@ -47,7 +47,7 @@ public final class DinnerMenu {
         }
         long now = player.level().getGameTime();
         Progress progress = PROGRESS.get(player.getUUID());
-        int previous = progress != null && now - progress.gameTime() <= MAX_TICKS_BETWEEN_COURSES ? progress.step() : 0;
+        int previous = progress != null && now - progress.gameTime() <= CandlelightConfig.menuMaxTicksBetweenCourses ? progress.step() : 0;
         int step = course.ordinal() == previous ? previous + 1 : course == Course.STARTER ? 1 : 0;
         if (step >= COURSES) {
             PROGRESS.remove(player.getUUID());

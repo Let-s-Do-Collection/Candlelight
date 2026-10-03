@@ -2,7 +2,7 @@
 	"credit": "Made by Satisfy",
 	"textures": {
 		"2": "candlelight:block/bamboo_cabinet_side",
-		"3": "candlelight:block/faucet",
+		"3": "foundation:block/sink_faucet",
 		"5": "candlelight:block/bamboo_table",
 		"particle": "candlelight:block/bamboo_table"
 	},

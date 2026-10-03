@@ -1,5 +1,6 @@
 package net.satisfy.candlelight.fabric.client.renderer;
 
+import net.satisfy.foundation.armor.DyeableArmorItem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.minecraft.client.model.HumanoidModel;
@@ -13,14 +14,13 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
-import net.satisfy.candlelight.core.item.DyeableCandlelightArmorItem;
 import net.satisfy.candlelight.core.registry.ArmorRegistry;
 
 public class DyeableCandlelightChestplateRenderer implements ArmorRenderer {
     @Override
     public void render(PoseStack matrices, MultiBufferSource vertexConsumers, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, HumanoidModel<LivingEntity> contextModel) {
         if (slot != EquipmentSlot.CHEST) return;
-        if (!(stack.getItem() instanceof DyeableCandlelightArmorItem item)) return;
+        if (!(stack.getItem() instanceof DyeableArmorItem item)) return;
 
         CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
         if (tag.contains("Visible") && !tag.getBoolean("Visible")) return;

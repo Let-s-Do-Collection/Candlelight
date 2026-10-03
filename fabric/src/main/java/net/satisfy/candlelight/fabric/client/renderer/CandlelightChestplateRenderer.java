@@ -1,5 +1,6 @@
 package net.satisfy.candlelight.fabric.client.renderer;
 
+import net.satisfy.foundation.armor.TexturedArmorItem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.minecraft.client.model.HumanoidModel;
@@ -10,18 +11,17 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.satisfy.candlelight.core.item.CandlelightChestItem;
 import net.satisfy.candlelight.core.registry.ArmorRegistry;
 
 public class CandlelightChestplateRenderer implements ArmorRenderer {
     @Override
     public void render(PoseStack matrices, MultiBufferSource vertexConsumers, ItemStack stack, LivingEntity entity, EquipmentSlot slot, int light, HumanoidModel<LivingEntity> contextModel) {
         if (slot != EquipmentSlot.CHEST) return;
-        if (!(stack.getItem() instanceof CandlelightChestItem candlelightChestItem)) return;
+        if (!(stack.getItem() instanceof TexturedArmorItem candlelightChestItem)) return;
 
         Model model = ArmorRegistry.getChestplateModel(candlelightChestItem, contextModel.body, contextModel.leftArm, contextModel.rightArm, contextModel.leftLeg, contextModel.rightLeg, contextModel);
 
-        ResourceLocation baseTexture = candlelightChestItem.getChestplateTexture();
+        ResourceLocation baseTexture = candlelightChestItem.getTexture();
         String texturePath = baseTexture.getPath();
         if (!texturePath.startsWith("textures/")) texturePath = "textures/" + texturePath;
         if (!texturePath.endsWith(".png")) texturePath = texturePath + ".png";

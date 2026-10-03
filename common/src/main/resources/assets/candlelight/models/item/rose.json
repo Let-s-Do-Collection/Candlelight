@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "candlelight:item/rose"
+    "layer0": "candlelight:block/rose_1"
   }
 }

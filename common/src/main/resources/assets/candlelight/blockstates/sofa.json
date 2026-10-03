@@ -1,18 +1,18 @@
 {
   "variants": {
     "facing=north,type=none": {
-      "model": "candlelight:block/sofa"
+      "model": "candlelight:block/sofa_single"
     },
     "facing=east,type=none": {
-      "model": "candlelight:block/sofa",
+      "model": "candlelight:block/sofa_single",
       "y": 90
     },
     "facing=south,type=none": {
-      "model": "candlelight:block/sofa",
+      "model": "candlelight:block/sofa_single",
       "y": 180
     },
     "facing=west,type=none": {
-      "model": "candlelight:block/sofa",
+      "model": "candlelight:block/sofa_single",
       "y": 270
     },
     "facing=north,type=middle": {
@@ -31,34 +31,34 @@
       "y": 270
     },
     "facing=north,type=left": {
-      "model": "candlelight:block/sofa_side_right"
+      "model": "candlelight:block/sofa_end_mirrored"
     },
     "facing=east,type=left": {
-      "model": "candlelight:block/sofa_side_right",
+      "model": "candlelight:block/sofa_end_mirrored",
       "y": 90
     },
     "facing=south,type=left": {
-      "model": "candlelight:block/sofa_side_right",
+      "model": "candlelight:block/sofa_end_mirrored",
       "y": 180
     },
     "facing=west,type=left": {
-      "model": "candlelight:block/sofa_side_right",
+      "model": "candlelight:block/sofa_end_mirrored",
       "y": 270
     },
     "facing=north,type=right": {
-      "model": "candlelight:block/sofa_side_left",
+      "model": "candlelight:block/sofa_end",
       "y": 0
     },
     "facing=east,type=right": {
-      "model": "candlelight:block/sofa_side_left",
+      "model": "candlelight:block/sofa_end",
       "y": 90
     },
     "facing=south,type=right": {
-      "model": "candlelight:block/sofa_side_left",
+      "model": "candlelight:block/sofa_end",
       "y": 180
     },
     "facing=west,type=right": {
-      "model": "candlelight:block/sofa_side_left",
+      "model": "candlelight:block/sofa_end",
       "y": 270
     }
   }
