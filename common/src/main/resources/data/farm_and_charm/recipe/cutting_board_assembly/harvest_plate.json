@@ -1,5 +1,5 @@
 {
-  "type": "farm_and_charm:crafting_bowl",
+  "type": "farm_and_charm:cutting_board_assembly",
   "ingredients": [
     {
       "item": "minecraft:carrot"
@@ -9,11 +9,11 @@
     },
     {
       "tag": "farm_and_charm:tomato"
-    },
-    {
-      "tag": "candlelight:bowls"
     }
   ],
+  "finisher": {
+    "tag": "candlelight:bowls"
+  },
   "result": {
     "id": "candlelight:harvest_plate",
     "count": 3

@@ -48,9 +48,4 @@ public class TieModel<T extends LivingEntity> extends HumanoidModel<T> {
         body.visible = true;
         super.renderToBuffer(poseStack, buffer, packedLight, packedOverlay, packedColor);
     }
-
-    @SuppressWarnings("unused")
-    public void copyHead(ModelPart headModel, ModelPart baseBody) {
-        body.copyFrom(baseBody);
-    }
 }

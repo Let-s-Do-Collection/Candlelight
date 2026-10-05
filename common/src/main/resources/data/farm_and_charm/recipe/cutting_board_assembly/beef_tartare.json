@@ -1,16 +1,16 @@
 {
-  "type": "farm_and_charm:crafting_bowl",
+  "type": "farm_and_charm:cutting_board_assembly",
   "ingredients": [
     {
       "item": "farm_and_charm:minced_beef"
     },
     {
-      "tag": "candlelight:bowls"
-    },
-    {
       "tag": "farm_and_charm:onion"
     }
   ],
+  "finisher": {
+    "tag": "candlelight:bowls"
+  },
   "result": {
     "id": "candlelight:beef_tartare",
     "count": 2

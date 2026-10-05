@@ -1,16 +1,16 @@
 {
-  "type": "farm_and_charm:crafting_bowl",
+  "type": "farm_and_charm:cutting_board_assembly",
   "ingredients": [
     {
       "tag": "candlelight:cheeses"
     },
     {
       "tag": "farm_and_charm:tomato"
-    },
-    {
-      "tag": "candlelight:bowls"
     }
   ],
+  "finisher": {
+    "tag": "candlelight:bowls"
+  },
   "result": {
     "id": "candlelight:tomato_mozzarella_salad",
     "count": 1

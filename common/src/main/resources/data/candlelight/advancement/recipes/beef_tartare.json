@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "candlelight:beef_tartare"
+        "recipe": "farm_and_charm:cutting_board_assembly/beef_tartare"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "candlelight:beef_tartare"
+      "farm_and_charm:cutting_board_assembly/beef_tartare"
     ]
   }
 }

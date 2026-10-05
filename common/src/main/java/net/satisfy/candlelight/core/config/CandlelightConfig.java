@@ -34,6 +34,8 @@ public final class CandlelightConfig {
     public static boolean elegantSetBonusEnabled = true;
     public static double zombieCookingHatChance = 0.03;
     public static boolean napkinSound = true;
+    public static boolean dishSteam = true;
+    public static int dishSteamTicks = 2400;
     public static int tableSignMaxLines = 8;
     public static boolean showTableSetInfo = true;
     public static boolean showSetBonusTooltips = true;

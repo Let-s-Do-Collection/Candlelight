@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "candlelight:harvest_plate"
+      "farm_and_charm:cutting_board_assembly/harvest_plate"
     ]
   },
   "criteria": {
@@ -21,7 +21,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "candlelight:harvest_plate"
+        "recipe": "farm_and_charm:cutting_board_assembly/harvest_plate"
       }
     }
   },

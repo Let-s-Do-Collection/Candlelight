@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "candlelight:beetroot_salad"
+      "farm_and_charm:crafting_bowl/beetroot_salad"
     ]
   },
   "criteria": {
@@ -21,7 +21,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "candlelight:beetroot_salad"
+        "recipe": "farm_and_charm:crafting_bowl/beetroot_salad"
       }
     }
   },

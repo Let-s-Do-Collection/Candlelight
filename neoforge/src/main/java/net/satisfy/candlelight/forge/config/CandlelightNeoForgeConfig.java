@@ -37,6 +37,8 @@ public final class CandlelightNeoForgeConfig {
     private static final ModConfigSpec.BooleanValue ELEGANT_SET_BONUS_ENABLED;
     private static final ModConfigSpec.DoubleValue ZOMBIE_COOKING_HAT_CHANCE;
     private static final ModConfigSpec.BooleanValue NAPKIN_SOUND;
+    private static final ModConfigSpec.BooleanValue DISH_STEAM;
+    private static final ModConfigSpec.IntValue DISH_STEAM_TICKS;
     private static final ModConfigSpec.IntValue TABLE_SIGN_MAX_LINES;
     private static final ModConfigSpec.BooleanValue SHOW_TABLE_SET_INFO;
     private static final ModConfigSpec.BooleanValue SHOW_SET_BONUS_TOOLTIPS;
@@ -146,6 +148,8 @@ public final class CandlelightNeoForgeConfig {
         ELEGANT_SET_BONUS_ENABLED = common.comment("Turn the Suit and Evening Dress set bonus on or off").define("elegantSetBonusEnabled", true);
         ZOMBIE_COOKING_HAT_CHANCE = common.comment("Chance that a zombie spawns with a Cooking Hat").defineInRange("zombieCookingHatChance", 0.03, 0.0, 1.0);
         NAPKIN_SOUND = common.comment("Play a soft sound while dabbing with a Napkin").define("napkinSound", true);
+        DISH_STEAM = common.comment("Freshly served dishes on a Table Set steam for a while").define("dishSteam", true);
+        DISH_STEAM_TICKS = common.comment("How long freshly served dishes steam, in ticks").defineInRange("dishSteamTicks", 2400, 200, 12000);
         TABLE_SIGN_MAX_LINES = common.comment("How many lines fit on a Table Sign").defineInRange("tableSignMaxLines", 8, 1, 12);
         SHOW_TABLE_SET_INFO = common.comment("Show the info tooltip when looking at a Table Set").define("showTableSetInfo", true);
         SHOW_SET_BONUS_TOOLTIPS = common.comment("Show the set pieces and bonus on clothing").define("showSetBonusTooltips", true);
@@ -258,6 +262,8 @@ public final class CandlelightNeoForgeConfig {
         CandlelightConfig.elegantSetBonusEnabled = ELEGANT_SET_BONUS_ENABLED.get();
         CandlelightConfig.zombieCookingHatChance = ZOMBIE_COOKING_HAT_CHANCE.get();
         CandlelightConfig.napkinSound = NAPKIN_SOUND.get();
+        CandlelightConfig.dishSteam = DISH_STEAM.get();
+        CandlelightConfig.dishSteamTicks = DISH_STEAM_TICKS.get();
         CandlelightConfig.tableSignMaxLines = TABLE_SIGN_MAX_LINES.get();
         CandlelightConfig.showTableSetInfo = SHOW_TABLE_SET_INFO.get();
         CandlelightConfig.showSetBonusTooltips = SHOW_SET_BONUS_TOOLTIPS.get();

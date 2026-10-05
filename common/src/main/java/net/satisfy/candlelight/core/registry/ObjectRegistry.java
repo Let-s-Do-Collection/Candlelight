@@ -33,6 +33,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.BlockItem;
+import net.satisfy.foundation.storage.WallShelfBlock;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.Block;
@@ -129,6 +130,7 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Block> CHAIR = registerWithItem("chair", () -> new ChairBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0f, 3.0f).sound(SoundType.WOOD)));
     public static final RegistrySupplier<Block> SOFA = registerWithItem("sofa", () -> new SofaBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0f, 3.0f).sound(SoundType.WOOD)));
     public static final RegistrySupplier<Block> TABLE = registerWithItem("table", () -> new TableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS), ClothColor.WHITE));
+    private static final VoxelShape SHELF_SHAPE = Shapes.or(Shapes.box(0, 0.1875, 0.625, 1, 0.3125, 1), Shapes.box(0, 0.125, 0.9375, 1, 0.1875, 1));
     private static final VoxelShape LAMP_SHAPE = Shapes.or(
             Shapes.box(0.3125, 0, 0.3125, 0.6875, 0.375, 0.6875),
             Shapes.box(0.1875, 0.5, 0.1875, 0.8125, 1, 0.8125),
@@ -149,7 +151,7 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Block> GLASS_BLOCK = registerWithoutItem("glass", () -> new StackableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS).noTerrainParticles(), 4));
     public static final RegistrySupplier<Item> GLASS = registerItem("glass", () -> new BlockItem(GLASS_BLOCK.get(), getSettings()));
     public static final RegistrySupplier<Block> WINE_GLASS_BLOCK = registerWithoutItem("wine_glass", () -> new StackableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS).noTerrainParticles(), 4));
-    public static final RegistrySupplier<Item> WINE_GLASS = registerItem("wine_glass", () -> new BlockItem(WINE_GLASS_BLOCK.get(), getSettings()));
+    public static final RegistrySupplier<Item> WINE_GLASS = registerItem("wine_glass", () -> new WineGlassItem(WINE_GLASS_BLOCK.get(), getSettings()));
     public static final RegistrySupplier<Item> FRESH_GARDEN_SALAD = registerItem("fresh_garden_salad", () -> new PlaceableEffectFoodItem(FRESH_GARDEN_SALAD_BLOCK.get(), getFoodItemSettings(CandlelightConfig.freshGardenSaladNutrition, (float) CandlelightConfig.freshGardenSaladSaturation, MobEffectRegistry.WELL_SERVED.get(), CandlelightConfig.freshGardenSaladEffectDuration)));
     public static final RegistrySupplier<Item> TOMATO_MOZZARELLA_SALAD = registerItem("tomato_mozzarella_salad", () -> new PlaceableEffectFoodItem(TOMATO_MOZZARELLA_BLOCK.get(), getFoodItemSettings(CandlelightConfig.tomatoMozzarellaSaladNutrition, (float) CandlelightConfig.tomatoMozzarellaSaladSaturation, MobEffectRegistry.WELL_SERVED.get(), CandlelightConfig.tomatoMozzarellaSaladEffectDuration)));
     public static final RegistrySupplier<Block> TABLE_SIGN = registerWithoutItem("table_sign", () -> new TableSignBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.FLOWER_POT)));
@@ -171,7 +173,7 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Block> OAK_DRAWER = registerDrawer("oak_drawer", Blocks.OAK_PLANKS);
     public static final RegistrySupplier<Block> OAK_TABLE = registerWithItem("oak_table", () -> new TableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
     public static final RegistrySupplier<Block> OAK_CHAIR = registerWithItem("oak_chair", () -> new ChairBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0f, 3.0f).sound(SoundType.WOOD)));
-    public static final RegistrySupplier<Block> OAK_SHELF = registerWithItem("oak_shelf", () -> new ShelfBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD).noOcclusion()));
+    public static final RegistrySupplier<Block> OAK_SHELF = registerWithItem("oak_shelf", () -> shelf(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD).noOcclusion()));
     public static final RegistrySupplier<Block> OAK_BIG_TABLE = registerWithItem("oak_big_table", () -> new BigTableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).strength(2.0F, 2.0F).pushReaction(PushReaction.IGNORE)));
     public static final RegistrySupplier<Block> SANDSTONE_STOVE = registerWithItem("sandstone_stove", () -> new StoveBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BRICKS).lightLevel(s -> s.getValue(StoveBlock.LIT) ? 12 : 0)));
     public static final RegistrySupplier<Block> SANDSTONE_KITCHEN_SINK = registerWithItem("sandstone_kitchen_sink", () -> new SinkBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).noOcclusion().pushReaction(PushReaction.IGNORE)));
@@ -180,7 +182,7 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Block> BIRCH_DRAWER = registerDrawer("birch_drawer", Blocks.OAK_PLANKS);
     public static final RegistrySupplier<Block> BIRCH_TABLE = registerWithItem("birch_table", () -> new TableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
     public static final RegistrySupplier<Block> BIRCH_CHAIR = registerWithItem("birch_chair", () -> new ChairBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0f, 3.0f).sound(SoundType.WOOD)));
-    public static final RegistrySupplier<Block> BIRCH_SHELF = registerWithItem("birch_shelf", () -> new ShelfBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD).noOcclusion()));
+    public static final RegistrySupplier<Block> BIRCH_SHELF = registerWithItem("birch_shelf", () -> shelf(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD).noOcclusion()));
     public static final RegistrySupplier<Block> BIRCH_BIG_TABLE = registerWithItem("birch_big_table", () -> new BigTableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).strength(2.0F, 2.0F).pushReaction(PushReaction.IGNORE)));
     public static final RegistrySupplier<Block> STONE_BRICKS_STOVE = registerWithItem("stone_bricks_stove", () -> new StoveBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BRICKS).lightLevel(s -> s.getValue(StoveBlock.LIT) ? 12 : 0)));
     public static final RegistrySupplier<Block> STONE_BRICKS_KITCHEN_SINK = registerWithItem("stone_bricks_kitchen_sink", () -> new SinkBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).noOcclusion().pushReaction(PushReaction.IGNORE)));
@@ -189,7 +191,7 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Block> SPRUCE_DRAWER = registerDrawer("spruce_drawer", Blocks.OAK_PLANKS);
     public static final RegistrySupplier<Block> SPRUCE_TABLE = registerWithItem("spruce_table", () -> new TableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
     public static final RegistrySupplier<Block> SPRUCE_CHAIR = registerWithItem("spruce_chair", () -> new ChairBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0f, 3.0f).sound(SoundType.WOOD)));
-    public static final RegistrySupplier<Block> SPRUCE_SHELF = registerWithItem("spruce_shelf", () -> new ShelfBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD).noOcclusion()));
+    public static final RegistrySupplier<Block> SPRUCE_SHELF = registerWithItem("spruce_shelf", () -> shelf(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD).noOcclusion()));
     public static final RegistrySupplier<Block> SPRUCE_BIG_TABLE = registerWithItem("spruce_big_table", () -> new BigTableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).strength(2.0F, 2.0F).pushReaction(PushReaction.IGNORE)));
     public static final RegistrySupplier<Block> DEEPSLATE_STOVE = registerWithItem("deepslate_stove", () -> new StoveBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BRICKS).lightLevel(s -> s.getValue(StoveBlock.LIT) ? 12 : 0)));
     public static final RegistrySupplier<Block> DEEPSLATE_KITCHEN_SINK = registerWithItem("deepslate_kitchen_sink", () -> new SinkBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).noOcclusion().pushReaction(PushReaction.IGNORE)));
@@ -198,7 +200,7 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Block> DARK_OAK_DRAWER = registerDrawer("dark_oak_drawer", Blocks.OAK_PLANKS);
     public static final RegistrySupplier<Block> DARK_OAK_TABLE = registerWithItem("dark_oak_table", () -> new TableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.ACACIA_PLANKS)));
     public static final RegistrySupplier<Block> DARK_OAK_CHAIR = registerWithItem("dark_oak_chair", () -> new ChairBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0f, 3.0f).sound(SoundType.WOOD)));
-    public static final RegistrySupplier<Block> DARK_OAK_SHELF = registerWithItem("dark_oak_shelf", () -> new ShelfBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD).noOcclusion()));
+    public static final RegistrySupplier<Block> DARK_OAK_SHELF = registerWithItem("dark_oak_shelf", () -> shelf(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD).noOcclusion()));
     public static final RegistrySupplier<Block> DARK_OAK_BIG_TABLE = registerWithItem("dark_oak_big_table", () -> new BigTableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).strength(2.0F, 2.0F).pushReaction(PushReaction.IGNORE)));
     public static final RegistrySupplier<Block> GRANITE_STOVE = registerWithItem("granite_stove", () -> new StoveBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BRICKS).lightLevel(s -> s.getValue(StoveBlock.LIT) ? 12 : 0)));
     public static final RegistrySupplier<Block> GRANITE_KITCHEN_SINK = registerWithItem("granite_kitchen_sink", () -> new SinkBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).noOcclusion().pushReaction(PushReaction.IGNORE)));
@@ -207,7 +209,7 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Block> ACACIA_DRAWER = registerDrawer("acacia_drawer", Blocks.OAK_PLANKS);
     public static final RegistrySupplier<Block> ACACIA_TABLE = registerWithItem("acacia_table", () -> new TableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.ACACIA_PLANKS)));
     public static final RegistrySupplier<Block> ACACIA_CHAIR = registerWithItem("acacia_chair", () -> new ChairBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0f, 3.0f).sound(SoundType.WOOD)));
-    public static final RegistrySupplier<Block> ACACIA_SHELF = registerWithItem("acacia_shelf", () -> new ShelfBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD).noOcclusion()));
+    public static final RegistrySupplier<Block> ACACIA_SHELF = registerWithItem("acacia_shelf", () -> shelf(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD).noOcclusion()));
     public static final RegistrySupplier<Block> ACACIA_BIG_TABLE = registerWithItem("acacia_big_table", () -> new BigTableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).strength(2.0F, 2.0F).pushReaction(PushReaction.IGNORE)));
     public static final RegistrySupplier<Block> END_STOVE = registerWithItem("end_stove", () -> new StoveBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BRICKS).lightLevel(s -> s.getValue(StoveBlock.LIT) ? 12 : 0)));
     public static final RegistrySupplier<Block> END_KITCHEN_SINK = registerWithItem("end_kitchen_sink", () -> new SinkBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).noOcclusion().pushReaction(PushReaction.IGNORE)));
@@ -216,7 +218,7 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Block> JUNGLE_DRAWER = registerDrawer("jungle_drawer", Blocks.OAK_PLANKS);
     public static final RegistrySupplier<Block> JUNGLE_TABLE = registerWithItem("jungle_table", () -> new TableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
     public static final RegistrySupplier<Block> JUNGLE_CHAIR = registerWithItem("jungle_chair", () -> new ChairBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0f, 3.0f).sound(SoundType.WOOD)));
-    public static final RegistrySupplier<Block> JUNGLE_SHELF = registerWithItem("jungle_shelf", () -> new ShelfBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD).noOcclusion()));
+    public static final RegistrySupplier<Block> JUNGLE_SHELF = registerWithItem("jungle_shelf", () -> shelf(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD).noOcclusion()));
     public static final RegistrySupplier<Block> JUNGLE_BIG_TABLE = registerWithItem("jungle_big_table", () -> new BigTableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).strength(2.0F, 2.0F).pushReaction(PushReaction.IGNORE)));
     public static final RegistrySupplier<Block> MUD_STOVE = registerWithItem("mud_stove", () -> new StoveBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BRICKS).lightLevel(s -> s.getValue(StoveBlock.LIT) ? 12 : 0)));
     public static final RegistrySupplier<Block> MUD_KITCHEN_SINK = registerWithItem("mud_kitchen_sink", () -> new SinkBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).noOcclusion().pushReaction(PushReaction.IGNORE)));
@@ -225,7 +227,7 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Block> MANGROVE_DRAWER = registerDrawer("mangrove_drawer", Blocks.OAK_PLANKS);
     public static final RegistrySupplier<Block> MANGROVE_TABLE = registerWithItem("mangrove_table", () -> new TableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
     public static final RegistrySupplier<Block> MANGROVE_CHAIR = registerWithItem("mangrove_chair", () -> new ChairBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0f, 3.0f).sound(SoundType.WOOD)));
-    public static final RegistrySupplier<Block> MANGROVE_SHELF = registerWithItem("mangrove_shelf", () -> new ShelfBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD).noOcclusion()));
+    public static final RegistrySupplier<Block> MANGROVE_SHELF = registerWithItem("mangrove_shelf", () -> shelf(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD).noOcclusion()));
     public static final RegistrySupplier<Block> MANGROVE_BIG_TABLE = registerWithItem("mangrove_big_table", () -> new BigTableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).strength(2.0F, 2.0F).pushReaction(PushReaction.IGNORE)));
     public static final RegistrySupplier<Block> QUARTZ_STOVE = registerWithItem("quartz_stove", () -> new StoveBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BRICKS).lightLevel(s -> s.getValue(StoveBlock.LIT) ? 12 : 0)));
     public static final RegistrySupplier<Block> QUARTZ_KITCHEN_SINK = registerWithItem("quartz_kitchen_sink", () -> new SinkBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).noOcclusion().pushReaction(PushReaction.IGNORE)));
@@ -234,7 +236,7 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Block> WARPED_DRAWER = registerDrawer("warped_drawer", Blocks.OAK_PLANKS);
     public static final RegistrySupplier<Block> WARPED_TABLE = registerWithItem("warped_table", () -> new TableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
     public static final RegistrySupplier<Block> WARPED_CHAIR = registerWithItem("warped_chair", () -> new ChairBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0f, 3.0f).sound(SoundType.WOOD)));
-    public static final RegistrySupplier<Block> WARPED_SHELF = registerWithItem("warped_shelf", () -> new ShelfBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD).noOcclusion()));
+    public static final RegistrySupplier<Block> WARPED_SHELF = registerWithItem("warped_shelf", () -> shelf(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD).noOcclusion()));
     public static final RegistrySupplier<Block> WARPED_BIG_TABLE = registerWithItem("warped_big_table", () -> new BigTableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).strength(2.0F, 2.0F).pushReaction(PushReaction.IGNORE)));
     public static final RegistrySupplier<Block> RED_NETHER_BRICKS_STOVE = registerWithItem("red_nether_bricks_stove", () -> new StoveBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BRICKS).lightLevel(s -> s.getValue(StoveBlock.LIT) ? 12 : 0)));
     public static final RegistrySupplier<Block> RED_NETHER_BRICKS_KITCHEN_SINK = registerWithItem("red_nether_bricks_kitchen_sink", () -> new SinkBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).noOcclusion().pushReaction(PushReaction.IGNORE)));
@@ -243,7 +245,7 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Block> CRIMSON_DRAWER = registerDrawer("crimson_drawer", Blocks.OAK_PLANKS);
     public static final RegistrySupplier<Block> CRIMSON_TABLE = registerWithItem("crimson_table", () -> new TableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS)));
     public static final RegistrySupplier<Block> CRIMSON_CHAIR = registerWithItem("crimson_chair", () -> new ChairBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0f, 3.0f).sound(SoundType.WOOD)));
-    public static final RegistrySupplier<Block> CRIMSON_SHELF = registerWithItem("crimson_shelf", () -> new ShelfBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD).noOcclusion()));
+    public static final RegistrySupplier<Block> CRIMSON_SHELF = registerWithItem("crimson_shelf", () -> shelf(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD).noOcclusion()));
     public static final RegistrySupplier<Block> CRIMSON_BIG_TABLE = registerWithItem("crimson_big_table", () -> new BigTableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE).strength(2.0F, 2.0F).pushReaction(PushReaction.IGNORE)));
     public static final RegistrySupplier<Block> BASALT_STOVE = registerWithItem("basalt_stove", () -> new StoveBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BASALT).lightLevel(s -> s.getValue(StoveBlock.LIT) ? 12 : 0)));
     public static final RegistrySupplier<Block> BASALT_KITCHEN_SINK = registerWithItem("basalt_kitchen_sink", () -> new SinkBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BASALT).noOcclusion()));
@@ -252,7 +254,7 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Block> CHERRY_DRAWER = registerDrawer("cherry_drawer", Blocks.CHERRY_PLANKS);
     public static final RegistrySupplier<Block> CHERRY_TABLE = registerWithItem("cherry_table", () -> new TableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHERRY_PLANKS)));
     public static final RegistrySupplier<Block> CHERRY_CHAIR = registerWithItem("cherry_chair", () -> new ChairBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHERRY_PLANKS).strength(2.0f, 3.0f).sound(SoundType.WOOD)));
-    public static final RegistrySupplier<Block> CHERRY_SHELF = registerWithItem("cherry_shelf", () -> new ShelfBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHERRY_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD).noOcclusion()));
+    public static final RegistrySupplier<Block> CHERRY_SHELF = registerWithItem("cherry_shelf", () -> shelf(BlockBehaviour.Properties.ofFullCopy(Blocks.CHERRY_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD).noOcclusion()));
     public static final RegistrySupplier<Block> CHERRY_BIG_TABLE = registerWithItem("cherry_big_table", () -> new BigTableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHERRY_PLANKS).strength(2.0F, 2.0F).pushReaction(PushReaction.IGNORE)));
     public static final RegistrySupplier<Block> BAMBOO_STOVE = registerWithItem("bamboo_stove", () -> new BambooStoveBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BAMBOO_PLANKS).lightLevel(s -> s.getValue(StoveBlock.LIT) ? 10 : 0)));
     public static final RegistrySupplier<Block> BAMBOO_KITCHEN_SINK = registerWithItem("bamboo_kitchen_sink", () -> new SinkBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BAMBOO_PLANKS).noOcclusion()));
@@ -261,12 +263,16 @@ public class ObjectRegistry {
     public static final RegistrySupplier<Block> BAMBOO_DRAWER = registerDrawer("bamboo_drawer", Blocks.BAMBOO_PLANKS);
     public static final RegistrySupplier<Block> BAMBOO_TABLE = registerWithItem("bamboo_table", () -> new TableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BAMBOO_PLANKS)));
     public static final RegistrySupplier<Block> BAMBOO_CHAIR = registerWithItem("bamboo_chair", () -> new ChairBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BAMBOO_PLANKS).strength(2.0f, 3.0f).sound(SoundType.WOOD)));
-    public static final RegistrySupplier<Block> BAMBOO_SHELF = registerWithItem("bamboo_shelf", () -> new ShelfBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BAMBOO_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD).noOcclusion()));
+    public static final RegistrySupplier<Block> BAMBOO_SHELF = registerWithItem("bamboo_shelf", () -> shelf(BlockBehaviour.Properties.ofFullCopy(Blocks.BAMBOO_PLANKS).strength(2.0F, 3.0F).sound(SoundType.WOOD).noOcclusion()));
     public static final RegistrySupplier<Block> BAMBOO_BIG_TABLE = registerWithItem("bamboo_big_table", () -> new BigTableBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BAMBOO_PLANKS).strength(2.0F, 2.0F).pushReaction(PushReaction.IGNORE)));
 
     public static void init() {
         ITEMS.register();
         BLOCKS.register();
+    }
+
+    private static WallShelfBlock shelf(BlockBehaviour.Properties properties) {
+        return new WallShelfBlock(properties, EntityTypeRegistry.STORAGE_BLOCK_ENTITY, StorageTypeRegistry.SHELF, stack -> stack.getItem() instanceof BlockItem, SHELF_SHAPE);
     }
 
     private static Item.Properties getSettings(Consumer<Item.Properties> consumer) {

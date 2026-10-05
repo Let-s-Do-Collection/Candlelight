@@ -1,5 +1,6 @@
 package net.satisfy.candlelight.forge.client;
 
+import net.satisfy.foundation.neoforge.client.FoundationArmorExtensions;
 import net.satisfy.candlelight.client.renderer.block.SideTableBookModels;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
@@ -17,7 +18,6 @@ import net.satisfy.candlelight.Candlelight;
 import net.satisfy.candlelight.client.CandlelightClient;
 import net.satisfy.candlelight.client.gui.LetterGui;
 import net.satisfy.candlelight.core.registry.ScreenHandlerTypeRegistry;
-import net.satisfy.candlelight.forge.client.extensions.*;
 
 import static net.satisfy.candlelight.core.registry.ObjectRegistry.*;
 
@@ -45,11 +45,8 @@ public class CandlelightClientForge {
 
     @SubscribeEvent
     public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
-        event.registerItem(new CandlelightHatExtensions(), FLOWER_CROWN.get(), COOKING_HAT.get(), NECKTIE.get());
-        event.registerItem(new CandlelightChestplateExtensions(), CHEFS_JACKET.get(), SHIRT.get(), FORMAL_SHIRT.get());
-        event.registerItem(new CandlelightLeggingsExtensions(), CHEFS_PANTS.get());
-        event.registerItem(new CandlelightBootsExtensions(), CHEFS_BOOTS.get());
-        event.registerItem(new DyeableCandlelightArmorExtensions(), TROUSERS_AND_VEST.get(), DRESS.get());
+        event.registerItem(FoundationArmorExtensions.INSTANCE, FLOWER_CROWN.get(), COOKING_HAT.get(), NECKTIE.get(), CHEFS_JACKET.get(), SHIRT.get(), FORMAL_SHIRT.get(),
+                DRESS.get(), CHEFS_PANTS.get(), TROUSERS_AND_VEST.get(), CHEFS_BOOTS.get());
     }
 
     @SubscribeEvent

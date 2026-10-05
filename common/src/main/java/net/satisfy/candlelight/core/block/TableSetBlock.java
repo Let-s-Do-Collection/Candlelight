@@ -5,9 +5,11 @@ import net.minecraft.server.level.ServerPlayer;
 import net.satisfy.foundation.overlay.BlockNotice;
 import net.minecraft.world.phys.Vec3;
 import net.satisfy.candlelight.core.item.NapkinItem;
+import net.satisfy.candlelight.core.item.WineGlassItem;
 import net.satisfy.candlelight.core.config.CandlelightConfig;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.satisfy.foundation.block.LampBlock;
+import net.satisfy.foundation.registry.FoundationParticles;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.satisfy.candlelight.core.util.DinnerMenu;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -117,6 +119,24 @@ public class TableSetBlock extends StorageBlock {
     }
 
     @Override
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+        if (!CandlelightConfig.dishSteam || state.getValue(CLOCHE) || random.nextFloat() > 0.35F) {
+            return;
+        }
+        if (!(level.getBlockEntity(pos) instanceof TableSetBlockEntity tableSet) || tableSet.getInventory().get(0).isEmpty() || tableSet.getServedAt() < 0L) {
+            return;
+        }
+        long age = level.getGameTime() - tableSet.getServedAt();
+        if (age < 0L || age > CandlelightConfig.dishSteamTicks || random.nextFloat() > 1.0F - (float) age / CandlelightConfig.dishSteamTicks) {
+            return;
+        }
+        Vec3 plate = rotateShape(state.getValue(FACING), makePlateShape()).bounds().getCenter();
+        double x = pos.getX() + plate.x + (random.nextDouble() - 0.5) * 0.25;
+        double z = pos.getZ() + plate.z + (random.nextDouble() - 0.5) * 0.25;
+        level.addParticle(FoundationParticles.SOUP_STEAM.get(), x, pos.getY() + 0.2, z, 0.0, 0.02 + random.nextDouble() * 0.01, 0.0);
+    }
+
+    @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new TableSetBlockEntity(pos, state, this.size());
     }
@@ -141,13 +161,23 @@ public class TableSetBlock extends StorageBlock {
     protected @NotNull ItemInteractionResult useItemOn(ItemStack itemStack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         ItemStack stack = player.getItemInHand(hand);
 
-        if (NapkinItem.isBorrowed(stack)) {
+        if (NapkinItem.isBorrowed(stack) || WineGlassItem.isBorrowed(stack)) {
             return ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION;
         }
         if (stack.isEmpty() && hand == InteractionHand.MAIN_HAND && state.getValue(NAPKIN) && hitsNapkin(state, pos, hit)) {
             if (!world.isClientSide()) {
                 world.setBlockAndUpdate(pos, state.setValue(NAPKIN, false));
                 player.setItemInHand(hand, NapkinItem.borrowedFrom(pos, world.getGameTime()));
+            }
+            return ItemInteractionResult.sidedSuccess(world.isClientSide());
+        }
+
+        if (stack.isEmpty() && hand == InteractionHand.MAIN_HAND && state.getValue(WINE_GLASS) && hitsPart(state, pos, hit, WINE_GLASS_SHAPE)) {
+            if (!world.isClientSide()) {
+                boolean filled = state.getValue(WINE_GLASS_DRINK);
+                world.setBlockAndUpdate(pos, state.setValue(WINE_GLASS, false).setValue(WINE_GLASS_DRINK, false));
+                player.setItemInHand(hand, WineGlassItem.borrowedFrom(pos, world.getGameTime(), filled));
+                world.playSound(null, pos, SoundEvents.GLASS_STEP, SoundSource.BLOCKS, 0.5F, 1.8F);
             }
             return ItemInteractionResult.sidedSuccess(world.isClientSide());
         }
@@ -429,8 +459,12 @@ public class TableSetBlock extends StorageBlock {
     }
 
     private boolean hitsNapkin(BlockState state, BlockPos pos, BlockHitResult hit) {
+        return hitsPart(state, pos, hit, NAPKIN_SHAPE);
+    }
+
+    private boolean hitsPart(BlockState state, BlockPos pos, BlockHitResult hit, VoxelShape part) {
         Vec3 local = hit.getLocation().subtract(pos.getX(), pos.getY(), pos.getZ());
-        return rotateShape(state.getValue(FACING), NAPKIN_SHAPE).bounds().inflate(0.06).contains(local);
+        return rotateShape(state.getValue(FACING), part).bounds().inflate(0.06).contains(local);
     }
 
     private VoxelShape rotateShape(Direction direction, VoxelShape shape) {

@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "candlelight:tomato_mozzarella_salad"
+      "farm_and_charm:cutting_board_assembly/tomato_mozzarella_salad"
     ]
   },
   "criteria": {
@@ -21,7 +21,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "candlelight:tomato_mozzarella_salad"
+        "recipe": "farm_and_charm:cutting_board_assembly/tomato_mozzarella_salad"
       }
     }
   },

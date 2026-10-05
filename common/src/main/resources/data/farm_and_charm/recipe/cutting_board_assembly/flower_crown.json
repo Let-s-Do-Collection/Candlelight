@@ -1,0 +1,24 @@
+{
+  "type": "farm_and_charm:cutting_board_assembly",
+  "ingredients": [
+    {
+      "item": "candlelight:rose"
+    },
+    {
+      "item": "candlelight:rose"
+    },
+    {
+      "item": "candlelight:rose"
+    },
+    {
+      "item": "candlelight:rose"
+    }
+  ],
+  "finisher": {
+    "item": "minecraft:string"
+  },
+  "result": {
+    "id": "candlelight:flower_crown",
+    "count": 1
+  }
+}

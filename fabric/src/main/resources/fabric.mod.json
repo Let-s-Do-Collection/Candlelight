@@ -13,7 +13,9 @@
   ],
   "contact": {
     "issues": "https://github.com/satisfyu/Let-s-Do-Hub",
-    "sources": "https://github.com/satisfyu/Candlelight"
+    "sources": "https://github.com/satisfyu/Candlelight",
+    "homepage": "https://www.lets-do.ch",
+    "wiki": "https://lets-do.ch/wiki/candlelight/"
   },
   "license": "Custom",
   "icon": "pack.png",

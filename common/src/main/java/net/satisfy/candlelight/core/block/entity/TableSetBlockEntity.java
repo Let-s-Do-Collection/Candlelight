@@ -39,6 +39,8 @@ public class TableSetBlockEntity extends StorageBlockEntity {
     private UUID host;
     private int guestTicks;
     private ItemStack wineGlassDrink = ItemStack.EMPTY;
+    private static final String SERVED_AT_KEY = "ServedAt";
+    private long servedAt = -1L;
 
     public TableSetBlockEntity(BlockPos pos, BlockState state) {
         super(EntityTypeRegistry.TABLE_SET_BLOCK_ENTITY.get(), pos, state, 1);
@@ -46,6 +48,18 @@ public class TableSetBlockEntity extends StorageBlockEntity {
 
     public TableSetBlockEntity(BlockPos pos, BlockState state, int size) {
         super(EntityTypeRegistry.TABLE_SET_BLOCK_ENTITY.get(), pos, state, size);
+    }
+
+    @Override
+    public void setStack(int slot, ItemStack stack) {
+        if (!stack.isEmpty() && getInventory().get(slot).isEmpty() && level != null) {
+            servedAt = level.getGameTime();
+        }
+        super.setStack(slot, stack);
+    }
+
+    public long getServedAt() {
+        return servedAt;
     }
 
     public void setHost(UUID host) {
@@ -71,6 +85,7 @@ public class TableSetBlockEntity extends StorageBlockEntity {
         super.loadAdditional(tag, provider);
         glassDrink = ItemStack.parseOptional(provider, tag.getCompound(GLASS_DRINK_KEY));
         wineGlassDrink = ItemStack.parseOptional(provider, tag.getCompound(WINE_GLASS_DRINK_KEY));
+        servedAt = tag.contains(SERVED_AT_KEY) ? tag.getLong(SERVED_AT_KEY) : -1L;
         host = tag.hasUUID(HOST_KEY) ? tag.getUUID(HOST_KEY) : null;
     }
 
@@ -79,6 +94,9 @@ public class TableSetBlockEntity extends StorageBlockEntity {
         super.saveAdditional(tag, provider);
         if (!glassDrink.isEmpty()) {
             tag.put(GLASS_DRINK_KEY, glassDrink.save(provider, new CompoundTag()));
+        }
+        if (servedAt >= 0L) {
+            tag.putLong(SERVED_AT_KEY, servedAt);
         }
         if (host != null) {
             tag.putUUID(HOST_KEY, host);

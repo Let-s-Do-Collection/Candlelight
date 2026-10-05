@@ -134,50 +134,43 @@ public class TypewriterRenderer implements BlockEntityRenderer<TypewriterEntity>
         poseStack.mulPose(Axis.YP.rotationDegrees(rotY));
         poseStack.translate(offsetX, -1.5f, offsetZ);
 
+        float shake = be.getShake();
+        poseStack.translate(shake * 0.006f, Math.abs(shake) * 0.004f, 0f);
+
         VertexConsumer vc = buffers.getBuffer(RenderType.entityCutoutNoCull(getTexture(state)));
 
-        float prog = be.getRollerSnapTicks() > 0 ? 0f : be.getLineProgress();
-        if (prog < 0f) prog = 0f;
-        if (prog > 1f) prog = 1f;
-        float rx = 0.15f + prog * 4.5f;
+        float rx = 0.15f + be.getCarriage() * 4.5f;
+        float sy = be.getSpacePress() * 0.6f;
+        float ey = be.getEnterPress() * 0.6f;
+        float feed = be.getLineFeed();
 
-        float sy = be.getSpaceTicks() > 0 ? 0.5f : 0f;
-        float ey = be.getEnterTicks() > 0 ? 0.5f : 0f;
-
-        if (this.space != null) this.space.y += sy;
-        if (this.enter != null) this.enter.y += ey;
-
-        int idx = be.getBouncingKeyIndex();
-        boolean bounced = false;
-        if (be.getKeyBounceTicks() > 0 && be.getSpaceTicks() == 0 && be.getEnterTicks() == 0 && !this.keyParts.isEmpty()) {
-            if (idx < 0 || idx >= this.keyParts.size()) {
-                be.setBouncingKeyIndex(level.random.nextInt(this.keyParts.size()));
-                idx = be.getBouncingKeyIndex();
-            }
-            this.keyParts.get(idx).y += 0.5f;
-            bounced = true;
+        this.space.y += sy;
+        this.enter.y += ey;
+        float[] ky = new float[this.keyParts.size()];
+        for (int i = 0; i < ky.length; i++) {
+            ky[i] = i < TypewriterEntity.KEY_COUNT ? be.getKeyPress(i) * 0.7f : 0f;
+            this.keyParts.get(i).y += ky[i];
         }
-
-        if (this.roller != null) this.roller.x += rx;
+        this.roller.x += rx;
+        this.roller.xRot -= feed * 0.5f;
+        this.paper.x += rx;
+        this.paperWritten.x += rx;
+        this.paper.y -= feed * 0.4f;
 
         int full = state.getValue(TypewriterBlock.FULL);
-        if (this.paper != null) this.paper.visible = false;
-        if (this.paperWritten != null) this.paperWritten.visible = false;
-        if (full == 1 && this.paper != null) this.paper.visible = true;
-        else if (full == 2 && this.paperWritten != null) this.paperWritten.visible = true;
+        this.paper.visible = full == 1;
+        this.paperWritten.visible = full == 2;
 
         this.typewriter.render(poseStack, vc, light, overlay);
 
-        if (this.space != null) this.space.y -= sy;
-        if (this.enter != null) this.enter.y -= ey;
-        if (bounced && idx < this.keyParts.size()) {
-            this.keyParts.get(idx).y -= 0.5f;
-        }
-        if (this.roller != null) this.roller.x -= rx;
-
-        if (level.isClientSide()) {
-            be.tickAnimations();
-        }
+        this.space.y -= sy;
+        this.enter.y -= ey;
+        for (int i = 0; i < ky.length; i++) this.keyParts.get(i).y -= ky[i];
+        this.roller.x -= rx;
+        this.roller.xRot += feed * 0.5f;
+        this.paper.x -= rx;
+        this.paperWritten.x -= rx;
+        this.paper.y += feed * 0.4f;
 
         poseStack.popPose();
     }

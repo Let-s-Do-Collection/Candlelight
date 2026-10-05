@@ -57,12 +57,4 @@ public class CookingChestplateModel<T extends LivingEntity> extends HumanoidMode
         leftLeg.visible = true;
         super.renderToBuffer(poseStack, buffer, packedLight, packedOverlay, packedColor);
     }
-
-    public void copyBody(ModelPart baseBody, ModelPart leftArmModel, ModelPart rightArmModel, ModelPart leftLegModel, ModelPart rightLegModel) {
-        body.copyFrom(baseBody);
-        leftArm.copyFrom(leftArmModel);
-        rightArm.copyFrom(rightArmModel);
-        leftLeg.copyFrom(leftLegModel);
-        rightLeg.copyFrom(rightLegModel);
-    }
 }

@@ -85,13 +85,4 @@ public class DressChestplateModel<T extends LivingEntity> extends HumanoidModel<
         rightLeg.visible = true;
         super.renderToBuffer(poseStack, buffer, packedLight, packedOverlay, packedColor);
     }
-
-    @SuppressWarnings("unused")
-    public void copyBody(ModelPart baseBody, ModelPart leftArmModel, ModelPart rightArmModel, ModelPart leftLegModel, ModelPart rightLegModel) {
-        body.copyFrom(baseBody);
-        leftArm.copyFrom(leftArmModel);
-        rightArm.copyFrom(rightArmModel);
-        leftLeg.copyFrom(leftLegModel);
-        rightLeg.copyFrom(rightLegModel);
-    }
 }

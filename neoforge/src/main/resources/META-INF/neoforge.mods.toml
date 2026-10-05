@@ -14,7 +14,8 @@ authors = "satisfy"
 description = '''
 Ever dreamed of the perfect dinner? Prepare mouth-watering meals, transform your dining space into a masterpiece, and create unforgettable dining experiences!
 '''
-logoFile = "pack.png"
+logoFile = "logo.png"
+displayURL = "https://www.lets-do.ch"
 
 [[dependencies.candlelight]]
 modId = "neoforge"

@@ -10,7 +10,11 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.Containers;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -36,6 +40,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.satisfy.candlelight.core.block.entity.TypewriterEntity;
 import net.satisfy.candlelight.core.registry.ObjectRegistry;
+import net.satisfy.candlelight.core.registry.SoundEventRegistry;
 import net.satisfy.candlelight.core.util.CandlelightUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -130,6 +135,46 @@ public class TypewriterBlock extends BaseEntityBlock {
             return ItemInteractionResult.SUCCESS;
         }
         return super.useItemOn(itemStack, state, world, pos, player, hand, hit);
+    }
+
+    @Override
+    protected @NotNull InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
+        if (state.getValue(FULL) != 0 || !player.getMainHandItem().isEmpty() || !player.getOffhandItem().isEmpty()) {
+            return super.useWithoutItem(state, level, pos, player, hit);
+        }
+        if (level.isClientSide) {
+            return InteractionResult.SUCCESS;
+        }
+        if (!(level.getBlockEntity(pos) instanceof TypewriterEntity typewriter)) {
+            return InteractionResult.PASS;
+        }
+        RandomSource random = level.getRandom();
+        int keys = 0;
+        int presses = 2 + random.nextInt(3);
+        for (int i = 0; i < presses; i++) {
+            keys |= 1 << random.nextInt(TypewriterEntity.KEY_COUNT);
+        }
+        int param = keys;
+        if (random.nextFloat() < 0.3f) {
+            param |= 0x80;
+        }
+        int column = typewriter.advanceMashColumn(presses);
+        int id;
+        if (column < 0) {
+            id = TypewriterEntity.EVENT_MASH_RETURN;
+            level.playSound(null, pos, SoundEvents.NOTE_BLOCK_BELL.value(), SoundSource.BLOCKS, 0.8f, 1.0f);
+        } else {
+            id = TypewriterEntity.EVENT_MASH + column;
+        }
+        level.blockEvent(pos, this, id, param);
+        level.playSound(null, pos, SoundEventRegistry.TYPEWRITER.get(), SoundSource.BLOCKS, 1.0f, 0.85f + random.nextFloat() * 0.3f);
+        return InteractionResult.CONSUME;
+    }
+
+    @Override
+    protected boolean triggerEvent(BlockState state, Level level, BlockPos pos, int id, int param) {
+        BlockEntity blockEntity = level.getBlockEntity(pos);
+        return blockEntity != null && blockEntity.triggerEvent(id, param);
     }
 
     @Override

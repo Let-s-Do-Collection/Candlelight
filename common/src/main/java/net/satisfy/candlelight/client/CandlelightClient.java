@@ -1,5 +1,7 @@
 package net.satisfy.candlelight.client;
 
+import net.satisfy.foundation.client.armor.ArmorModels;
+import net.satisfy.foundation.storage.WallShelfRenderer;
 import net.satisfy.candlelight.client.overlay.SideTableInfoProvider;
 import net.satisfy.candlelight.client.renderer.block.SideTableRenderer;
 import net.satisfy.foundation.client.armor.ArmorColors;
@@ -39,6 +41,7 @@ import static net.satisfy.candlelight.core.registry.ObjectRegistry.*;
 public class CandlelightClient {
 
     public static void initClient() {
+        registerArmorModels();
         RenderTypeRegistry.register(RenderType.cutout(), TABLE.get(), ROSE.get(), POTTED_ROSE.get(), GLASS_BLOCK.get(),
                 OAK_CHAIR.get(), DARK_OAK_CHAIR.get(), SPRUCE_CHAIR.get(), WARPED_CHAIR.get(),
                 BIRCH_CHAIR.get(), MANGROVE_CHAIR.get(), ACACIA_CHAIR.get(), CRIMSON_CHAIR.get(),
@@ -90,9 +93,20 @@ public class CandlelightClient {
     }
 
     public static void registerStorageType() {
-        registerStorageType(StorageTypeRegistry.SHELF, new ShelfRenderer());
+        registerStorageType(StorageTypeRegistry.SHELF, new WallShelfRenderer());
         registerStorageType(StorageTypeRegistry.TABLE_SET, new TableSetRenderer());
         registerStorageType(StorageTypeRegistry.JEWELRY_BOX, new JewelryRenderer());
+    }
+
+    public static void registerArmorModels() {
+        ArmorModels.register(CookingHatModel.LAYER_LOCATION, CookingHatModel::new, COOKING_HAT.get());
+        ArmorModels.register(FlowerCrownModel.LAYER_LOCATION, FlowerCrownModel::new, FLOWER_CROWN.get());
+        ArmorModels.register(TieModel.LAYER_LOCATION, TieModel::new, NECKTIE.get());
+        ArmorModels.register(CookingChestplateModel.LAYER_LOCATION, CookingChestplateModel::new, CHEFS_JACKET.get(), FORMAL_SHIRT.get(), SHIRT.get());
+        ArmorModels.register(DressChestplateModel.LAYER_LOCATION, DressChestplateModel::new, DRESS.get());
+        ArmorModels.register(CookingLeggingsModel.LAYER_LOCATION, CookingLeggingsModel::new, CHEFS_PANTS.get());
+        ArmorModels.register(SuitLeggingsModel.LAYER_LOCATION, SuitLeggingsModel::new, TROUSERS_AND_VEST.get());
+        ArmorModels.register(CookingBootsModel.LAYER_LOCATION, CookingBootsModel::new, CHEFS_BOOTS.get());
     }
 
     public static void preInitClient() {

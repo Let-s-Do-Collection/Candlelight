@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "candlelight:mozzarella"
+      "farm_and_charm:crafting_bowl/mozzarella"
     ]
   },
   "criteria": {
-    "has_water_bucket": {
+    "has_milk_bucket": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "minecraft:water_bucket"
+              "minecraft:milk_bucket"
             ]
           }
         ]
@@ -21,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "candlelight:mozzarella"
+        "recipe": "farm_and_charm:crafting_bowl/mozzarella"
       }
     }
   },
   "requirements": [
     [
-      "has_water_bucket",
+      "has_milk_bucket",
       "has_the_recipe"
     ]
   ]

@@ -105,6 +105,11 @@ public class CandlelightFabricConfig implements ConfigData {
         @ConfigEntry.Gui.Tooltip
         public boolean napkinSound = true;
         @ConfigEntry.Gui.Tooltip
+        public boolean dishSteam = true;
+        @ConfigEntry.Gui.Tooltip
+        @ConfigEntry.BoundedDiscrete(min = 200, max = 12000)
+        public int dishSteamTicks = 2400;
+        @ConfigEntry.Gui.Tooltip
         @ConfigEntry.BoundedDiscrete(min = 1, max = 12)
         public int tableSignMaxLines = 8;
         @ConfigEntry.Gui.Tooltip
@@ -254,6 +259,8 @@ public class CandlelightFabricConfig implements ConfigData {
         CandlelightConfig.elegantSetBonusEnabled = misc.elegantSetBonusEnabled;
         CandlelightConfig.zombieCookingHatChance = misc.zombieCookingHatChance;
         CandlelightConfig.napkinSound = misc.napkinSound;
+        CandlelightConfig.dishSteam = misc.dishSteam;
+        CandlelightConfig.dishSteamTicks = misc.dishSteamTicks;
         CandlelightConfig.tableSignMaxLines = misc.tableSignMaxLines;
         CandlelightConfig.showTableSetInfo = misc.showTableSetInfo;
         CandlelightConfig.showSetBonusTooltips = misc.showSetBonusTooltips;

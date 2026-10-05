@@ -1,0 +1,24 @@
+{
+  "type": "farm_and_charm:cutting_board_assembly",
+  "ingredients": [
+    {
+      "tag": "candlelight:chocolate"
+    },
+    {
+      "tag": "candlelight:chocolate"
+    },
+    {
+      "tag": "candlelight:chocolate"
+    },
+    {
+      "tag": "candlelight:chocolate"
+    }
+  ],
+  "finisher": {
+    "item": "minecraft:paper"
+  },
+  "result": {
+    "id": "candlelight:chocolate_box",
+    "count": 1
+  }
+}
