@@ -1,8 +1,5 @@
 package net.satisfy.candlelight.forge;
 
-import net.neoforged.neoforge.client.gui.ConfigurationScreen;
-import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
-import net.neoforged.fml.loading.FMLEnvironment;
 import net.satisfy.candlelight.forge.config.CandlelightNeoForgeConfig;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.fml.config.ModConfig;
@@ -29,16 +26,12 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.satisfy.candlelight.Candlelight;
 import net.satisfy.candlelight.core.registry.CompostableRegistry;
-import net.satisfy.candlelight.core.registry.FlammableBlockRegistry;
 
 @Mod(Candlelight.MOD_ID)
 public class CandlelightNeoForge {
 
     public CandlelightNeoForge(final IEventBus modEventBus, ModContainer modContainer) {
         modContainer.registerConfig(ModConfig.Type.COMMON, CandlelightNeoForgeConfig.COMMON);
-        if (FMLEnvironment.dist.isClient()) {
-            modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
-        }
         modEventBus.addListener((ModConfigEvent.Loading event) -> {
             if (event.getConfig().getSpec() == CandlelightNeoForgeConfig.COMMON) CandlelightNeoForgeConfig.applyCommon();
         });
@@ -57,9 +50,7 @@ public class CandlelightNeoForge {
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             CompostableRegistry.init();
-            FlammableBlockRegistry.init();
         });
-        Candlelight.commonInit();
     }
 
     private static void addBuiltinPacks(AddPackFindersEvent event) {

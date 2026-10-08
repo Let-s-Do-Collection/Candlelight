@@ -12,14 +12,13 @@
 * Config: effects (Well Served, Refreshed, Gold Ring, Banner), misc settings (Table Set bonuses, dinner menu, villager dinner guests, Chef's Outfit, info tooltips) and the food values of every dish. On Fabric through Mod Menu, on NeoForge in the Mods screen. Food values need a restart
 * VanillaBlend: an optional built-in resource pack with muted, vanilla-friendly colors for plates, bowls, dishes, glasses, clothing and Mob Effect icons. Enable it in the Resource Packs menu
 * The Table with tablecloth can be dyed with any dye
-* Tablecloths: put a carpet on a wooden table to cover it, dye it to change the color, sneak and right-click to take it off
 * Sofas can be dyed with any dye
 * Side Table: put any item on it and stack up to 4 of the same (2 books), or place a Lamp, Lantern or Soul Lantern that you can turn on and off with right-click. Sneak and right-click to take everything off. What is on it now drops when the Side Table is broken
 * Fireflies gather around lit Lamps and Side Tables with a light at night
 * Dinner menu: eat a starter, a main course and a dessert from a Table Set one after another to get a much longer Well Served and Refreshed. Dishes are sorted with the new item tags `candlelight:starters`, `candlelight:main_courses` and `candlelight:desserts`
 * A lit candle, lantern or lamp next to a Table Set counts as an extra table setting. Add more lights with the block tag `candlelight:table_lights`
 * Wine from Vinery can be poured into the Wine Glass of a Table Set, beer from Brewery, grape juice and potions into the Glass. They give the same effects as drinking them normally. Add more drinks with the item tags `candlelight:glass_drinks` and `candlelight:wine_glass_drinks`
-* Dishes, desserts, drinks and lanterns from Farm & Charm, Bakery, Brewery, Vinery, Meadow, Beachparty, Alpine Whispers and Lili's Lucky Lures count for the dinner menu, the glasses and the table lights when those mods are installed
+* Dishes, desserts, drinks and lanterns from Farm & Charm, Bakery, Brewery, Vinery, Meadow, Beachparty, Alpine Whispers and Lili's Lucky Lures count for the dinner menu, the glasses and the table lights
 * Villagers come to dinner: in the evening after work they may walk to a Table Set with a dish on it and eat it. They then give 10% off all their trades for one day. Nitwits eat too, but don't give anything back
 * Hold right-click with a Napkin to dab your mouth (suggested by CR505). Works with the Napkin on a Table Set too: it is taken while you hold and put back when you let go
 * Support for Accessories, Curios and Trinkets: the Gold Ring goes into a ring slot, the Necktie into the necklace slot and the Flower Crown into the hat slot

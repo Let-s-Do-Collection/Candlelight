@@ -11,36 +11,37 @@ modId = "candlelight"
 version = "${version}"
 displayName = "[Let's Do] Candlelight"
 authors = "satisfy"
+credits = "MissLilitu, CR-055"
 description = '''
 Ever dreamed of the perfect dinner? Prepare mouth-watering meals, transform your dining space into a masterpiece, and create unforgettable dining experiences!
 '''
-logoFile = "logo.png"
+logoFile = "pack.png"
 displayURL = "https://www.lets-do.ch"
 
 [[dependencies.candlelight]]
 modId = "neoforge"
 type = "required"
-versionRange = "[21.0,)"
+versionRange = "[21.1,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.candlelight]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.21,)"
+versionRange = "[1.21.1,1.22)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.candlelight]]
 modId = "architectury"
 type = "required"
-versionRange = "[9.0.8,)"
+versionRange = "[13.0.8,)"
 ordering = "AFTER"
 side = "BOTH"
 
 [[dependencies.candlelight]]
 modId = "farm_and_charm"
-mandatory = true
+type = "required"
 versionRange = "[1.1.27,)"
 ordering = "AFTER"
 side = "BOTH"
@@ -48,7 +49,7 @@ side = "BOTH"
 [[dependencies.candlelight]]
 modId = "foundation"
 type = "required"
-versionRange = "[1.0.0,)"
+versionRange = "[1.0.3,)"
 ordering = "AFTER"
 side = "BOTH"
 

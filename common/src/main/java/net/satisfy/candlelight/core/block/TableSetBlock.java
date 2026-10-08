@@ -328,7 +328,7 @@ public class TableSetBlock extends StorageBlock {
         Holder<MobEffect> wellServed = MobEffectRegistry.holder(MobEffectRegistry.WELL_SERVED);
         MobEffectInstance current = player.getEffect(wellServed);
         int duration = courses * CandlelightConfig.wellServedTicksPerCourse + (current != null ? current.getDuration() : 0);
-        player.addEffect(new MobEffectInstance(wellServed, Math.min(duration, CandlelightConfig.maxWellServedTicks)));
+        player.addEffect(new MobEffectInstance(wellServed, Math.min(duration, CandlelightConfig.maxWellServedTicks), 0, false, false));
         if (world instanceof ServerLevel serverLevel) {
             serverLevel.sendParticles(ParticleTypes.HAPPY_VILLAGER, pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5, 4 + courses * 2, 0.3, 0.15, 0.3, 0.0);
         }
@@ -338,8 +338,8 @@ public class TableSetBlock extends StorageBlock {
         if (menu != null && menu.complete()) {
             MobEffectInstance served = player.getEffect(wellServed);
             int bonus = CandlelightConfig.menuBonusTicks + (served != null ? served.getDuration() : 0);
-            player.addEffect(new MobEffectInstance(wellServed, Math.min(bonus, CandlelightConfig.maxMenuWellServedTicks)));
-            player.addEffect(new MobEffectInstance(MobEffectRegistry.holder(MobEffectRegistry.REFRESHED), CandlelightConfig.menuBonusTicks));
+            player.addEffect(new MobEffectInstance(wellServed, Math.min(bonus, CandlelightConfig.maxMenuWellServedTicks), 0, false, false));
+            player.addEffect(new MobEffectInstance(MobEffectRegistry.holder(MobEffectRegistry.REFRESHED), CandlelightConfig.menuBonusTicks, 0, false, false));
             level.playSound(null, pos, SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 0.6F, 1.4F);
             lines.add(Component.translatable("message.candlelight.table_set.menu_complete").withStyle(ChatFormatting.GREEN));
         } else if (menu != null && menu.step() > 0) {
