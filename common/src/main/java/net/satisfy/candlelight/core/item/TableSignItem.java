@@ -1,6 +1,6 @@
 package net.satisfy.candlelight.core.item;
 
-import net.satisfy.candlelight.core.config.CandlelightConfig;
+import net.satisfy.candlelight.platform.PlatformHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -34,7 +34,7 @@ public class TableSignItem extends BlockItem {
     }
 
     public static int maxLines() {
-        return CandlelightConfig.tableSignMaxLines;
+        return PlatformHelper.tableSignMaxLines();
     }
 
     public static String getText(ItemStack stack) {

@@ -1,6 +1,6 @@
 package net.satisfy.candlelight.core.registry;
 
-import net.satisfy.candlelight.core.config.CandlelightConfig;
+import net.satisfy.candlelight.platform.PlatformHelper;
 import net.satisfy.candlelight.core.util.Wearables;
 import net.satisfy.foundation.armor.ArmorSet;
 
@@ -16,7 +16,7 @@ public final class ArmorSetRegistry {
                 .piece(ObjectRegistry.CHEFS_BOOTS)
                 .bonus("tooltip.candlelight.set.chef.bonus")
                 .bonusActive(Wearables::hasChefSet)
-                .tooltipVisible(() -> CandlelightConfig.showSetBonusTooltips)
+                .tooltipVisible(() -> PlatformHelper.showSetBonusTooltips())
                 .register();
         ArmorSet.builder("tooltip.candlelight.set.suit")
                 .piece(ObjectRegistry.SHIRT, ObjectRegistry.FORMAL_SHIRT)
@@ -24,14 +24,14 @@ public final class ArmorSetRegistry {
                 .piece(ObjectRegistry.NECKTIE)
                 .bonus("tooltip.candlelight.set.elegant.bonus")
                 .bonusActive(Wearables::isElegantlyDressed)
-                .tooltipVisible(() -> CandlelightConfig.showSetBonusTooltips)
+                .tooltipVisible(() -> PlatformHelper.showSetBonusTooltips())
                 .register();
         ArmorSet.builder("tooltip.candlelight.set.dress")
                 .piece(ObjectRegistry.DRESS)
                 .piece(ObjectRegistry.FLOWER_CROWN)
                 .bonus("tooltip.candlelight.set.elegant.bonus")
                 .bonusActive(Wearables::isElegantlyDressed)
-                .tooltipVisible(() -> CandlelightConfig.showSetBonusTooltips)
+                .tooltipVisible(() -> PlatformHelper.showSetBonusTooltips())
                 .register();
     }
 }

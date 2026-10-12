@@ -13,6 +13,9 @@ import net.satisfy.foundation.rarity.FoundationRarities;
 import net.satisfy.foundation.rarity.FoundationRarity;
 
 import java.util.List;
+import net.satisfy.foundation.entity.equipment.ZombieEquipment;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.satisfy.candlelight.platform.PlatformHelper;
 
 public class Candlelight {
     public static final String MOD_ID = "candlelight";
@@ -22,6 +25,8 @@ public class Candlelight {
     }
 
     public static void init() {
+        ZombieEquipment.add(() -> PlatformHelper.zombieCookingHatChance()).adultsOnly().slot(EquipmentSlot.HEAD, ObjectRegistry.COOKING_HAT);
+        CompostableRegistry.init();
         DataComponentRegistry.init();
         ObjectRegistry.init();
         FlammableBlockRegistry.init();

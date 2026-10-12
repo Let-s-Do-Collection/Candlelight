@@ -8,7 +8,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.BlockPos;
-import net.satisfy.candlelight.core.config.CandlelightConfig;
+import net.satisfy.candlelight.platform.PlatformHelper;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -92,7 +92,7 @@ public class NapkinItem extends Item {
 
     @Override
     public void onUseTick(Level level, LivingEntity entity, ItemStack stack, int remainingUseDuration) {
-        if (CandlelightConfig.napkinSound && !level.isClientSide() && remainingUseDuration % DAB_SOUND_INTERVAL == 0) {
+        if (PlatformHelper.enableNapkinSound() && !level.isClientSide() && remainingUseDuration % DAB_SOUND_INTERVAL == 0) {
             level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.WOOL_HIT, SoundSource.PLAYERS, 0.4F, 1.4F + level.random.nextFloat() * 0.2F);
         }
     }

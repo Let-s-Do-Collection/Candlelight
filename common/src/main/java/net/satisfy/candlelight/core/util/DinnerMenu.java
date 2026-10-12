@@ -1,6 +1,6 @@
 package net.satisfy.candlelight.core.util;
 
-import net.satisfy.candlelight.core.config.CandlelightConfig;
+import net.satisfy.candlelight.platform.PlatformHelper;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.player.Player;
@@ -47,7 +47,7 @@ public final class DinnerMenu {
         }
         long now = player.level().getGameTime();
         Progress progress = PROGRESS.get(player.getUUID());
-        int previous = progress != null && now - progress.gameTime() <= CandlelightConfig.menuMaxTicksBetweenCourses ? progress.step() : 0;
+        int previous = progress != null && now - progress.gameTime() <= PlatformHelper.menuMaxTicksBetweenCourses() ? progress.step() : 0;
         int step = course.ordinal() == previous ? previous + 1 : course == Course.STARTER ? 1 : 0;
         if (step >= COURSES) {
             PROGRESS.remove(player.getUUID());

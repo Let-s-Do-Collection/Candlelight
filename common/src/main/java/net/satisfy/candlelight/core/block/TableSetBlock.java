@@ -6,7 +6,7 @@ import net.satisfy.foundation.overlay.BlockNotice;
 import net.minecraft.world.phys.Vec3;
 import net.satisfy.candlelight.core.item.NapkinItem;
 import net.satisfy.candlelight.core.item.WineGlassItem;
-import net.satisfy.candlelight.core.config.CandlelightConfig;
+import net.satisfy.candlelight.platform.PlatformHelper;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.satisfy.foundation.block.LampBlock;
 import net.satisfy.foundation.registry.FoundationParticles;
@@ -120,14 +120,14 @@ public class TableSetBlock extends StorageBlock {
 
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-        if (!CandlelightConfig.dishSteam || state.getValue(CLOCHE) || random.nextFloat() > 0.35F) {
+        if (!PlatformHelper.enableDishSteam() || state.getValue(CLOCHE) || random.nextFloat() > 0.35F) {
             return;
         }
         if (!(level.getBlockEntity(pos) instanceof TableSetBlockEntity tableSet) || tableSet.getInventory().get(0).isEmpty() || tableSet.getServedAt() < 0L) {
             return;
         }
         long age = level.getGameTime() - tableSet.getServedAt();
-        if (age < 0L || age > CandlelightConfig.dishSteamTicks || random.nextFloat() > 1.0F - (float) age / CandlelightConfig.dishSteamTicks) {
+        if (age < 0L || age > PlatformHelper.dishSteamTicks() || random.nextFloat() > 1.0F - (float) age / PlatformHelper.dishSteamTicks()) {
             return;
         }
         Vec3 plate = rotateShape(state.getValue(FACING), makePlateShape()).bounds().getCenter();
@@ -192,8 +192,8 @@ public class TableSetBlock extends StorageBlock {
             return ItemInteractionResult.sidedSuccess(world.isClientSide());
         }
 
-        boolean fitsWineGlass = CandlelightConfig.tableDrinksEnabled && stack.is(WINE_GLASS_DRINKS) && state.getValue(WINE_GLASS) && !state.getValue(WINE_GLASS_DRINK);
-        boolean fitsGlass = CandlelightConfig.tableDrinksEnabled && stack.is(GLASS_DRINKS) && state.getValue(GLASS) && !state.getValue(GLASS_DRINK);
+        boolean fitsWineGlass = PlatformHelper.enableTableDrinks() && stack.is(WINE_GLASS_DRINKS) && state.getValue(WINE_GLASS) && !state.getValue(WINE_GLASS_DRINK);
+        boolean fitsGlass = PlatformHelper.enableTableDrinks() && stack.is(GLASS_DRINKS) && state.getValue(GLASS) && !state.getValue(GLASS_DRINK);
         if (fitsWineGlass || fitsGlass) {
             if (!world.isClientSide() && world.getBlockEntity(pos) instanceof TableSetBlockEntity tableSet) {
                 tableSet.setDrink(fitsWineGlass, stack.copyWithCount(1));
@@ -244,7 +244,7 @@ public class TableSetBlock extends StorageBlock {
         world.playSound(null, blockPos, SoundEvents.GENERIC_EAT, SoundSource.BLOCKS, 1.0F, 1.0F);
         FoodProperties foodComponent = itemStack.get(DataComponents.FOOD);
         if (foodComponent != null) {
-            float bonus = Wearables.isElegantlyDressed(player) ? (float) CandlelightConfig.elegantFoodBonus : (float) CandlelightConfig.tableSetFoodBonus;
+            float bonus = Wearables.isElegantlyDressed(player) ? (float) PlatformHelper.elegantFoodBonus() : (float) PlatformHelper.tableSetFoodBonus();
             player.getFoodData().eat(Math.round(foodComponent.nutrition() * bonus), foodComponent.saturation() * bonus);
             foodComponent.effects().forEach(possibleEffect -> {
                 if (world.random.nextFloat() < possibleEffect.probability()) {
@@ -283,10 +283,10 @@ public class TableSetBlock extends StorageBlock {
     }
 
     public static boolean hasLight(Level level, BlockPos pos) {
-        if (!CandlelightConfig.tableLightsEnabled) {
+        if (!PlatformHelper.enableTableLights()) {
             return false;
         }
-        int radius = CandlelightConfig.tableLightRadius;
+        int radius = PlatformHelper.tableLightRadius();
         for (BlockPos neighbor : BlockPos.betweenClosed(pos.offset(-radius, 0, -radius), pos.offset(radius, 0, radius))) {
             BlockState neighborState = level.getBlockState(neighbor);
             if (neighborState.is(TABLE_LIGHTS) && isLit(neighborState)) {
@@ -327,19 +327,19 @@ public class TableSetBlock extends StorageBlock {
 
         Holder<MobEffect> wellServed = MobEffectRegistry.holder(MobEffectRegistry.WELL_SERVED);
         MobEffectInstance current = player.getEffect(wellServed);
-        int duration = courses * CandlelightConfig.wellServedTicksPerCourse + (current != null ? current.getDuration() : 0);
-        player.addEffect(new MobEffectInstance(wellServed, Math.min(duration, CandlelightConfig.maxWellServedTicks), 0, false, false));
+        int duration = courses * PlatformHelper.wellServedTicksPerCourse() + (current != null ? current.getDuration() : 0);
+        player.addEffect(new MobEffectInstance(wellServed, Math.min(duration, PlatformHelper.maxWellServedTicks()), 0, false, false));
         if (world instanceof ServerLevel serverLevel) {
             serverLevel.sendParticles(ParticleTypes.HAPPY_VILLAGER, pos.getX() + 0.5, pos.getY() + 0.3, pos.getZ() + 0.5, 4 + courses * 2, 0.3, 0.15, 0.3, 0.0);
         }
-        DinnerMenu.Result menu = CandlelightConfig.dinnerMenuEnabled ? DinnerMenu.eat(player, dish) : null;
+        DinnerMenu.Result menu = PlatformHelper.enableDinnerMenu() ? DinnerMenu.eat(player, dish) : null;
         List<Component> lines = new ArrayList<>();
         lines.add(Component.literal(rating(courses)).withStyle(ChatFormatting.GOLD));
         if (menu != null && menu.complete()) {
             MobEffectInstance served = player.getEffect(wellServed);
-            int bonus = CandlelightConfig.menuBonusTicks + (served != null ? served.getDuration() : 0);
-            player.addEffect(new MobEffectInstance(wellServed, Math.min(bonus, CandlelightConfig.maxMenuWellServedTicks), 0, false, false));
-            player.addEffect(new MobEffectInstance(MobEffectRegistry.holder(MobEffectRegistry.REFRESHED), CandlelightConfig.menuBonusTicks, 0, false, false));
+            int bonus = PlatformHelper.menuBonusTicks() + (served != null ? served.getDuration() : 0);
+            player.addEffect(new MobEffectInstance(wellServed, Math.min(bonus, PlatformHelper.maxMenuWellServedTicks()), 0, false, false));
+            player.addEffect(new MobEffectInstance(MobEffectRegistry.holder(MobEffectRegistry.REFRESHED), PlatformHelper.menuBonusTicks(), 0, false, false));
             level.playSound(null, pos, SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 0.6F, 1.4F);
             lines.add(Component.translatable("message.candlelight.table_set.menu_complete").withStyle(ChatFormatting.GREEN));
         } else if (menu != null && menu.step() > 0) {

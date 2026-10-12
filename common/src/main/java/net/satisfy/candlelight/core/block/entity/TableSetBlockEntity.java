@@ -1,6 +1,6 @@
 package net.satisfy.candlelight.core.block.entity;
 
-import net.satisfy.candlelight.core.config.CandlelightConfig;
+import net.satisfy.candlelight.platform.PlatformHelper;
 import java.util.UUID;
 import java.util.Comparator;
 import net.satisfy.candlelight.core.util.DinnerGuest;
@@ -116,13 +116,13 @@ public class TableSetBlockEntity extends StorageBlockEntity {
             tickGuest(level, pos);
             return;
         }
-        if (!CandlelightConfig.dinnerGuests || level.getGameTime() % CandlelightConfig.dinnerGuestInterval != 0 || !isDinnerTime(level) || level.random.nextFloat() >= CandlelightConfig.dinnerGuestChance) {
+        if (!PlatformHelper.enableDinnerGuests() || level.getGameTime() % PlatformHelper.dinnerGuestInterval() != 0 || !isDinnerTime(level) || level.random.nextFloat() >= PlatformHelper.dinnerGuestChance()) {
             return;
         }
         Vec3 center = Vec3.atCenterOf(pos);
-        level.getEntitiesOfClass(Villager.class, new AABB(pos).inflate(CandlelightConfig.dinnerGuestRange),
+        level.getEntitiesOfClass(Villager.class, new AABB(pos).inflate(PlatformHelper.dinnerGuestRange()),
                         villager -> !villager.isBaby() && !villager.isSleeping() && villager.getTradingPlayer() == null
-                                && (CandlelightConfig.nitwitsEat || villager.getVillagerData().getProfession() != VillagerProfession.NITWIT))
+                                && (PlatformHelper.nitwitsEat() || villager.getVillagerData().getProfession() != VillagerProfession.NITWIT))
                 .stream()
                 .min(Comparator.comparingDouble(villager -> villager.distanceToSqr(center)))
                 .ifPresent(villager -> {
@@ -149,13 +149,13 @@ public class TableSetBlockEntity extends StorageBlockEntity {
         if (villager.getVillagerData().getProfession() == VillagerProfession.NITWIT) {
             return;
         }
-        ((DinnerGuest) villager).candlelight$setDinnerDiscountUntil(level.getGameTime() + CandlelightConfig.dinnerDiscountTicks);
+        ((DinnerGuest) villager).candlelight$setDinnerDiscountUntil(level.getGameTime() + PlatformHelper.dinnerDiscountTicks());
         ((DinnerGuest) villager).candlelight$setDinnerHost(host);
         level.sendParticles(ParticleTypes.HAPPY_VILLAGER, villager.getX(), villager.getEyeY() + 0.3, villager.getZ(), 6, 0.3, 0.2, 0.3, 0.0);
     }
 
     private static boolean isDinnerTime(Level level) {
         long time = level.getDayTime() % 24000L;
-        return time >= CandlelightConfig.dinnerStart && time < CandlelightConfig.dinnerEnd;
+        return time >= PlatformHelper.dinnerStart() && time < PlatformHelper.dinnerEnd();
     }
 }

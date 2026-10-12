@@ -1,6 +1,6 @@
 package net.satisfy.candlelight.core.block.entity;
 
-import net.satisfy.candlelight.core.config.CandlelightConfig;
+import net.satisfy.candlelight.platform.PlatformHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -30,6 +30,6 @@ public class LargeCookingPotBlockEntity extends CookingPotBlockEntity {
     protected int getExtraOutputCount(ItemStack output) {
         Player owner = getOwner();
         if (owner == null || level == null || !Wearables.hasChefSet(owner)) return 0;
-        return level.random.nextFloat() < CandlelightConfig.chefSetExtraPortionChance ? 1 : 0;
+        return level.random.nextFloat() < PlatformHelper.chefSetExtraPortionChance() ? 1 : 0;
     }
 }

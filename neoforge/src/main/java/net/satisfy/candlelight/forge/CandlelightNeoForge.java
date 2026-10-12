@@ -25,7 +25,6 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.satisfy.candlelight.Candlelight;
-import net.satisfy.candlelight.core.registry.CompostableRegistry;
 
 @Mod(Candlelight.MOD_ID)
 public class CandlelightNeoForge {
@@ -33,10 +32,10 @@ public class CandlelightNeoForge {
     public CandlelightNeoForge(final IEventBus modEventBus, ModContainer modContainer) {
         modContainer.registerConfig(ModConfig.Type.COMMON, CandlelightNeoForgeConfig.COMMON);
         modEventBus.addListener((ModConfigEvent.Loading event) -> {
-            if (event.getConfig().getSpec() == CandlelightNeoForgeConfig.COMMON) CandlelightNeoForgeConfig.applyCommon();
+            if (event.getConfig().getSpec() == CandlelightNeoForgeConfig.COMMON) CandlelightNeoForgeConfig.sync();
         });
         modEventBus.addListener((ModConfigEvent.Reloading event) -> {
-            if (event.getConfig().getSpec() == CandlelightNeoForgeConfig.COMMON) CandlelightNeoForgeConfig.applyCommon();
+            if (event.getConfig().getSpec() == CandlelightNeoForgeConfig.COMMON) CandlelightNeoForgeConfig.sync();
         });
         EventBusesHooks.whenAvailable(Candlelight.MOD_ID, IEventBus::start);
         Candlelight.init();
@@ -48,9 +47,6 @@ public class CandlelightNeoForge {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-        event.enqueueWork(() -> {
-            CompostableRegistry.init();
-        });
     }
 
     private static void addBuiltinPacks(AddPackFindersEvent event) {

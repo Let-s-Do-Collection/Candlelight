@@ -8,8 +8,7 @@
     "client.ItemInHandRendererMixin"
   ],
   "mixins": [
-    "VillagerMixin",
-    "ZombieMixin"
+    "VillagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

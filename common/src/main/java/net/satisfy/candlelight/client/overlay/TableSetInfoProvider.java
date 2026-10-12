@@ -1,6 +1,6 @@
 package net.satisfy.candlelight.client.overlay;
 
-import net.satisfy.candlelight.core.config.CandlelightConfig;
+import net.satisfy.candlelight.platform.PlatformHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -26,7 +26,7 @@ import java.util.List;
 public class TableSetInfoProvider implements BlockInfoProvider {
     @Override
     public List<InfoSection> describe(Level level, BlockPos pos, BlockState state, @Nullable BlockHitResult hit) {
-        if (!CandlelightConfig.showTableSetInfo || !(state.getBlock() instanceof TableSetBlock) || !(level.getBlockEntity(pos) instanceof TableSetBlockEntity tableSet)) {
+        if (!PlatformHelper.showTableSetInfo() || !(state.getBlock() instanceof TableSetBlock) || !(level.getBlockEntity(pos) instanceof TableSetBlockEntity tableSet)) {
             return List.of();
         }
         Player player = Minecraft.getInstance().player;
@@ -37,8 +37,7 @@ public class TableSetInfoProvider implements BlockInfoProvider {
         List<InfoSection> sections = new ArrayList<>();
         ItemStack dish = tableSet.getInventory().isEmpty() ? ItemStack.EMPTY : tableSet.getInventory().get(0);
         if (dish.isEmpty()) {
-            sections.add(InfoSection.lines(Component.translatable("hud.candlelight.table_set.dish"),
-                    List.of(Component.translatable("hud.candlelight.table_set.no_dish").withStyle(ChatFormatting.GRAY))));
+            sections.add(InfoSection.title(Component.translatable("hud.candlelight.table_set.no_dish").withStyle(ChatFormatting.GOLD)));
         } else {
             Component note = TableSetBlock.isServedDish(dish)
                     ? Component.translatable("hud.candlelight.table_set.served_dish").withStyle(ChatFormatting.GREEN)
@@ -57,8 +56,8 @@ public class TableSetInfoProvider implements BlockInfoProvider {
         sections.add(InfoSection.rows(Component.translatable("hud.candlelight.table_set.courses", TableSetBlock.rating(courses)), rows));
 
         if (state.getValue(TableSetBlock.CLOCHE)) {
-            sections.add(InfoSection.lines(Component.translatable("hud.candlelight.table_set.cloche").withStyle(ChatFormatting.GOLD),
-                    List.of(Component.translatable("hud.candlelight.table_set.cloche_hint").withStyle(ChatFormatting.GRAY))));
+            sections.add(InfoSection.title(Component.translatable("hud.candlelight.table_set.cloche").withStyle(ChatFormatting.GOLD)));
+            sections.add(InfoSection.title(Component.translatable("hud.candlelight.table_set.cloche_hint").withStyle(ChatFormatting.GRAY)));
         }
         return sections;
     }

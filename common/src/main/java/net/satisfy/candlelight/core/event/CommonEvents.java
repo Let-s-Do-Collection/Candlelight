@@ -1,6 +1,6 @@
 package net.satisfy.candlelight.core.event;
 
-import net.satisfy.candlelight.core.config.CandlelightConfig;
+import net.satisfy.candlelight.platform.PlatformHelper;
 import dev.architectury.event.EventResult;
 import dev.architectury.event.events.common.BlockEvent;
 import dev.architectury.event.events.common.PlayerEvent;
@@ -56,16 +56,16 @@ public class CommonEvents {
 
         MobEffectInstance refreshedInstance = player.getEffect(MobEffectRegistry.holder(MobEffectRegistry.REFRESHED));
         if (refreshedInstance != null && getRefreshedCharges(player) == 0) {
-            setRefreshedCharges(player, CandlelightConfig.refreshedMaxCharges);
+            setRefreshedCharges(player, PlatformHelper.refreshedMaxCharges());
         }
 
         MobEffectInstance wellServedInstance = player.getEffect(MobEffectRegistry.holder(MobEffectRegistry.WELL_SERVED));
-        if (wellServedInstance != null && player.getFoodData().getFoodLevel() < CandlelightConfig.wellServedFoodFloor) {
-            player.getFoodData().setFoodLevel(CandlelightConfig.wellServedFoodFloor);
+        if (wellServedInstance != null && player.getFoodData().getFoodLevel() < PlatformHelper.wellServedFoodFloor()) {
+            player.getFoodData().setFoodLevel(PlatformHelper.wellServedFoodFloor());
         }
 
-        if (CandlelightConfig.ringLuckEnabled && player.tickCount % 20 == 0 && (Wearables.isWearing(player, ObjectRegistry.GOLD_RING.get()) || player.getOffhandItem().is(ObjectRegistry.GOLD_RING.get()))) {
-            player.addEffect(new MobEffectInstance(MobEffects.LUCK, 60, CandlelightConfig.ringLuckAmplifier, true, false, true));
+        if (PlatformHelper.enableRingLuck() && player.tickCount % 20 == 0 && (Wearables.isWearing(player, ObjectRegistry.GOLD_RING.get()) || player.getOffhandItem().is(ObjectRegistry.GOLD_RING.get()))) {
+            player.addEffect(new MobEffectInstance(MobEffects.LUCK, 60, PlatformHelper.ringLuckAmplifier(), true, false, true));
         }
 
         ItemStack main = player.getMainHandItem();
@@ -208,7 +208,7 @@ public class CommonEvents {
     }
 
     private static int getRefreshedCharges(net.minecraft.world.entity.player.Player player) {
-        for (int i = CandlelightConfig.refreshedMaxCharges; i >= 1; i--) {
+        for (int i = PlatformHelper.refreshedMaxCharges(); i >= 1; i--) {
             if (player.getTags().contains(REFRESHED_PREFIX + i)) {
                 return i;
             }
@@ -222,7 +222,7 @@ public class CommonEvents {
     }
 
     private static void clearRefreshedTags(net.minecraft.world.entity.player.Player player) {
-        for (int i = 1; i <= CandlelightConfig.refreshedMaxCharges; i++) {
+        for (int i = 1; i <= PlatformHelper.refreshedMaxCharges(); i++) {
             player.removeTag(REFRESHED_PREFIX + i);
         }
     }

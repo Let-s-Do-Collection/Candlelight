@@ -1,3 +1,15 @@
+[2.1.15]
+
+**Changed**
+* Food values rebalanced to match Farm & Charm: every dish now fills you about as much as its ingredients are worth, more elaborate dishes a bit more. Dishes from big batches (Pasta with Mozzarella, Chicken Alfredo, Omelet, Roastbeef) give less, Fillet Steak, Mushroom Soup, Salmon on White Wine and Pasta with Lettuce give more
+* Placed Lasagne, Beef Wellington and Pork Ribs and the Fresh Garden Salad and Tomato Mozzarella Salad trays now feed about one and a half meals instead of several, the salad trays use the same food values as the salads themselves
+* Existing config files keep their old food values, delete the Food section or the config file to get the new ones
+
+**Fixed**
+* Armor and clothing no longer stack, each piece takes its own slot
+
+***
+
 [2.1.14]
 
 **Added**

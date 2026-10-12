@@ -1,7 +1,7 @@
 package net.satisfy.candlelight.core.mixin;
 
 import java.util.UUID;
-import net.satisfy.candlelight.core.config.CandlelightConfig;
+import net.satisfy.candlelight.platform.PlatformHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
@@ -46,11 +46,11 @@ public abstract class VillagerMixin implements DinnerGuest {
         if (villager.level().getGameTime() >= candlelight$dinnerDiscountUntil) {
             return;
         }
-        if (CandlelightConfig.discountOnlyHost && !player.getUUID().equals(candlelight$dinnerHost)) {
+        if (PlatformHelper.discountOnlyHost() && !player.getUUID().equals(candlelight$dinnerHost)) {
             return;
         }
         for (MerchantOffer offer : villager.getOffers()) {
-            offer.addToSpecialPriceDiff(-Math.round(offer.getBaseCostA().getCount() * CandlelightConfig.dinnerDiscountPercent / 100.0F));
+            offer.addToSpecialPriceDiff(-Math.round(offer.getBaseCostA().getCount() * PlatformHelper.dinnerDiscountPercent() / 100.0F));
         }
     }
 
