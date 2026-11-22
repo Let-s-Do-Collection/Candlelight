@@ -5,7 +5,7 @@ import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
 
 @Config(name = "candlelight")
-@Config.Gui.Background("minecraft:textures/block/dark_oak_planks.png")
+@Config.Gui.Background("candlelight:textures/block/dark_oak_cabinet_side.png")
 public class CandlelightFabricConfig implements ConfigData {
     @ConfigEntry.Gui.CollapsibleObject
     public DinnerSettings dinner = new DinnerSettings();

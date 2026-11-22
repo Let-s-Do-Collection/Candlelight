@@ -50,10 +50,28 @@ public class DinnerBellBlock extends BaseEntityBlock {
     @Override
     protected @NotNull InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos pos, Player player, BlockHitResult blockHitResult) {
         if (!level.isClientSide) {
-            level.playSound(null, pos, SoundEventRegistry.DINNER_BELL_RING.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
-            level.blockEvent(pos, this, DinnerBellBlockEntity.RING_EVENT, 0);
+            ring(level, pos);
         }
         return InteractionResult.sidedSuccess(level.isClientSide);
+    }
+
+    private void ring(Level level, BlockPos pos) {
+        level.playSound(null, pos, SoundEventRegistry.DINNER_BELL_RING.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
+        level.blockEvent(pos, this, DinnerBellBlockEntity.RING_EVENT, 0);
+    }
+
+    @Override
+    protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean movedByPiston) {
+        if (level.isClientSide || !(level.getBlockEntity(pos) instanceof DinnerBellBlockEntity bell)) {
+            return;
+        }
+        boolean signal = level.hasNeighborSignal(pos);
+        if (signal != bell.isPowered()) {
+            bell.setPowered(signal);
+            if (signal) {
+                ring(level, pos);
+            }
+        }
     }
 
     @Override

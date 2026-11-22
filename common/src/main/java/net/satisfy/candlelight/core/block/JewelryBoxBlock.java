@@ -1,5 +1,7 @@
 package net.satisfy.candlelight.core.block;
 
+import net.satisfy.candlelight.core.block.entity.CandlelightStorageBlockEntity;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.satisfy.candlelight.core.registry.EntityTypeRegistry;
 import net.satisfy.foundation.storage.StorageBlock;
@@ -155,5 +157,20 @@ public class JewelryBoxBlock extends StorageBlock {
     @Override
     public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag tooltipFlag) {
         tooltip.add(Component.translatable("tooltip.farm_and_charm.canbeplaced").withStyle(ChatFormatting.GRAY));
+    }
+
+    @Override
+    public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new CandlelightStorageBlockEntity(pos, state, size());
+    }
+
+    @Override
+    protected boolean hasAnalogOutputSignal(BlockState state) {
+        return true;
+    }
+
+    @Override
+    protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
+        return AbstractContainerMenu.getRedstoneSignalFromBlockEntity(level.getBlockEntity(pos));
     }
 }

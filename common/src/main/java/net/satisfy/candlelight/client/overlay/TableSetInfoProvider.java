@@ -42,7 +42,7 @@ public class TableSetInfoProvider implements BlockInfoProvider {
             Component note = TableSetBlock.isServedDish(dish)
                     ? Component.translatable("hud.candlelight.table_set.served_dish").withStyle(ChatFormatting.GREEN)
                     : Component.translatable("hud.candlelight.table_set.plain_food").withStyle(ChatFormatting.GRAY);
-            sections.add(InfoSection.rows(Component.translatable("hud.candlelight.table_set.dish"), List.of(InfoSection.Row.item(dish, note))));
+            sections.add(InfoSection.rows(Component.translatable("hud.candlelight.table_set.on_table_set"), List.of(InfoSection.Row.item(dish, note))));
         }
 
         int courses = TableSetBlock.countCourses(level, pos, state, player);
@@ -55,11 +55,31 @@ public class TableSetInfoProvider implements BlockInfoProvider {
         rows.add(InfoSection.Row.item(ObjectRegistry.DRESS.get().getDefaultInstance(), status(Wearables.isElegantlyDressed(player), "outfit")));
         sections.add(InfoSection.rows(Component.translatable("hud.candlelight.table_set.courses", TableSetBlock.rating(courses)), rows));
 
-        if (state.getValue(TableSetBlock.CLOCHE)) {
+        boolean cloche = state.getValue(TableSetBlock.CLOCHE);
+        if (cloche) {
             sections.add(InfoSection.title(Component.translatable("hud.candlelight.table_set.cloche").withStyle(ChatFormatting.GOLD)));
-            sections.add(InfoSection.title(Component.translatable("hud.candlelight.table_set.cloche_hint").withStyle(ChatFormatting.GRAY)));
+        }
+        if (dish.isEmpty()) {
+            sections.add(hint("serve_hint"));
+        } else if (!cloche) {
+            sections.add(hint("eat_hint"));
+        }
+        if (TableSetBlock.hasDrink(state)) {
+            sections.add(hint("drink_hint"));
+        } else if (PlatformHelper.enableTableDrinks() && (state.getValue(TableSetBlock.GLASS) || state.getValue(TableSetBlock.WINE_GLASS))) {
+            sections.add(hint("pour_hint"));
+        }
+        if (!state.getValue(TableSetBlock.NAPKIN) || !state.getValue(TableSetBlock.GLASS) || !state.getValue(TableSetBlock.WINE_GLASS)) {
+            sections.add(hint("add_hint"));
+        }
+        if (cloche) {
+            sections.add(hint("cloche_hint"));
         }
         return sections;
+    }
+
+    private static InfoSection hint(String key) {
+        return InfoSection.title(Component.translatable("hud.candlelight.table_set." + key).withStyle(ChatFormatting.GRAY));
     }
 
     private static InfoSection.Row row(ItemStack icon, BlockState state, BooleanProperty property, String key) {

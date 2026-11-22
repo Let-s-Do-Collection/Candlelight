@@ -5,6 +5,7 @@ import net.satisfy.foundation.block.WallDecorationBlockEntity;
 import net.satisfy.foundation.block.CabinetBlockEntity;
 import net.satisfy.foundation.banner.CompletionistBannerEntity;
 import net.satisfy.foundation.storage.StorageBlockEntity;
+import net.satisfy.candlelight.core.block.entity.CandlelightStorageBlockEntity;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
@@ -25,7 +26,7 @@ public class EntityTypeRegistry {
     private static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES = DeferredRegister.create(Candlelight.MOD_ID, Registries.BLOCK_ENTITY_TYPE);
     private static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(Candlelight.MOD_ID, Registries.ENTITY_TYPE);
 
-    public static final RegistrySupplier<BlockEntityType<StorageBlockEntity>> STORAGE_BLOCK_ENTITY = registerBlockEntity("storage", () -> BlockEntityType.Builder.of((pos, state) -> new StorageBlockEntity(EntityTypeRegistry.STORAGE_BLOCK_ENTITY.get(), pos, state), StorageTypeRegistry.registerBlocks(new HashSet<>()).toArray(new Block[0])).build(null));
+    public static final RegistrySupplier<BlockEntityType<StorageBlockEntity>> STORAGE_BLOCK_ENTITY = registerBlockEntity("storage", () -> BlockEntityType.Builder.<StorageBlockEntity>of(CandlelightStorageBlockEntity::new, StorageTypeRegistry.registerBlocks(new HashSet<>()).toArray(new Block[0])).build(null));
     public static final RegistrySupplier<BlockEntityType<SideBoardBlockEntity>> SIDEBOARD_BLOCK_ENTITY = registerBlockEntity("sideboard", () -> BlockEntityType.Builder.of(SideBoardBlockEntity::new, SIDEBOARD.get()).build(null));
     public static final RegistrySupplier<BlockEntityType<LargeCookingPotBlockEntity>> LARGE_COOKING_POT_BLOCK_ENTITY = registerBlockEntity("large_cooking_pot", () -> BlockEntityType.Builder.of(LargeCookingPotBlockEntity::new, COOKING_POT.get()).build(null));
     public static final RegistrySupplier<BlockEntityType<TypewriterEntity>> TYPE_WRITER_BLOCK_ENTITY = registerBlockEntity("type_writer", () -> BlockEntityType.Builder.of(TypewriterEntity::new, TYPEWRITER_IRON.get(), TYPEWRITER_GOLD.get()).build(null));

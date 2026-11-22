@@ -500,4 +500,14 @@ public class TableSetBlock extends StorageBlock {
             return this.name;
         }
     }
+
+    @Override
+    protected boolean hasAnalogOutputSignal(BlockState state) {
+        return true;
+    }
+
+    @Override
+    protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
+        return level.getBlockEntity(pos) instanceof TableSetBlockEntity tableSet && !tableSet.getInventory().get(0).isEmpty() ? 15 : 0;
+    }
 }

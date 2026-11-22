@@ -1,5 +1,6 @@
 package net.satisfy.candlelight.core.block;
 
+import net.satisfy.foundation.block.DyeableSofaBlock;
 import net.minecraft.Util;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.Block;
@@ -10,7 +11,7 @@ import net.satisfy.foundation.util.ShapeUtil;
 import java.util.EnumMap;
 import java.util.Map;
 
-public class SofaBlock extends net.satisfy.foundation.block.SofaBlock {
+public class SofaBlock extends DyeableSofaBlock {
     private static final VoxelShape SINGLE = Shapes.or(Shapes.empty(), Block.box(12, 0, 2, 15, 3, 5), Block.box(12, 0, 11, 15, 3, 14), Block.box(1, 0, 2, 4, 3, 5), Block.box(1, 0, 11, 4, 3, 14), Block.box(0, 3, 15, 16, 16, 16), Block.box(2, 3, 0, 14, 4, 15), Block.box(0, 3.001, 1, 2, 13.001, 15), Block.box(2, 4, 0, 14, 7, 15), Block.box(14, 3.001, 1, 16, 13.001, 15), Block.box(0, 13, 12, 16, 16, 15), Block.box(2, 7, 12, 14, 13, 15));
     private static final VoxelShape END = Shapes.or(Shapes.empty(), Block.box(12, 0, 2, 15, 3, 5), Block.box(12, 0, 11, 15, 3, 14), Block.box(0, 3, 15, 16, 16, 16), Block.box(0, 3, 0, 14, 4, 15), Block.box(0, 4, 0, 14, 7, 15), Block.box(14, 3.001, 1, 16, 13.001, 15), Block.box(0, 13, 12, 16, 16, 15), Block.box(0, 7, 12, 14, 13, 15));
     private static final VoxelShape END_MIRRORED = Shapes.or(Shapes.empty(), Block.box(1, 0, 2, 4, 3, 5), Block.box(1, 0, 11, 4, 3, 14), Block.box(0, 3, 15, 16, 16, 16), Block.box(2, 3, 0, 16, 4, 15), Block.box(2, 4, 0, 16, 7, 15), Block.box(0, 3.001, 1, 2, 13.001, 15), Block.box(0, 13, 12, 16, 16, 15), Block.box(2, 7, 12, 16, 13, 15));

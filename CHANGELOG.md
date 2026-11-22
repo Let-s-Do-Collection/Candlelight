@@ -1,3 +1,22 @@
+[2.1.16]
+
+**Added**
+* A redstone signal rings the Dinner Bell
+* Comparators read the Cooking Pan, the Large Cooking Pot and the Stoves and give a full signal once something is ready to take. The Table Set gives a full signal while a dish is on it
+* Comparators show how full the Shelves and the Jewelry Box are
+* EMI, JEI and REI now list the Candlelight Stoves, the Cooking Pan and the Large Cooking Pot as workstations for their Farm & Charm recipes
+* The info panels of the Table Set and the Side Table now show what you can do right now
+
+**Fixed**
+* Hoppers can no longer put any item into the Shelves, the Jewelry Box or the Table Set. They only accept what you could place there by hand, one at a time
+
+**Changed**
+* Foundation is no longer bundled inside the mod. It is now a separate required download, Modrinth and CurseForge install it automatically
+* Tables no longer take a tablecloth. Tablecloths on existing tables disappear
+* Requires Farm & Charm 1.1.30 or newer
+* The creative tab tooltip now has a colored frame and shows the mod id, like the other Let's Do mods
+
+***
 [2.1.15]
 
 **Changed**

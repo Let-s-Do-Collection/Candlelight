@@ -1,5 +1,7 @@
 package net.satisfy.candlelight.client;
 
+import net.satisfy.foundation.client.creative.CreativeTabTooltips;
+import net.satisfy.foundation.rarity.FoundationRarity;
 import net.satisfy.foundation.client.armor.ArmorModels;
 import net.satisfy.foundation.storage.WallShelfRenderer;
 import net.satisfy.candlelight.client.overlay.SideTableInfoProvider;
@@ -41,6 +43,7 @@ import static net.satisfy.candlelight.core.registry.ObjectRegistry.*;
 public class CandlelightClient {
 
     public static void initClient() {
+        CreativeTabTooltips.register(TabRegistry.CANDLELIGHT_TAB.getKey(), FoundationRarity.solid("candlelight:flame", 0xF2C46D));
         registerArmorModels();
         RenderTypeRegistry.register(RenderType.cutout(), TABLE.get(), ROSE.get(), POTTED_ROSE.get(), GLASS_BLOCK.get(),
                 OAK_CHAIR.get(), DARK_OAK_CHAIR.get(), SPRUCE_CHAIR.get(), WARPED_CHAIR.get(),

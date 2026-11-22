@@ -26,12 +26,17 @@ public class SideTableInfoProvider implements BlockInfoProvider {
             ItemStack light = table.getLight();
             boolean lit = state.getValue(SideTableBlock.LIT);
             Component status = Component.translatable(lit ? "hud.candlelight.side_table.on" : "hud.candlelight.side_table.off").withStyle(lit ? ChatFormatting.GOLD : ChatFormatting.GRAY);
-            return List.of(InfoSection.rows(status, List.of(InfoSection.Row.item(light, light.getHoverName()))));
+            return List.of(
+                    InfoSection.rows(status, List.of(InfoSection.Row.item(light, light.getHoverName()))),
+                    InfoSection.title(Component.translatable(lit ? "hud.candlelight.side_table.hint_turn_off" : "hud.candlelight.side_table.hint_turn_on").withStyle(ChatFormatting.GRAY)),
+                    InfoSection.title(Component.translatable("hud.candlelight.side_table.hint_take_light").withStyle(ChatFormatting.GRAY)));
         }
         ItemStack items = table.getItems();
         if (items.isEmpty()) {
             return List.of();
         }
-        return List.of(InfoSection.icons(Component.translatable("hud.candlelight.side_table.on_table"), List.of(items), InfoSection.ROW_COLUMNS).withDecorations());
+        return List.of(
+                InfoSection.icons(Component.translatable("hud.candlelight.side_table.on_table"), List.of(items), InfoSection.ROW_COLUMNS).withDecorations(),
+                InfoSection.title(Component.translatable("hud.candlelight.side_table.hint_take").withStyle(ChatFormatting.GRAY)));
     }
 }

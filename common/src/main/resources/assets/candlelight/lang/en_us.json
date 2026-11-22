@@ -244,7 +244,6 @@
   "tooltip.candlelight.set.suit": "Suit",
   "tooltip.candlelight.set.dress": "Evening Dress",
   "tooltip.candlelight.set.elegant.bonus": "Dishes from a Table Set fill you up more and count as an additional Table Setting",
-  "hud.candlelight.table_set.dish": "Dish",
   "hud.candlelight.table_set.no_dish": "Needs a Dish",
   "hud.candlelight.table_set.served_dish": "Served: Grants Well Served",
   "hud.candlelight.table_set.plain_food": "Not a Dish: No Well Served",
@@ -605,5 +604,15 @@
   "text.autoconfig.candlelight.option.food.tomatoMozzarellaSaladSaturation": "Tomato Mozzarella Salad Saturation",
   "text.autoconfig.candlelight.option.food.tomatoMozzarellaSaladSaturation.@Tooltip": "Saturation given by Tomato Mozzarella Salad, multiplied with its hunger points.",
   "text.autoconfig.candlelight.option.food.tomatoMozzarellaSaladEffectDuration": "Tomato Mozzarella Salad Effect Duration",
-  "text.autoconfig.candlelight.option.food.tomatoMozzarellaSaladEffectDuration.@Tooltip": "How long the effect of Tomato Mozzarella Salad lasts in ticks. 20 ticks = 1 second."
+  "text.autoconfig.candlelight.option.food.tomatoMozzarellaSaladEffectDuration.@Tooltip": "How long the effect of Tomato Mozzarella Salad lasts in ticks. 20 ticks = 1 second.",
+  "hud.candlelight.table_set.on_table_set": "On the Table Set",
+  "hud.candlelight.table_set.serve_hint": "§e[Right-Click]§r with a Dish: Serve",
+  "hud.candlelight.table_set.eat_hint": "§e[Right-Click]§r: Eat",
+  "hud.candlelight.table_set.drink_hint": "§e[Right-Click]§r with an Empty Hand: Drink",
+  "hud.candlelight.table_set.pour_hint": "§e[Right-Click]§r with a Drink: Pour",
+  "hud.candlelight.table_set.add_hint": "§e[Right-Click]§r with a Napkin or Glass: Set the Table",
+  "hud.candlelight.side_table.hint_turn_on": "§e[Right-Click]§r with an Empty Hand: Turn On",
+  "hud.candlelight.side_table.hint_turn_off": "§e[Right-Click]§r with an Empty Hand: Turn Off",
+  "hud.candlelight.side_table.hint_take_light": "§e[Shift Right-Click]§r with an Empty Hand: Take",
+  "hud.candlelight.side_table.hint_take": "§e[Right-Click]§r with an Empty Hand: Take One · §e[Shift Right-Click]§r: Take All"
 }

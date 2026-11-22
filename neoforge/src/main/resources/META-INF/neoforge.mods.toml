@@ -47,14 +47,14 @@ side = "BOTH"
 [[dependencies.candlelight]]
 modId = "foundation"
 type = "required"
-versionRange = "[1.0.6,)"
+versionRange = "[1.1.0,)"
 ordering = "AFTER"
 side = "BOTH"
 
 [[dependencies.candlelight]]
 modId = "farm_and_charm"
 type = "required"
-versionRange = "[1.1.27,)"
+versionRange = "[1.1.30,)"
 ordering = "AFTER"
 side = "BOTH"
 

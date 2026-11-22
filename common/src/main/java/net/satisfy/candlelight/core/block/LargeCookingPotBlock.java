@@ -349,4 +349,14 @@ public class LargeCookingPotBlock extends BaseEntityBlock {
             return name;
         }
     }
+
+    @Override
+    protected boolean hasAnalogOutputSignal(BlockState state) {
+        return true;
+    }
+
+    @Override
+    protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
+        return level.getBlockEntity(pos) instanceof LargeCookingPotBlockEntity be && !be.getItem(7).isEmpty() ? 15 : 0;
+    }
 }

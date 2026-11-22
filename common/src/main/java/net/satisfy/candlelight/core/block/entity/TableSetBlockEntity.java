@@ -1,5 +1,6 @@
 package net.satisfy.candlelight.core.block.entity;
 
+import net.satisfy.foundation.storage.StorageBlock;
 import net.satisfy.candlelight.platform.PlatformHelper;
 import java.util.UUID;
 import java.util.Comparator;
@@ -56,6 +57,16 @@ public class TableSetBlockEntity extends StorageBlockEntity {
             servedAt = level.getGameTime();
         }
         super.setStack(slot, stack);
+    }
+
+    @Override
+    public int getMaxStackSize() {
+        return 1;
+    }
+
+    @Override
+    public boolean canPlaceItem(int slot, ItemStack stack) {
+        return slot == 0 && getInventory().get(0).isEmpty() && getBlockState().getBlock() instanceof StorageBlock storage && storage.canInsertStack(stack);
     }
 
     public long getServedAt() {
